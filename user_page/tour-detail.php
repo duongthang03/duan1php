@@ -133,13 +133,16 @@
           ?>
         </div>
       </div>
+      <?php
+        $gia1 = number_format($gia, 0, '', '.');
+      ?>
       <div class="height col-md-6 text-col">
         <div class="holder">
           <h1 class="small-size">
             <?= $tenkhuvuichoi ?>
           </h1>
           <div class="price">giá <strong>
-              <?= $gia ?> VNĐ
+              <?= $gia1 ?> VNĐ
             </strong></div>
           <div class="description">
             <p>
@@ -226,7 +229,7 @@
                     </li> -->
           </ul>
           <div class="btn-holder">
-            <a href="add/?act=add_donhang" class="btn btn-lg btn-info">ĐẶT NGAY</a>
+            <a href="add/?act=add_to_cart" class="btn btn-lg btn-info">ĐẶT NGAY</a>
           </div>
           <ul class="social-networks social-share">
             <li>

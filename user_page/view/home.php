@@ -34,7 +34,7 @@
             // }
             // echo $text;
             // echo $shortText;
-          
+            $gia = number_format($gia, 0, '', '.');
             echo '<article class="col-sm-6 col-md-4 article has-hover-s3">
                     <div class="img-wrap">
                       <a href="?act=chitiettour&id_tour=' . $id_tour . '">
