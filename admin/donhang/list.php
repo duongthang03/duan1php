@@ -13,18 +13,53 @@
                 <div class="card" style="width: 200%">
                     <form class="form-horizontal" style="" method="POST">
                         <div class="card-body" style="width: 100%">
-                            <input type="text" name="keyw" value="">
-                                <select name="option" id="">
+                            <input type="text" name="keyw" value="" id="searchInput" style="width: 25%" placeholder="Nhập mã hóa đơn hoặc thông tin cần tìm...">
+                            <button onclick="search()"><i class="mdi mdi-account-search"></i>Search</button>
+                            <script>
+                                function search() {
+                                    event.preventDefault();
+                                    var searchValue = document.getElementById('searchInput').value.toLowerCase();
+                                    var invoices = document.getElementsByClassName('invoice');
+                                    for (var i = 0; i < invoices.length; i++) {
+                                        var invoiceInfo = invoices[i].textContent.toLowerCase();
+                                        if (invoiceInfo.includes(searchValue)) {
+                                        invoices[i].style.display = 'table-row';
+                                        highlightMatchingText(invoices[i], searchValue);
+                                        } else {
+                                        invoices[i].style.display = 'none';
+                                        }
+                                    }
+                                }
+                                function highlightMatchingText(element, searchValue) {
+                                    var regex = new RegExp(searchValue, 'gi');
+                                    var text = element.innerHTML;
+                                    var newText = text.replace(regex, '<span style="color: red"><u>$&</u></span>'); 
+                                    element.innerHTML = newText;
+                                }
+                            </script>
+                            <br>
+                                <select name="statusFilter" id="">
                                     <option value="0" selected>Show all</option>
-                                    <option value="1" selected>Mới nhất</option>
-                                    <option value="2" selected>Show all</option>
-                                    <option value="3" selected>Show all</option>
-                                    <option value="4" selected>Show all</option>
+                                    <option value="1">Mới nhất</option>
+                                    <option value="2">Đã thanh toán</option>
+                                    <option value="3">Chưa thanh toán</option>
                                 </select>
                                 <input type="submit" name="clickOK" value="Go" style="margin: 5px">
                     </form>
-                            <button type="button">Các đơn hàng gần đây</button>
-                        <div class="" style=" display: flex; flex-wrap:wrap; justify-content: space-between">
+                    <button type="button" onclick="applyFilters()">i</button>
+                    <div class="" style=" display: flex; flex-wrap:wrap; justify-content: space-between">
+                    <script>
+                        function applyFilters() {
+                            var statusFilter = document.getElementById('statusFilter').value;
+                            if ((statusFilter === '0') || (statusFilter === '1')) {
+                            } else if (statusFilter === '2') {
+
+                            } else if (statusFilter === '3') {
+
+                            }
+                            }
+                            </script>
+                            
                     <?php
                         if (isset($_GET['page'])) {
                             $page = $_GET['page'];
@@ -63,17 +98,26 @@
                             $chuoi = str_pad($i, 5, "0", STR_PAD_LEFT);
                             if($trangthai_donhang == 0){
                                 $trangthai_donhang1 = 'Chưa thanh toán';
-                            } else{
+                            } else if($trangthai_donhang == 1){
                                 $trangthai_donhang1 = 'Đã thanh toán';
+                            } else if($trangthai_donhang == 2){
+                                $trangthai_donhang1 = 'Đơn hàng đã hoàn thành';
                             }
-                            echo '<tr>
+                            if($trangthai_donhang == 2){
+                                $trangthai_donhang2 = 'Đơn hàng đã hoàn thành';
+                            } else {
+                                $trangthai_donhang2 = 'Xác nhận đơn hàng';
+                            }
+                    
+                    echo '
+                            <tr style="" class="invoice">
                                 <td>HD'.$chuoi.'</td>
                                 <td>'.$datetime.'</td>
                                 <td>'.$tenkhuvuichoi.' | '.$tendiadiem.'</td>
                                 ';
                                 if($trangthai_donhang == 0){
                                     echo'<td style="text-align: center"><button id="show'.$id_donhang.'" class="btn btn-warning btn-sm" onclick="cl'.$id_donhang.'()" value="1" type="button" style="margin: 5px">Chưa Thanh Toán</button></td>';
-                                } else{
+                                } else {
                                     echo'<td style="text-align: center"><button id="show'.$id_donhang.'" class="btn btn-success btn-sm" onclick="cl'.$id_donhang.'()" value="2" type="button" style="margin: 5px">Đã Thanh toán</button></td>';
                                 }
                             echo '
@@ -82,7 +126,12 @@
                                 <!--<button id="show" class="btn btn-primary btn-sm" type="button" style="margin: 5px">Xác Nhận Đơn Hàng</button>-->
                                 ';
                             echo '<td style="text-align: center"><a href="?act=chitietdonhang&id_donhang='.$id_donhang.'">Xem chi tiết</a></td>';
-                            echo'<td style="text-align: center"><button id="" class="btn btn-primary btn-sm" onclick="" value="2" type="button" style="margin: 5px">Xác nhận đơn hàng</button></td>';
+                            if($trangthai_donhang == 2){
+                                echo'<td style="text-align: center"><button id="" class="btn btn-secondary btn-sm" onclick="" value="1" type="button" style="margin: 5px">Đơn Hàng Đã Hoàn Thành</button></td>';
+                            } else{
+                                echo'<td style="text-align: center"><button id="" class="btn btn-primary btn-sm" onclick="" value="2" type="button" style="margin: 5px">Xác Nhận Đơn Hàng</button></td>';
+                            }
+                            // echo'<td style="text-align: center"><button id="" class="btn btn-primary btn-sm" onclick="" value="2" type="button" style="margin: 5px">'.$trangthai_donhang2.'</button></td>';
                             echo '
                             <script>
                             function cl'.$id_donhang.'(){
@@ -103,7 +152,6 @@
                     ?>
                             </tr>
                         </table>
-                    
                     <?php 
                     echo "<ul class='pagination'>";
                     for ($i = 1; $i <= $total_pages; $i++) {
@@ -112,6 +160,7 @@
                     echo "</ul>";
                     };
                     ?>
+                    
                     <style>
                         ul.pagination {
                             display: flex;
