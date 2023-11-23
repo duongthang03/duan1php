@@ -236,23 +236,25 @@ if (isset($_GET['act']) && ($_GET['act'] != "")) {
         ///////////////////////////////////////////////////////////////////////////////////////
         ///////////////////////////////////////////////////////////////////////////////////////
         case "donhang":
-            if (isset($_POST['clickOK']) && ($_POST['clickOK'])) {
-                $keyw = $_POST['keyw'];
-                $id_diadiem = $_POST['id_diadiem'];
-                if($id_diadiem == 0){
-                    $list_donhang = loadall_donhang();
-                    $list_diadiem = loadall_diadiem();
-                    include "donhang/list.php";
-                } else {
-                    $list_donhang = loadall_donhang_theodiadiem($id_diadiem);
-                    $list_diadiem = loadall_diadiem();
-                    include "donhang/list.php";
-                }
-            } else {
-                $list_donhang = loadall_donhang();
-                // $list_diadiem = loadall_diadiem();
-                include "donhang/list.php";
-            }
+            // if (isset($_POST['clickOK']) && ($_POST['clickOK'])) {
+            //     $keyw = $_POST['keyw'];
+            //     $id_diadiem = $_POST['id_diadiem'];
+            //     if($id_diadiem == 0){
+            //         $list_donhang = loadall_donhang();
+            //         $list_diadiem = loadall_diadiem();
+            //         include "donhang/list.php";
+            //     } else {
+            //         $list_donhang = loadall_donhang_theodiadiem($id_diadiem);
+            //         $list_diadiem = loadall_diadiem();
+            //         include "donhang/list.php";
+            //     }
+            // } else {
+            //     $list_donhang = loadall_donhang();
+            //     // $list_diadiem = loadall_diadiem();
+            //     include "donhang/list.php";
+            // }
+            $list_donhang = loadall_donhang();
+            include "donhang/list.php";
             break;
         case "update_donhang":
             if (isset($_GET['id_tour']) && ($_GET['id_tour'] > 0)) {
@@ -295,6 +297,10 @@ if (isset($_GET['act']) && ($_GET['act'] != "")) {
             }
             $list_tour = loadall_tour();
             include "tour/list.php";
+            break;
+        case "chitietdonhang":
+            $one_donhang = loadone_donhang($_GET['id_donhang']);
+            include "donhang/chitiet.php";
             break;
         ///////////////////////////////////////////////////////////////////////////////////////
         case "form-basic":

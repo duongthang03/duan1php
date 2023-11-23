@@ -186,14 +186,15 @@
                             </tr>
                           </thead>
                           <?php
-                            // $TotalT = 0;
+                            // $tongtien = $tongtien * 1000;
+                            $tong1 = number_format($tongtien, 0, '', '.');
                           ?>
                                 <tbody>
                                   <tr>
                                     <td>
                                       <span class="title"
                                         ><?=$tenkhuvuichoi?> &emsp;<span class="amount"
-                                          >x&emsp; <?=$soluong_cart?></span
+                                          >x&emsp; <?=$soluong_cart?> tickets</span
                                         ></span
                                       >
                                       <time datetime="2016-09-29"
@@ -201,7 +202,7 @@
                                       >
                                     </td>
                                     <td>
-                                      <span class="amount"><?=$tongtien?></span>
+                                      <span class="amount"><?=$tong1?> VND</span>
                                     </td>
                                   </tr>
                                 </tbody>

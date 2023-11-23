@@ -4,8 +4,13 @@
         $list_cart = pdo_query($sql);
         return  $list_cart;
     }
-    function insert_cart($id_tour){
-        $sql = "INSERT ignore INTO `giohang`(`id_tour`) VALUES ('$id_tour');";
+    function load_cart_2(){
+        $sql = "SELECT * from giohang join tour on giohang.id_tour = tour.id_tour join khuvuichoi on tour.id_khuvuichoi = khuvuichoi.id_khuvuichoi join diadiem on tour.id_diadiem = diadiem.id_diadiem order by id_giohang desc  limit 3";
+        $list_cart_2 = pdo_query($sql);
+        return  $list_cart_2;
+    }
+    function insert_cart($id_tour, $id_nguoidung){
+        $sql = "INSERT INTO `giohang`(`id_tour`, `id_nguoidung`) VALUES ('$id_tour', '$id_nguoidung');";
         pdo_execute($sql);
     }
     function loadone_cart($id_giohang){

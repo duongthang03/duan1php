@@ -1,3 +1,6 @@
+<?php
+session_start();
+?>
 <!DOCTYPE html>
 <html>
 
@@ -84,8 +87,30 @@
                   </a>
                 </li>
                 <li class="hidden-xs hidden-sm v-divider">
-                  <a href="login.php">
-                    <span class="icon icon-user"></span>
+                  <a href="?act=icon-login">
+                    <span class="icon icon-user">
+                      <?php
+                      // session_start();
+                      // if( isset( $_SESSION['counter'] ) )
+                      // {
+                      //    $_SESSION['counter'] += 1;
+                      // }
+                      // else
+                      // {
+                      //    $_SESSION['counter'] = 1;
+                      // }
+                      // $msg = "Bạn đã truy cập trang này ".  $_SESSION['counter'];
+                      // $msg .= " lần trong session này.";
+                      // echo ( $msg );
+                      if (!$_SESSION) {
+                        echo 'Chưa đăng nhập';
+                      } else {
+                        // $_SESSION['username'] = $username;
+                        echo $_SESSION['username'];
+                        echo $_SESSION['id_nguoidung'];
+                      }
+                      ?>
+                    </span>
                   </a>
                 </li>
 
@@ -101,52 +126,39 @@
                     <div class="drop-wrap cart-wrap">
                       <strong class="title">Giỏ hàng</strong>
                       <ul class="cart-list">
+                        <?php
+                        $list_cart_2 = load_cart_2();
+                        $tong2 = 0;
+                        foreach ($list_cart_2 as $key => $value) {
+                          extract($value);
+                          $tong1 = number_format($tongtien, 0, '', '.');
+                          echo '
+                              <li>
+                                <div class="img">
+                                  <a href="#">
+                                    <img src="../img/' . $img . '" height="165" width="170" alt="image description" />
+                                  </a>
+                                </div>
+                                <div class="text-holder">
+                                  <span class="amount">x ' . $soluong_cart . '</span>
+                                  <div class="text-wrap">
+                                    <strong class="name"><a href="#">' . $tenkhuvuichoi . '</a></strong>
+                                    <span class="price">' . $tong1 . 'VND</span>
+                                  </div>
+                                </div>
+                            </li>
+                            ';
+                          $tong2 += $tongtien;
+                        }
+                        $tong2 = number_format($tong2, 0, '', '.');
+                        ?>
                         <li>
-                          <div class="img">
-                            <a href="#">
-                              <img src="img/listing/img-16.jpg" height="165" width="170" alt="image description" />
-                            </a>
-                          </div>
-                          <div class="text-holder">
-                            <span class="amount">x 2</span>
-                            <div class="text-wrap">
-                              <strong class="name"><a href="#">Weekend in Paradise</a></strong>
-                              <span class="price">$199</span>
-                            </div>
-                          </div>
-                        </li>
-                        <li>
-                          <div class="img">
-                            <a href="#">
-                              <img src="img/listing/img-17.jpg" height="165" width="170" alt="image description" />
-                            </a>
-                          </div>
-                          <div class="text-holder">
-                            <span class="amount">x 4</span>
-                            <div class="text-wrap">
-                              <strong class="name"><a href="#">Water Sports in Spain</a></strong>
-                              <span class="price">$199</span>
-                            </div>
-                          </div>
-                        </li>
-                        <li>
-                          <div class="img">
-                            <a href="#">
-                              <img src="img/listing/img-18.jpg" height="165" width="170" alt="image description" />
-                            </a>
-                          </div>
-                          <div class="text-holder">
-                            <span class="amount">x 4</span>
-                            <div class="text-wrap">
-                              <strong class="name"><a href="#">Beach Party in Greece</a></strong>
-                              <span class="price">$199</span>
-                            </div>
-                          </div>
-                        </li>
                       </ul>
                       <div class="footer">
                         <a href="?act=my_cart" class="btn btn-primary">View cart</a>
-                        <span class="total">$3300</span>
+                        <span class="total">
+                          <?= $tong2 ?>VND
+                        </span>
                       </div>
                     </div>
                   </div>

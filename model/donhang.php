@@ -10,9 +10,14 @@
 //     return $listtour;
 // }
 function loadall_donhang(){
-    $sql = "SELECT * from datve join tour on datve.id_tour = tour.id_tour join khuvuichoi on tour.id_khuvuichoi = khuvuichoi.id_khuvuichoi join diadiem on tour.id_diadiem = diadiem.id_diadiem join nguoidung on datve.id_nguoidung = nguoidung.id_nguoidung join giohang on datve.id_giohang = giohang.id_giohang";
+    $sql = "SELECT * from datve join tour on datve.id_tour = tour.id_tour join khuvuichoi on tour.id_khuvuichoi = khuvuichoi.id_khuvuichoi join diadiem on tour.id_diadiem = diadiem.id_diadiem join nguoidung on datve.id_nguoidung = nguoidung.id_nguoidung join giohang on datve.id_giohang = giohang.id_giohang order by datve.datetime desc";
     $list_donhang=pdo_query($sql);
     return  $list_donhang;
+}
+function loadone_donhang($id_donhang){
+    $sql = "SELECT * from datve join tour on datve.id_tour = tour.id_tour join khuvuichoi on tour.id_khuvuichoi = khuvuichoi.id_khuvuichoi join diadiem on tour.id_diadiem = diadiem.id_diadiem join nguoidung on datve.id_nguoidung = nguoidung.id_nguoidung join giohang on datve.id_giohang = giohang.id_giohang where datve.id_donhang = ".$id_donhang;
+    $one_donhang=pdo_query_one($sql);
+    return $one_donhang;
 }
 
 
@@ -32,8 +37,8 @@ function loadall_donhang(){
 //     $result = pdo_query($sql);
 //     return $result;
 // }
-function insert_donhang($tongtien, $ngaydat, $id_tour, $id_giohang, $id_nguoidung){
-    $sql = "INSERT INTO `datve`(`tongtien`, `ngaydat`, `id_tour`, `id_giohang`, `id_nguoidung`) VALUES ('$tongtien', '$ngaydat', '$id_tour', '$id_giohang', '$id_nguoidung');";
+function insert_donhang($tongtien, $ngaydat, $id_tour, $id_giohang, $id_nguoidung, $datetime){
+    $sql = "INSERT INTO `datve`(`tongtien`, `ngaydat`, `id_tour`, `id_giohang`, `id_nguoidung`, `datetime`) VALUES ('$tongtien', '$ngaydat', '$id_tour', '$id_giohang', '$id_nguoidung', '$datetime');";
     pdo_execute($sql);
 }
 // function update_tour($id_tour, $gia, $ngaybatdau, $ngayketthuc, $soluong, $mota, $thongtinchitiet, $hinh, $id_khuvuichoi, $trangthai, $id_diadiem){

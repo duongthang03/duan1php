@@ -1,3 +1,7 @@
+<?php
+  // session_start();
+  echo $_SESSION['id_nguoidung'];
+?>
 <!-- search form -->
 <!-- <form class="search-form" action="#">
             <fieldset>
