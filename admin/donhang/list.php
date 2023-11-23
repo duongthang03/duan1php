@@ -54,6 +54,7 @@
                              <th>Tour đặt</th>
                              <th>Trạng thái</th>
                              <th></th>
+                             <th></th>
                          </tr>
                     <?php 
                         foreach ($result1 as $key => $value) {
@@ -71,9 +72,9 @@
                                 <td>'.$tenkhuvuichoi.' | '.$tendiadiem.'</td>
                                 ';
                                 if($trangthai_donhang == 0){
-                                    echo'<td style="text-align: center"><button id="show" class="btn btn-warning btn-sm" type="button" style="margin: 5px">Chưa Thanh Toán</button></td>';
+                                    echo'<td style="text-align: center"><button id="show'.$id_donhang.'" class="btn btn-warning btn-sm" onclick="cl'.$id_donhang.'()" value="1" type="button" style="margin: 5px">Chưa Thanh Toán</button></td>';
                                 } else{
-                                    echo'<td style="text-align: center"><button id="show" class="btn btn-success btn-sm" type="button" style="margin: 5px">Đã Thanh toán</button></td>';
+                                    echo'<td style="text-align: center"><button id="show'.$id_donhang.'" class="btn btn-success btn-sm" onclick="cl'.$id_donhang.'()" value="2" type="button" style="margin: 5px">Đã Thanh toán</button></td>';
                                 }
                             echo '
                                 <!--<button id="show" class="btn btn-warning btn-sm" type="button" style="margin: 5px">Chưa Thanh Toán</button> -->
@@ -81,10 +82,28 @@
                                 <!--<button id="show" class="btn btn-primary btn-sm" type="button" style="margin: 5px">Xác Nhận Đơn Hàng</button>-->
                                 ';
                             echo '<td style="text-align: center"><a href="?act=chitietdonhang&id_donhang='.$id_donhang.'">Xem chi tiết</a></td>';
+                            echo'<td style="text-align: center"><button id="" class="btn btn-primary btn-sm" onclick="" value="2" type="button" style="margin: 5px">Xác nhận đơn hàng</button></td>';
+                            echo '
+                            <script>
+                            function cl'.$id_donhang.'(){
+                                var val = document.getElementById("show'.$id_donhang.'");
+                                if(val.value === "1"){
+                                    val.textContent = "Chưa thanh toán";
+                                    val.value = "2";
+                                    val.className = "btn btn-warning btn-sm";
+                                } else {
+                                    val.textContent = "Đã thanh toán";
+                                    val.value = "1";
+                                    val.className = "btn btn-success btn-sm";
+                                }
+                            }
+                            </script>
+                            ';
                         }
                     ?>
                             </tr>
                         </table>
+                    
                     <?php 
                     echo "<ul class='pagination'>";
                     for ($i = 1; $i <= $total_pages; $i++) {

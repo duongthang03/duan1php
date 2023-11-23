@@ -19,7 +19,10 @@ function loadone_donhang($id_donhang){
     $one_donhang=pdo_query_one($sql);
     return $one_donhang;
 }
-
+function update_trangthai_donhang($id_donhang, $trangthai_donhang){
+    $sql=  "UPDATE `datve` SET `trangthai_donhang` = '{$trangthai_donhang}' where `id_donhang` = $id_donhang";
+    pdo_execute($sql);
+}
 
 // function loadone_tour($id_tour){
 //     $sql = "select * from tour join diadiem on tour.id_diadiem = diadiem.id_diadiem join khuvuichoi on tour.id_khuvuichoi = khuvuichoi.id_khuvuichoi where id_tour = ".$id_tour;
