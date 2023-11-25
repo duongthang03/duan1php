@@ -13,12 +13,12 @@
             <div class="card" style="width: 200%">
                 <form class="form-horizontal" action="" method="POST" style="">
                                 <div class="card-body" style="width: 100%">
-                <table border=2 style="width: 100%">
+                <table border=2 style="width: 100%;">
                     <tr>
                         <th>ID tài khoản</th>
                         <th>Tài khoản</th>
                         <th>Mật khẩu</th>
-                        <th>Email/th>
+                        <th>Email</th>
                         <th>Số điện thoại</th>
                         <th>Quyền</th>
                     </tr>

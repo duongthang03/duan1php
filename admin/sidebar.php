@@ -11,9 +11,10 @@
                         
                         <li class="sidebar-item"> <a class="sidebar-link waves-effect waves-dark sidebar-link" href="?act=diadiem" aria-expanded="false"><i class="mdi mdi-beach"></i><span class="hide-menu">Địa điểm</span></a></li>
                         <li class="sidebar-item"> <a class="sidebar-link waves-effect waves-dark sidebar-link" href="?act=khuvuichoi" aria-expanded="false"><i class="mdi mdi-castle"></i><span class="hide-menu">Khu vui chơi</span></a></li>
-                        <li class="sidebar-item"> <a class="sidebar-link waves-effect waves-dark sidebar-link" href="?act=tour" aria-expanded="false"><i class="mdi mdi-ticket-confirmation"></i><span class="hide-menu">Tour</span></a></li>
+                        <li class="sidebar-item"> <a class="sidebar-link waves-effect waves-dark sidebar-link" href="?act=tour" aria-expanded="false"><i class="mdi mdi-ticket-confirmation"></i><span class="hide-menu">Vé</span></a></li>
                         <li class="sidebar-item"> <a class="sidebar-link waves-effect waves-dark sidebar-link" href="?act=donhang" aria-expanded="false"><i class="mdi mdi-clipboard-text"></i><span class="hide-menu">Đơn hàng</span></a></li>
                         <li class="sidebar-item"> <a class="sidebar-link waves-effect waves-dark sidebar-link" href="?act=nguoidung" aria-expanded="false"><i class="mdi mdi-account-card-details"></i><span class="hide-menu">Tài khoản</span></a></li>
+                        <li class="sidebar-item"> <a class="sidebar-link waves-effect waves-dark sidebar-link" href="?act=binhluan" aria-expanded="false"><i class="mdi mdi-comment-text-outline"></i><span class="hide-menu">Bình luận</span></a></li>
                         
                         <!-- <li class="sidebar-item"> <a class="sidebar-link waves-effect waves-dark sidebar-link" href="?act=charts" aria-expanded="false"><i class="mdi mdi-chart-bar"></i><span class="hide-menu">Charts</span></a></li>
                         <li class="sidebar-item"> <a class="sidebar-link waves-effect waves-dark sidebar-link" href="?act=widgets" aria-expanded="false"><i class="mdi mdi-chart-bubble"></i><span class="hide-menu">Widgets</span></a></li>

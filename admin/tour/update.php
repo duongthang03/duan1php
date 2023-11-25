@@ -100,9 +100,6 @@ if(is_array($tour)){
             <label>Số lượng: </label> <br>
             <input class="form-control" type="number" name="soluong" value="<?=$soluong?>">
         <div class="">
-            <label>Ngày bắt đầu: </label> <br>
-            <input class="form-control" type="date" name="ngaybatdau" value="<?=$ngaybatdau?>">
-        <div class="">
             <label>Trạng thái: </label> <br>
             <input class="form-control" type="text" name="trangthai" value="<?=$trangthai?>">
         <div class="">

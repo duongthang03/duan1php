@@ -88,7 +88,7 @@
                     }
                     if($option == 0){
                     ?>
-                        <table border=2 style="width: 100%">
+                        <table border=2 style="width: 100%" class="tour-table">
                             <tr style="text-align: center">
                              <th>Số hóa đơn</th>
                              <th>Thời gian</th>
@@ -191,6 +191,11 @@
                         ul.pagination li a:hover {
                             background-color: #f0f0f0;
                         }
+                        .tour-table {
+  border: 1px solid #ccc; /* Màu và độ rộng viền */
+  border-radius: 8px; /* Bo tròn viền */
+  box-shadow: 0px 0px 10px rgba(0, 0, 0, 0.1); /* Đổ bóng viền */
+}
                     </style>
             </div>
         <!-- </form> -->

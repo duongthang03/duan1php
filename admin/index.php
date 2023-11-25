@@ -5,6 +5,7 @@ include "../model/khuvuichoi.php";
 include "../model/tour.php";
 include "../model/donhang.php";
 include "../model/nguoidung.php";
+include "../model/binhluan.php";
 
 include "header.php";
 include "sidebar.php";
@@ -354,6 +355,18 @@ if (isset($_GET['act']) && ($_GET['act'] != "")) {
             include "nguoidung/list.php";
             break;
         //////////////////////////////////////////////////////////////////////////////
+        case "binhluan":
+            $list_binhluan = loadall_binhluan();
+            include "binhluan/list.php";
+            break;
+        case "delete_binhluan":
+            if (isset($_GET['id_binhluan'])) {
+                delete_binhluan($_GET['id_binhluan']);
+            }
+            $list_binhluan = loadall_binhluan();
+            include "binhluan/list.php";
+            break;
+            ////////////////////////////////////////////////
         case "form-basic":
             include "form-basic.php";
             break;

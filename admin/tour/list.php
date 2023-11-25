@@ -29,8 +29,6 @@
                                         <input type="submit" name="clickOK" value="Go" style="margin: 5px">
                                     <!-- </form> -->
             <div class="">
-                <input class="" type="button" value="Select all" style="margin: 5px">
-                <input class="" type="button" value="Deselect all" style="margin: 5px">
                 <a href="?act=add_tour"> <button class="btn btn-success" type="button" style="margin: 5px"><i class="mdi mdi-library-plus"></i> Add+</button></a>
             </div>
                 <!-- <table border=2 style="width: 100%"> -->
@@ -45,56 +43,58 @@
                         } else {
                             $hinhpath = "No file img!";
                         }
-                        echo '<table border=2 style="width: 100%">
-                                <tr>
-                                    <th style="width:20%"></th>
-                                    <td><input type="checkbox" name="" id=""></td>
-                                </tr>
-                                <tr>
-                                    <th>ID</th> 
-                                    <td>' . $id_tour . '</td>
-                                </tr>
-                                <tr>
-                                    <th>Địa điểm</th>
-                                    <td>' . $tendiadiem . '</td>
-                                </tr>
-                                <tr>
-                                    <th>Tên khu vui chơi</th>
-                                    <td>' . $tenkhuvuichoi . '</td>
-                                </tr>
-                                <tr>
-                                    <th>Địa chỉ</th>
-                                    <td>' . $diachi . '</td>
-                                </tr>
-                                <tr>
-                                    <th>Image</th>
-                                    <td style="text-align: center">' . $hinhpath . '</td>
-                                </tr>
-                                <tr>
-                                    <th>Mô tả</th>
-                                    <td><textarea style="height: 100%; width: 100%" readonly>' . $mota . '</textarea></td>
-                                </tr>
-                                <tr>
-                                    <th>Thông tin chi tiết</th>
-                                    <td><textarea style="height: 100%; width: 100%" readonly>' . $thongtinchitiet . '</textarea></td>
-                                </tr>
-                                <tr>
-                                    <th>Giá</th>
-                                    <td>' . $gia . '</td>
-                                </tr>
-                                <tr>
-                                    <th>Số lượng</th>
-                                    <td>' . $soluong . '</td>
-                                </tr>
-                                <tr>
-                                    <th>Ngày bắt đầu</th>
-                                    <td>' . $ngaybatdau . '</td>
-                                </tr>
-                                <tr>
-                                    <th>Trạng thái</th>
-                                    <td>' . $trangthai . '</td>
-                                </tr>
-                                <tr>
+                        if($trangthai == 0){
+                            $trangthai = "Hữu hiệu";
+                        }
+                        $gia = number_format($gia, 0, '', '.');
+                    ?>
+                    <style>
+                        .table {
+                            /* background-image: url('../img/R3.png'); 
+                            background-size: cover; 
+                            position: relative; 
+                            width: 100%;
+                            height: 500px;  */
+                            /* border: 1px solid black; */
+                            border: 2px solid #ffcc00; /* Màu sắc và độ dày của border */
+                            border-radius: 10px; /* Bo tròn các góc */
+                            padding: 20px; /* Khoảng cách bên trong border */
+                            box-shadow: 0px 0px 10px 0px rgba(0,0,0,0.5);
+                        }
+                        .price {
+                            font-size: 1.2em; /* Kích thước chữ */
+                            color: green; /* Màu chữ */
+                            text-align: right; /* Căn chỉnh về phía phải */
+                            line-height: 1.5; /* Khoảng cách giữa các dòng */
+                            padding: 5px; /* Khoảng cách với viền */
+                        }
+                        .quantity {
+                            font-size: 1.1em; /* Kích thước chữ */
+                            color: blue; /* Màu chữ */
+                            text-align: right; /* Căn chỉnh về phía trái */
+                            line-height: 1.4; /* Khoảng cách giữa các dòng */
+                            padding: 3px; /* Khoảng cách với viền */
+                        }
+
+                        </style>
+                    <!-- <image class="background-image"  src="../img/R2.png" width="100%"> -->
+                    <div class="table" style="width: 100%;">      
+
+                        <table class="" border=0 style="width: 100%;">
+                                <p style="width: 20%; float:left; border: 2px solid red;  border-radius: 10px; box-shadow: 0px 0px 10px 0px rgba(0,0,0,0.5); text-align:center">ID ------ <?= $id_tour ?></p> 
+                                <p style="width: 20%; float:right; border: 2px solid green;  border-radius: 10px; box-shadow: 0px 0px 10px 0px rgba(0,0,0,0.5); text-align:center"> <?= $trangthai ?></p> 
+                                <p></p>
+                                <div style="text-align: right">
+                                        <img src="../img/<?=$img?>" width="70%">
+                                        <figcaption><?= $tenkhuvuichoi ?></figcaption>
+                                        <figcaption><?= $diachi ?> || <?= $tendiadiem ?></figcaption>
+                                </div>
+                                <p class="price">Giá: <?= $gia ?> VND</p>
+                                <p class="quantity">Số lượng: <?= $soluong ?></p>
+                                <p>Mô tả:</p>
+                                <textarea style="height: 100%; width: 100%; border: none" rows=4 readonly><?= $mota ?></textarea>
+                                <p>Thông tin chi tiết:</p>
+                                <textarea style="height: 100%; width: 100%; border: none" rows=8 readonly><?= $thongtinchitiet ?></textarea>
                                     <th></th>
                                     <td style="text-align: center">
                                         <a href="' . $update_tour . '"><button class="btn btn-info" type="button" style="margin: 5px"> <i class="mdi mdi-grease-pencil"></i> Edit</button> </a>  
@@ -103,7 +103,9 @@
                                 </tr>
                             </tr>
                             <br>
-                            </table>';
+                            </table>
+                    </div>
+                    <?php
                     }
                     ?>
                 <!-- </table> -->
