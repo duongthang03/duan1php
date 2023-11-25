@@ -1,9 +1,33 @@
 <?php
     // session_start();
-
+    function loadall_nguoidung(){
+        $sql = "SELECT * FROM nguoidung 
+                ORDER BY id_nguoidung DESC";
+        $list_nguoidung = pdo_query($sql);
+        return  $list_nguoidung;
+    }
+    function loadone_nguoidung($id_nguoidung){
+        $sql = "SELECT * FROM nguoidung 
+                WHERE id_nguoidung = " . $id_nguoidung;
+        $list_nguoidung = pdo_query_one($sql);
+        return  $list_nguoidung;
+    }
+    function update_nguoidung($id_nguoidung, $username, $password, $email, $sdt, $role){
+        $sql=  "UPDATE `nguoidung` SET `id_nguoidung` = '{$id_nguoidung}', `username` = '{$username}', `password` = '{$password}', `email` = '{$email}', `sdt` = '{$sdt}', `role` = '{$role}'  WHERE `nguoidung`.`id_nguoidung` = $id_nguoidung";
+        pdo_execute($sql);
+    }
+    function delete_nguoidung($id_nguoidung){
+        $sql = "DELETE FROM nguoidung 
+                WHERE id_nguoidung=" .$id_nguoidung;
+        pdo_execute($sql);
+    }
     //dang ky
     function insert_nguoidung($username, $password ,$email, $sdt){
         $sql = "INSERT INTO `nguoidung` (`username`, `password`, `email`, `sdt`) VALUES ('$username', '$password', '$email', '$sdt')";
+        pdo_execute($sql);
+    }
+    function insert_nguoidung2($username, $password ,$email, $sdt, $role){
+        $sql = "INSERT INTO `nguoidung` (`username`, `password`, `email`, `sdt`, `role`) VALUES ('$username', '$password', '$email', '$sdt', '$role')";
         pdo_execute($sql);
     }
 

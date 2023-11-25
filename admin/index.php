@@ -4,6 +4,7 @@ include "../model/diadiem.php";
 include "../model/khuvuichoi.php";
 include "../model/tour.php";
 include "../model/donhang.php";
+include "../model/nguoidung.php";
 
 include "header.php";
 include "sidebar.php";
@@ -303,6 +304,56 @@ if (isset($_GET['act']) && ($_GET['act'] != "")) {
             include "donhang/chitiet.php";
             break;
         ///////////////////////////////////////////////////////////////////////////////////////
+        case "nguoidung":
+            $list_nguoidung = loadall_nguoidung();
+            include "nguoidung/list.php";
+            break;
+        case "delete_nguoidung":
+            if (isset($_GET['id_nguoidung'])) {
+                delete_nguoidung($_GET['id_nguoidung']);
+            }
+            $list_nguoidung = loadall_nguoidung();
+            include "nguoidung/list.php";
+            break;
+        case "update_nguoidung":
+            if (isset($_GET['id_nguoidung'])) {
+                $nguoidung = loadone_nguoidung($_GET['id_nguoidung']);
+            }
+            $list_nguoidung = loadall_nguoidung();
+            include "nguoidung/update.php";
+            break;
+        case "A_update_nguoidung":
+            if (isset($_POST['A_update_nguoidung'])) {
+                $id_nguoidung = $_POST['id_nguoidung'];
+                $username = $_POST['username'];
+                $password = $_POST['password'];
+                $email = $_POST['email'];
+                $sdt = $_POST['sdt'];
+                $role = $_POST['role'];
+                update_nguoidung($id_nguoidung, $username, $password, $email, $sdt, $role);
+                $thongbao = "Cập nhật thành công!";
+            }
+            $list_nguoidung = loadall_nguoidung();
+            include "nguoidung/list.php";
+            break;
+        case "add_nguoidung":
+            $list_nguoidung = loadall_nguoidung();
+            include "nguoidung/add.php";
+            break;
+        case "A_add_nguoidung":      
+            if (isset($_POST['add'])) {
+                $username = $_POST['username'];
+                $password = $_POST['password'];
+                $email = $_POST['email'];
+                $sdt = $_POST['sdt'];
+                $role = $_POST['role'];
+                insert_nguoidung2($username, $password, $email, $sdt, $role);
+                $status = "Thêm thành công";
+            }
+            $list_nguoidung = loadall_nguoidung();
+            include "nguoidung/list.php";
+            break;
+        //////////////////////////////////////////////////////////////////////////////
         case "form-basic":
             include "form-basic.php";
             break;

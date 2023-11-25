@@ -22,6 +22,15 @@ function loadall_tour(){
     $list_tour = pdo_query($sql);
     return  $list_tour;
 }
+function loadall_tour_theodiadiem($id_diadiem){
+    $sql = "SELECT * from tour 
+            join diadiem on tour.id_diadiem = diadiem.id_diadiem 
+            join khuvuichoi on tour.id_khuvuichoi = khuvuichoi.id_khuvuichoi 
+            where tour.id_diadiem = ".$id_diadiem;
+    $sql.=" order by id_tour desc";
+    $list_tour = pdo_query($sql);
+    return  $list_tour;
+}
 
 
 function loadone_tour($id_tour){
@@ -50,6 +59,10 @@ function update_tour($id_tour, $gia, $ngaybatdau, $soluong, $mota, $thongtinchit
     }else{
         $sql =  "UPDATE `tour` SET `gia` = '{$gia}', `ngaybatdau` = '{$ngaybatdau}',`soluong` = '{$soluong}', `mota` = '{$mota}', `thongtinchitiet` = '{$thongtinchitiet}', `id_khuvuichoi` = '{$id_khuvuichoi}', `trangthai` = '{$trangthai}', `id_diadiem` = '{$id_diadiem}' WHERE `tour`.`id_tour` = $id_tour";
     }
+    pdo_execute($sql);
+}
+function update_tour_soluong($id_tour, $soluong){
+        $sql =  "UPDATE `tour` SET `soluong` = '{$soluong}' WHERE `tour`.`id_tour` = $id_tour";
     pdo_execute($sql);
 }
 function delete_tour($id_tour){

@@ -66,9 +66,15 @@
                         } else {
                             $page = 1;
                         }
-                        $limit = 5;
+                        $limit = 9;
                         $start = ($page - 1) * $limit;
-                        $sql1 = "SELECT * FROM datve join tour on datve.id_tour = tour.id_tour join khuvuichoi on tour.id_khuvuichoi = khuvuichoi.id_khuvuichoi join diadiem on tour.id_diadiem = diadiem.id_diadiem join nguoidung on datve.id_nguoidung = nguoidung.id_nguoidung join giohang on datve.id_giohang = giohang.id_giohang order by datve.datetime desc LIMIT $start, $limit";
+                        $sql1 = "SELECT * FROM datve 
+                                join tour on datve.id_tour = tour.id_tour 
+                                join khuvuichoi on tour.id_khuvuichoi = khuvuichoi.id_khuvuichoi 
+                                join diadiem on tour.id_diadiem = diadiem.id_diadiem 
+                                join nguoidung on datve.id_nguoidung = nguoidung.id_nguoidung 
+                                order by datve.datetime desc 
+                                LIMIT $start, $limit";
                         $result1 = pdo_query($sql1);
                         $conn = pdo_get_connection();
                         $sql = "SELECT COUNT(*) AS total FROM datve";

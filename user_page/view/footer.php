@@ -206,6 +206,9 @@
 <script type="text/javascript" src="vendors/revolution/js/extensions/revolution.extension.kenburn.min.js"></script>
 <!-- revolutions slider script -->
 <script src="js/revolution.js"></script>
+
+<script src="vendors/jquery-mobile/jquery.mobile.custom.min.js"></script>
+  
 </body>
 
 </html>

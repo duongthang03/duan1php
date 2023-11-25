@@ -1,6 +1,6 @@
 <?php
   // session_start();
-  echo $_SESSION['id_nguoidung'];
+  // echo $_SESSION['id_nguoidung'];
 ?>
 <!-- main container -->
 <main id="main">
@@ -45,8 +45,8 @@
           <tbody>
             <?php
             // $i = 1;
-            echo $_SESSION['id_nguoidung'];
-            echo $_SESSION['username'];
+            // echo $_SESSION['id_nguoidung'];
+            // echo $_SESSION['username'];
             foreach ($list_cart as $key => $value) {
               extract($value);
               $i = $id_giohang;
@@ -56,20 +56,31 @@
               // $gia = INTEGER($gia);
               $gia = number_format($gia, 0, '', '.');
               $tong1 = number_format($tongtien, 0, '', '.');
+              // function xoa(){
+              //   $xoa = delete_cart($id_giohang);
+              //   return $xoa;
+              // }
+              if(isset($_POST['xoa'.$i])){
+                delete_cart($i);
+              }
               echo '
-                        <form method="POST" action="?act=checkout">
                         <tr>
                                 <td>
+                                <form method="POST" onsubmit="reload()">
+                                  <button  style="text-align: center; border: none; background-color: transparent" type="submit" name="xoa'.$i.'">
                                   <div class="cell">
                                     <div class="middle">
                                       <a class="delete" href="#"
                                         ><span class="icon-trash"></span
                                       ></a>
-                                      <input name="id_giohang" value="' . $id_giohang . '" type="hidden">
                                     </div>
                                   </div>
+                                  </button>
+                                </form>
                                 </td>
+                        <form method="POST" action="?act=checkout">
                                 <td>
+                                <input name="id_giohang" value="' . $id_giohang . '" type="hidden">
                                   <div class="cell">
                                     <div class="middle">
                                       <div class="info">
@@ -128,6 +139,7 @@
                                     </div>
                                   </div>
                                 </td>
+                                </form>
                               </tr>';
               echo '
                                 <!--<script>
@@ -155,7 +167,11 @@
                                   var totalPriceInput = document.getElementById("totalPrice' . $i . '"); 
                                   var currentTotalPrice = parseInt(totalPriceInput.value); 
                                   <!--totalPriceInput.value = currentPrice * quantityInput.value * 1000;-->
-                                  total = currentPrice * quantityInput.value * 1000;
+                                  if(quantityInput.value == 1){
+                                    total = currentPrice * quantityInput.value * 1;
+                                  } else{
+                                    total = currentPrice * quantityInput.value * 1000;
+                                  }
                                   totalPriceInput.value = total.toLocaleString("vi-VN");
                               }
                               function decreaseQuantity' . $i . '(){
@@ -174,8 +190,11 @@
                                   total = currentPrice * quantityInput.value * 1000;
                                   totalPriceInput.value = total.toLocaleString("vi-VN");
                               }
+                              function reload(){
+                                location.reload();
+                              }
                             </script>
-                            </form>';
+                            ';
               // $i++;
               // <a href="?act=checkout&id_giohang='.$id_giohang.'" class="btn btn-default">CHECKOUT</a>
             
@@ -189,8 +208,138 @@
           <a href="?act=checkout" class="btn btn-default">Thanh toán tất</a>
         </div>
       </div>
+      <div class="table-responsive">
+        <div style="height: 20px; padding: 30px; margin-top: 10px" class="inner-top">
+          <h3 class="" >Đơn hàng đã đặt</h3>
+        </div>
+        <div class="table-responsive">
+        <table class="table table-hover table-align-right">
+          <thead>
+            <tr style="text-align: center; justify-content: center">
+              <th style="text-align: center; justify-content: center">
+                <strong class="date-text">Vé đã đặt</strong>
+              </th>
+              <th>
+                <strong class="date-text">Số lượng vé đặt</strong>
+              </th>
+              <th>
+                <strong class="date-text">Tổng tiền</strong>
+              </th>
+              <th>
+                <strong class="date-text">Ngày vé đặt</strong>
+              </th>
+              <th>
+                <strong class="date-text">Thời gian đặt hàng</strong>
+              </th>
+              <th>
+                <strong class="date-text">Trạng thái</strong>
+              </th>
+              
+              <th>
+              </th>
+            </tr>
+          </thead>
+          <tbody>
+            <?php
+            foreach ($list_donhangdadat as $key => $value) {
+              extract($value);
+              $tongtien = number_format($tongtien, 0, '', '.');
+              $datetime1 = new DateTime($datetime);
+              $datetime2 = $datetime1 -> format('H\h:i\m:s\s | d-m-Y');
+              $ngaydat1 = new dateTime($ngaydat);
+              $ngaydat2 = $ngaydat1 -> format('d-m-Y');
+              if($trangthai_donhang == 0){
+                $trangthai_donhang = "Chưa thanh toán";
+              } else if($trangthai_donhang == 1){
+                $trangthai_donhang = "Đã thanh toán";
+              } else if($trangthai_donhang == 2){
+                $trangthai_donhang = "Đã hoàn thành";
+              } 
+              echo '
+                  <tr>
+                    <td>
+                      <div class="cell">
+                        <div class="middle">
+                          <div class="info">
+                            <div class="img-wrap">
+                              <img
+                                src="../img/' . $img . '"
+                                height="240"
+                                width="350"
+                                alt="image description"
+                              />
+                            </div>
+                            <div class="text-wrap">
+                              <strong class="product-title"
+                                >' . $tenkhuvuichoi . ' // ' . $tendiadiem . '</strong
+                              >
+                            </div>
+                          </div>
+                        </div>
+                      </div>
+                    </td>
+                    <td>
+                      <div class="cell">
+                        <div class="middle">
+                          <input type="button" value="' . $soluong_donhang . '" style="text-align: center; border: none; background-color: transparent">
+                        </div>
+                      </div>
+                    </td>
+                    <td>
+                      <div class="cell">
+                        <div class="middle">
+                          <input type="button" value="' . $tongtien . '" style="text-align: center; border: none; background-color: transparent">VND
+                        </div>
+                      </div>
+                    </td>
+                    <td>
+                      <div class="cell">
+                        <div class="middle">
+                          <input type="button" value="' . $ngaydat2 . '" style="text-align: center; border: none; background-color: transparent">
+                        </div>
+                      </div>
+                    </td>
+                    <td>
+                      <div class="cell">
+                        <div class="middle">
+                          <input type="button" value="' . $datetime2 . '" style="text-align: center; border: none; background-color: transparent">
+                        </div>
+                      </div>
+                    </td>
+                    <td>
+                      <div class="cell">
+                        <div class="middle">
+                          <input type="button" id="clo" value="' . $trangthai_donhang . '" style="text-align: center; border: none; background-color: transparent">
+                        </div>
+                      </div>
+                    </td>
+                  </tr>'
+                  ;
+                  echo '
+                    <script>
+                      var clo = getElementById("clo");
+                      clo.addEventListener("", function(){
+                      if(clo.value == "Chưa thanh toán"){
+                        clo.style.color = "yellow";
+                      } else if(clo.value == "Đã thanh toán"){
+                        clo.style.color = "green";
+                      }})
+                    </script>
+                  ';
+            }
+            ?>
+          </tbody>
+        </table>
+      </div>
+      <div class="cart-option">
+        <div class="button-hold">
+          <a href="?act=checkout" class="btn btn-default">Thanh toán tất</a>
+        </div>
+      </div>
+      </div>
     </div>
   </div>
+  
   <!-- </form> -->
 </main>
 </div>

@@ -11,6 +11,28 @@
   </section>
 
   <!-- article list holder -->
+  <?php
+    if(isset($_GET['phuquoc'])){
+      echo '
+      <script>
+      window.onload=function(){
+        event.preventDefault();
+
+        var search = "hạ long";
+        var khuvuc = document.getElementsByClassName("khuvuc");
+        for (var i = 0; i < khuvuc.length; i++) {
+            var khuvucInfo = khuvuc[i].textContent.toLowerCase();
+            if (khuvucInfo.includes(search)) {
+            khuvuc[i].style.display = "block";
+            } else {
+            khuvuc[i].style.display = "none";
+            }
+        }
+      }
+        </script>
+      ';
+    }
+  ?>
   <div class="content-block content-spacing">
     <div class="container">
       <div class="content-holder">
@@ -35,7 +57,7 @@
             // echo $text;
             // echo $shortText;
             $gia = number_format($gia, 0, '', '.');
-            echo '<article class="col-sm-6 col-md-4 article has-hover-s3">
+            echo '<article class="col-sm-6 col-md-4 article has-hover-s3 khuvuc" >
                     <div class="img-wrap">
                       <a href="?act=chitiettour&id_tour=' . $id_tour . '">
                         <img src="' . $hinh . '" height="215" width="370" alt="image description">

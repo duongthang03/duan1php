@@ -1,5 +1,5 @@
 <?php
-session_start();
+// session_start();
 ?>
 <!DOCTYPE html>
 <html>
@@ -28,7 +28,8 @@ session_start();
   <link media="all" rel="stylesheet" href="css/main.css" />
   <!-- link to revolution css  -->
   <link rel="stylesheet" type="text/css" href="vendors/revolution/css/settings.css" />
-
+  <!-- include jQuery UI css -->
+  <link media="all" rel="stylesheet" href="vendors/jquery-ui/jquery-ui.min.css"/>
   <!-- include fancybox css -->
   <link media="all" rel="stylesheet" href="vendors/fancybox/jquery.fancybox.css" />
 </head>
@@ -90,29 +91,20 @@ session_start();
                   <a href="?act=icon-login">
                     <span class="icon icon-user">
                       <?php
-                      // session_start();
-                      // if( isset( $_SESSION['counter'] ) )
-                      // {
-                      //    $_SESSION['counter'] += 1;
-                      // }
-                      // else
-                      // {
-                      //    $_SESSION['counter'] = 1;
-                      // }
-                      // $msg = "Bạn đã truy cập trang này ".  $_SESSION['counter'];
-                      // $msg .= " lần trong session này.";
-                      // echo ( $msg );
+
                       if (!$_SESSION) {
                         echo 'Chưa đăng nhập';
                       } else {
-                        // $_SESSION['username'] = $username;
                         echo $_SESSION['username'];
                         echo $_SESSION['id_nguoidung'];
-                      }
                       ?>
                     </span>
                   </a>
                 </li>
+                  <?php
+                      }
+                    echo '<li><a href="?act=dangxuat">Đăng xuất</a></li>';
+                  ?>
 
                 <!-- Giỏ hàng -->
                 <li class="visible-xs visible-sm nav-visible dropdown last-dropdown v-divider">
@@ -319,7 +311,7 @@ session_start();
             <ul>
 
               <li>
-                <a href="#">
+                <a href="?act=khuvuc&hanoi">
                   <span class="ico">
                     <script src="https://cdn.lordicon.com/lordicon-1.2.0.js"></script>
                     <lord-icon src="https://cdn.lordicon.com/tdtlrbly.json" trigger="loop-on-hover" stroke="bold"
@@ -331,7 +323,7 @@ session_start();
               </li>
 
               <li>
-                <a href="#">
+                <a href="?act=khuvuc&hcm">
                   <span class="ico">
                     <script src="https://cdn.lordicon.com/lordicon-1.2.0.js"></script>
                     <lord-icon src="https://cdn.lordicon.com/tdtlrbly.json" trigger="loop-on-hover" stroke="bold"
@@ -343,7 +335,7 @@ session_start();
               </li>
 
               <li>
-                <a href="#">
+                <a href="?act=khuvuc&nhatrang">
                   <span class="ico">
                     <script src="https://cdn.lordicon.com/lordicon-1.2.0.js"></script>
                     <lord-icon src="https://cdn.lordicon.com/tdtlrbly.json" trigger="loop-on-hover" stroke="bold"
@@ -355,7 +347,7 @@ session_start();
               </li>
 
               <li>
-                <a href="#">
+                <a href="?act=khuvuc&danang">
                   <span class="ico">
                     <script src="https://cdn.lordicon.com/lordicon-1.2.0.js"></script>
                     <lord-icon src="https://cdn.lordicon.com/tdtlrbly.json" trigger="loop-on-hover" stroke="bold"
@@ -367,7 +359,7 @@ session_start();
               </li>
 
               <li>
-                <a href="#">
+                <a href="?act=khuvuc&hoian">
                   <span class="ico">
                     <script src="https://cdn.lordicon.com/lordicon-1.2.0.js"></script>
                     <lord-icon src="https://cdn.lordicon.com/tdtlrbly.json" trigger="loop-on-hover" stroke="bold"
@@ -379,7 +371,7 @@ session_start();
               </li>
 
               <li>
-                <a href="#">
+                <a href="?act=khuvuc&hue">
                   <span class="ico">
                     <script src="https://cdn.lordicon.com/lordicon-1.2.0.js"></script>
                     <lord-icon src="https://cdn.lordicon.com/tdtlrbly.json" trigger="loop-on-hover" stroke="bold"
@@ -391,7 +383,7 @@ session_start();
               </li>
 
               <li>
-                <a href="#">
+                <a href="?halong">
                   <span class="ico">
                     <script src="https://cdn.lordicon.com/lordicon-1.2.0.js"></script>
                     <lord-icon src="https://cdn.lordicon.com/tdtlrbly.json" trigger="loop-on-hover" stroke="bold"
@@ -403,7 +395,7 @@ session_start();
               </li>
 
               <li>
-                <a href="#">
+                <a href="?phuquoc">
                   <span class="ico">
                     <script src="https://cdn.lordicon.com/lordicon-1.2.0.js"></script>
                     <lord-icon src="https://cdn.lordicon.com/tdtlrbly.json" trigger="loop-on-hover" stroke="bold"

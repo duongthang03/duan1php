@@ -1,4 +1,6 @@
-
+<?php
+  
+?>
         <!-- main container -->
         <main id="main">
           <!-- top information area -->

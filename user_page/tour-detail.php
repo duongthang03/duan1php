@@ -1,6 +1,11 @@
 <?php
   // session_start();
-  echo $_SESSION['id_nguoidung'];
+  // echo $_SESSION['id_nguoidung'];
+  $id_nguoidung = $_SESSION['id_nguoidung'];
+  // echo $id_nguoidung;
+  if(isset($_GET['add_to_cart'])){
+      insert_cart($id_tour, $id_nguoidung);
+  }
 ?>
 <!-- search form -->
 <!-- <form class="search-form" action="#">
@@ -233,7 +238,7 @@
                     </li> -->
           </ul>
           <div class="btn-holder">
-            <a href="add/?act=add_to_cart" class="btn btn-lg btn-info">ĐẶT NGAY</a>
+            <a href="?add_to_cart" class="btn btn-lg btn-info">ĐẶT NGAY</a>
           </div>
           <ul class="social-networks social-share">
             <li>

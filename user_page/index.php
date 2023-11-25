@@ -1,4 +1,5 @@
 <?php
+session_start();
 include "../model/pdo.php";
 include "../model/diadiem.php";
 include "../model/khuvuichoi.php";
@@ -7,7 +8,7 @@ include "../model/cart.php";
 include "../model/donhang.php";
 include "../model/nguoidung.php";
 include "../global.php";
-$list_tour = loadall_tour();
+// $list_tour = loadall_tour();
 include "view/header.php";
 if (isset($_GET['act']) && ($_GET['act'] != "")) {
   $act = $_GET['act'];
@@ -19,16 +20,19 @@ if (isset($_GET['act']) && ($_GET['act'] != "")) {
       break;
     case "my_cart":
       // $tour = loadone_tour($_GET['id_tour']);
-      $list_cart = load_cart();
+      // $id_nguoidung = $_SESSION['id_nguoidung'];
+      $id_nguoidung = 1;
+      $list_cart = load_cart($id_nguoidung);
+      $list_donhangdadat = load_donhangdadat($id_nguoidung);
       include "my-cart.php";
       break;
     case "add_to_cart":
-      $id_nguoidung = $_SESSION['id_nguoidung'];
-      $add_cart = insert_cart($_GET['id_tour'], $id_nguoidung);
+      // echo $_SESSION['id_nguoidung'];
+      $id_nguoidung1 = $_SESSION['id_nguoidung'];
+      $add_cart = insert_cart($_GET['id_tour'], $id_nguoidung1);
       // $add_tour_cart = loadone_tour($_GET['id_tour']);
-      $list_cart = load_cart();
+      $list_cart = load_cart($id_nguoidung1);
       include "my-cart.php";
-
       break;
     case "checkout":
       // $add_cart = insert_cart();
@@ -37,9 +41,13 @@ if (isset($_GET['act']) && ($_GET['act'] != "")) {
       // echo $id;
       $soluong = $_POST['quantity' . $id];
       $tong = $_POST['totalPrice' . $id];
-      $tong = intval($tong) * 1000000;
+      if($soluong == 1){
+        $tong1 = $tong * 1000;
+      } else{
+        $tong1 = $tong * 1000000;
+      }
       $date = $_POST['ngaydat' . $id];
-      update_cart($id, $date, $tong, $soluong);
+      update_cart($id, $date, $tong1, $soluong);
       $one_cart = loadone_cart($id);
       include "checkout.php";
       break;
@@ -53,7 +61,11 @@ if (isset($_GET['act']) && ($_GET['act'] != "")) {
       // $id_nguoidung = $id_nguoidung;
       date_default_timezone_set('Asia/Ho_Chi_Minh');
       $datetime = date('Y-m-d H:i:s');
-      insert_donhang($tongtien, $ngaydat, $id_tour, $id_giohang, $id_nguoidung, $datetime);
+      insert_donhang($tongtien, $ngaydat, $id_tour, $id_nguoidung, $datetime, $soluong_cart);
+      $one_tour = loadone_tour($id_tour);
+      extract($one_tour);
+      $soluong1 = $soluong - $soluong_cart;
+      update_tour_soluong($id_tour, $soluong1);
       include "confirmation.php";
       break;
     case "icon-login":
@@ -82,19 +94,30 @@ if (isset($_GET['act']) && ($_GET['act'] != "")) {
         // echo $password;
         // echo $id_nguoidung;
         if ($role == 1) {
-          header('Location:../admin');
+          header('Location:../admin/index.php');
           exit();
         } else {
           $_SESSION['username'] = $username1;
           $_SESSION['id_nguoidung'] = $id_nguoidung;
-          include "view/home.php";
+          include "view/home2.php";
         }
       }
       // include "view/home.php";
       break;
+      case "dangxuat":
+        dangxuat();
+        include "view/home.php";
+        break;
+      break;
+      case "diadiem":
+        $list_tour_theodiadiem = loadall_tour_theodiadiem($_GET['diadiem']);
+        $list_tour = $list_tour_theodiadiem;
+        include "view/home2.php";
+        break;
   }
 } else {
-  include "view/home.php";
+      $list_tour = loadall_tour();
+  include "view/home2.php";
 }
 include "view/footer.php";
 
