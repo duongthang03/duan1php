@@ -14,6 +14,7 @@ if (isset($_GET['act']) && ($_GET['act'] != "")) {
   $act = $_GET['act'];
   switch ($act) {
     case "chitiettour":
+      $list_tour = loadall_tour();
       $tour = loadone_tour($_GET['id_tour']);
       $gallery = load_gallery(3);
       include "tour-detail.php";
@@ -21,7 +22,7 @@ if (isset($_GET['act']) && ($_GET['act'] != "")) {
     case "my_cart":
       // $tour = loadone_tour($_GET['id_tour']);
       // $id_nguoidung = $_SESSION['id_nguoidung'];
-      $id_nguoidung = 1;
+      // $id_nguoidung = 1;
       $list_cart = load_cart($id_nguoidung);
       $list_donhangdadat = load_donhangdadat($id_nguoidung);
       include "my-cart.php";
@@ -31,6 +32,7 @@ if (isset($_GET['act']) && ($_GET['act'] != "")) {
       $id_nguoidung1 = $_SESSION['id_nguoidung'];
       $add_cart = insert_cart($_GET['id_tour'], $id_nguoidung1);
       // $add_tour_cart = loadone_tour($_GET['id_tour']);
+      $list_donhangdadat = load_donhangdadat($id_nguoidung);
       $list_cart = load_cart($id_nguoidung1);
       include "my-cart.php";
       break;

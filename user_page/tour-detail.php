@@ -303,8 +303,8 @@
     <div class="container tab-content trip-detail">
       <!-- overview tab content -->
       <div role="tabpanel" class="tab-pane active" id="tab01">
-        <div class="row">
-          <div class="col-md-6" style="width: 100%;">
+        <div class="row" style="width: 100%; text-align:center; display: flex; justify-content: center">
+          <div class="col-md-6" style="width: 70%;">
             <strong class="header-box">Thông tin chi tiết về
               <?= $tenkhuvuichoi ?>
             </strong>
