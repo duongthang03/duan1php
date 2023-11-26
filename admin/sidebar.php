@@ -15,6 +15,7 @@
                         <li class="sidebar-item"> <a class="sidebar-link waves-effect waves-dark sidebar-link" href="?act=donhang" aria-expanded="false"><i class="mdi mdi-clipboard-text"></i><span class="hide-menu">Đơn hàng</span></a></li>
                         <li class="sidebar-item"> <a class="sidebar-link waves-effect waves-dark sidebar-link" href="?act=nguoidung" aria-expanded="false"><i class="mdi mdi-account-card-details"></i><span class="hide-menu">Tài khoản</span></a></li>
                         <li class="sidebar-item"> <a class="sidebar-link waves-effect waves-dark sidebar-link" href="?act=binhluan" aria-expanded="false"><i class="mdi mdi-comment-text-outline"></i><span class="hide-menu">Bình luận</span></a></li>
+                        <li class="sidebar-item"> <a class="sidebar-link waves-effect waves-dark sidebar-link" href="?act=thongke" aria-expanded="false"><i class="mdi mdi-chart-bar"></i><span class="hide-menu">Thống kê</span></a></li>
                         
                         <!-- <li class="sidebar-item"> <a class="sidebar-link waves-effect waves-dark sidebar-link" href="?act=charts" aria-expanded="false"><i class="mdi mdi-chart-bar"></i><span class="hide-menu">Charts</span></a></li>
                         <li class="sidebar-item"> <a class="sidebar-link waves-effect waves-dark sidebar-link" href="?act=widgets" aria-expanded="false"><i class="mdi mdi-chart-bubble"></i><span class="hide-menu">Widgets</span></a></li>

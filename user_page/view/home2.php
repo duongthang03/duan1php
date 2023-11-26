@@ -175,7 +175,7 @@
                           />
                         </div>
                         <h3 class="small-space">
-                          <a href="tour-detail.html">'.$tenkhuvuichoi.'</a>
+                          <a href="'.$linksp.'">'.$tenkhuvuichoi.'</a>
                         </h3>
                         <span class="info"
                           >'.$tendiadiem.'</span
@@ -192,7 +192,7 @@
                         <p>
                           '.$motaN  .'
                         </p>
-                        <a href="tour-detail.html" class="btn btn-default"
+                        <a href="'.$linksp.'" class="btn btn-default"
                           >Xem thêm</a
                         >
                         <footer>

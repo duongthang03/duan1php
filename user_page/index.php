@@ -34,6 +34,12 @@ if (isset($_GET['act']) && ($_GET['act'] != "")) {
       $list_cart = load_cart($id_nguoidung1);
       include "my-cart.php";
       break;
+    case "delete_cart":
+        delete_cart($_GET['id_giohang']);
+        $list_cart = load_cart($id_nguoidung);
+        $list_donhangdadat = load_donhangdadat($id_nguoidung);
+        include "my-cart.php";
+      break;
     case "checkout":
       // $add_cart = insert_cart();
       // $add_cart = insert_cart($_GET['id_tour']);
@@ -99,6 +105,7 @@ if (isset($_GET['act']) && ($_GET['act'] != "")) {
         } else {
           $_SESSION['username'] = $username1;
           $_SESSION['id_nguoidung'] = $id_nguoidung;
+          $list_tour = loadall_tour();
           include "view/home2.php";
         }
       }
