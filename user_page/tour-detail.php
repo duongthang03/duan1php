@@ -310,7 +310,10 @@
             </strong>
             <div class="detail">
               <textarea style="resize: none; border: none; padding: 5px; width: 100%; background-color: #f8f8f8;"
-                cols="75" rows="50">
+                cols="75" rows="<?php $info = $thongtinchitiet;
+                                $length = strlen($info);
+                                $length = ceil($length /55);
+                                echo $length; ?>">
                         <?= $thongtinchitiet ?>
                       </textarea>
             </div>

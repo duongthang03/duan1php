@@ -54,7 +54,7 @@ if(is_array($tour)){
             <?php
                 $hinhpath = "../img/" . $img;
                 if (is_file($hinhpath)) {
-                    $hinhpath = "<img src= '" . $hinhpath . "' width='100%' height='400px'>";
+                    $hinhpath = "<img src= '" . $hinhpath . "' style='margin-left: 15%' width='70%' height='400px'>";
                 } else {
                     $hinhpath = "No file img!";
                 }
