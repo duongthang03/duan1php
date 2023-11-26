@@ -75,7 +75,9 @@
                             line-height: 1.4; /* Khoảng cách giữa các dòng */
                             padding: 3px; /* Khoảng cách với viền */
                         }
-
+                        img{
+                            border-radius: 10px;
+                        }
                         </style>
                     <!-- <image class="background-image"  src="../img/R2.png" width="100%"> -->
                     <div class="table" style="width: 100%;">      

@@ -60,13 +60,13 @@
               //   $xoa = delete_cart($id_giohang);
               //   return $xoa;
               // }
-              if(isset($_POST['xoa'.$i])){
-                delete_cart($i);
-              }
+              // if(isset($_POST['xoa'.$i])){
+              //   delete_cart($i);
+              // }
               echo '
                         <tr>
                                 <td>
-                                <form method="POST" onsubmit="reload()">
+                                <form method="POST" action="?act=delete_cart&id_giohang='.$i.'" onsubmit="reload()">
                                   <button  style="text-align: center; border: none; background-color: transparent" type="submit" name="xoa'.$i.'">
                                   <div class="cell">
                                     <div class="middle">

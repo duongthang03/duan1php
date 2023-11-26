@@ -6,6 +6,7 @@ include "../model/tour.php";
 include "../model/donhang.php";
 include "../model/nguoidung.php";
 include "../model/binhluan.php";
+include "../model/thongke.php";
 
 include "header.php";
 include "sidebar.php";
@@ -367,6 +368,15 @@ if (isset($_GET['act']) && ($_GET['act'] != "")) {
             include "binhluan/list.php";
             break;
             ////////////////////////////////////////////////
+        case "thongke":
+            $list_thongke = load_thongke();
+            include "thongke/list.php";
+            break;
+        case "bieudo":
+            $list_thongke = load_thongke();
+            include "thongke/bieudo.php";
+            break;
+            ///////////////////////////////////////////////
         case "form-basic":
             include "form-basic.php";
             break;
