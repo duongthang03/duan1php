@@ -1,6 +1,6 @@
-<?php
-$img_path = '../img/';
+// <?php
+// $img_path = '../img/';
 
-$loginMessage = '';
-$sendMailMess = '';
-?>
+// $loginMessage = '';
+// $sendMailMess = '';
+// ?>
