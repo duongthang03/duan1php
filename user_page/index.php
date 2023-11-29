@@ -1,4 +1,5 @@
 <?php
+ob_start();
 session_start();
 include "../model/pdo.php";
 include "../model/diadiem.php";
@@ -105,47 +106,21 @@ if (isset($_GET['act']) && ($_GET['act'] != "")) {
         $checkuser = checkuser($username, $pass);
         if (is_array($checkuser)) {
           $_SESSION['username'] = $checkuser;
-          echo "BẠn đã đăng nhập thành công";
+          echo "<script>alert('Bạn đã đăng nhập thành công!')</script>";
           // include "index.php";
-          // header('Location: header.php');
+          echo "<script>window.location.href = 'index.php';</script>";
+          // header('Location: index.php');
         } else {
           $thongbao = "Tài khoản không tồn tại. Vui lòng kiểm tra lại!";
+          include "nguoidung/dangky.php";
         }
       }
-      include "nguoidung/dangky.php";
       break;
-
 
     case 'thoat':
-      session_unset();
-      // include "index.php";
+      unset($_SESSION['username']);
+      header('Location: index.php');
       break;
-    // case "dangnhap":
-    //   // $_SESSION['username'] = $username;
-    //   // session_start();
-    //   if (isset($_POST['dangnhap'])) {
-    //     $username1 = $_POST['username'];
-    //     $password1 = $_POST['password'];
-    //     $dangnhap = dangnhap($username1, $password1);
-    //     // echo $dangnhap;
-    //     extract($dangnhap);
-    //     // $id_nguoidung1 = $id_nguoidung;
-    //     // echo $username;
-    //     // echo $password;
-    //     // echo $id_nguoidung;
-    //     if ($role == 1) {
-    //       header('Location:../admin/index.php');
-    //       exit();
-    //     } else {
-    //       $_SESSION['username'] = $username1;
-    //       $_SESSION['id_nguoidung'] = $id_nguoidung;
-    //       $list_tour = loadall_tour();
-    //       include "view/home2.php";
-    //     }
-    //   }
-    //   // include "view/home.php";
-    //   break;
-
 
     case "diadiem":
       $list_tour_theodiadiem = loadall_tour_theodiadiem($_GET['diadiem']);

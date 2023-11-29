@@ -94,20 +94,34 @@
                   <a href="index.php?act=dangky" class="dropdown-toggle">
                     <b class="icon-angle-down"></b>
                     <span class="icon icon-user"></span>
+
+                    <?php
+                    if (isset($_SESSION['username'])) {
+                      extract($_SESSION['username']);
+                      ?>
+                      <div class="dropdown-menu">
+                        <ul>
+                          <li style="font-size: 20px; margin-left: 10px;">
+                            <?php echo $_SESSION['username']['username'] ?? ""; ?>
+                          </li>
+                          <li><a href="">Cập nhật tài khoản</a></li>
+
+                          <?php if ($role == 1) { ?>
+                            <li>
+                              <a href="../admin">Đăng nhập admin</a>
+                            </li>
+                          <?php } ?>
+
+                          <li><a href="index.php?act=thoat">Thoát</a></li>
+
+                        </ul>
+                      </div>
+                      <?php
+                    } else {
+                      echo "<span>Chưa đăng nhập</span>";
+                    }
+                    ?>
                   </a>
-                  <div class="dropdown-menu">
-                    <ul>
-                      <li><a href="">Blog Default</a></li>
-                      <li>
-                        <a href="">Left Sidebar</a>
-                      </li>
-                      <li>
-                        <a href="">Right Sidebar</a>
-                      </li>
-                      <li><a href="">Full Width</a></li>
-                      <li><a href="index.php?act=thoat">Thoát</a></li>
-                    </ul>
-                  </div>
                 </li>
 
 
