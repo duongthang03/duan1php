@@ -175,6 +175,10 @@ if (isset($_GET['act']) && ($_GET['act'] != "")) {
             // $list_diadiem = loadall_diadiem();
             // include "tour/list.php";
             break;
+        case "chitiet_tour":
+                $tour = loadone_tour($_GET['id_ve']);
+                include "tour/chitiet.php";
+            break;
         case "update_tour":
             if (isset($_GET['id_tour']) && ($_GET['id_tour'] > 0)) {
                 $tour = loadone_tour($_GET['id_tour']);
@@ -201,10 +205,8 @@ if (isset($_GET['act']) && ($_GET['act'] != "")) {
                 $thongtinchitiet = $_POST['thongtinchitiet'];
                 $gia = $_POST['gia'];
                 $soluong = $_POST['soluong'];
-                $ngaybatdau = $_POST['ngaybatdau'];
-                $ngayketthuc = $_POST['ngayketthuc'];
                 $trangthai = $_POST['trangthai'];
-                update_tour($id_tour, $gia, $ngaybatdau, $ngayketthuc, $soluong, $mota, $thongtinchitiet, $hinh, $id_khuvuichoi, $trangthai, $id_diadiem);
+                update_tour($id_tour, $gia, $soluong, $mota, $thongtinchitiet, $hinh, $id_khuvuichoi, $trangthai, $id_diadiem);
                 $thongbao = "Update successfully!";
             }
             $list_tour = loadall_tour();

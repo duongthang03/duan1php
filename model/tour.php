@@ -10,7 +10,9 @@
 //     return $listtour;
 // }
 function loadall_tour(){
-    $sql = "SELECT * from tour join diadiem on tour.id_diadiem = diadiem.id_diadiem join khuvuichoi on tour.id_khuvuichoi = khuvuichoi.id_khuvuichoi where trangthai = 0";
+    $sql = "SELECT * from tour 
+            join diadiem on tour.id_diadiem = diadiem.id_diadiem 
+            join khuvuichoi on tour.id_khuvuichoi = khuvuichoi.id_khuvuichoi";
     // where 1 tức là nó đúng
     // if($keyw!=""){
     //     $sql.=" and name like '%".$keyw."%'";
@@ -21,6 +23,14 @@ function loadall_tour(){
     $sql.=" order by id_tour desc";
     $list_tour = pdo_query($sql);
     return  $list_tour;
+}
+function loadone_tour($id_tour){
+    $sql = "SELECT * from tour 
+            join diadiem on tour.id_diadiem = diadiem.id_diadiem 
+            join khuvuichoi on tour.id_khuvuichoi = khuvuichoi.id_khuvuichoi 
+            where id_tour = " . $id_tour;
+    $tour = pdo_query_one($sql);
+    return  $tour;
 }
 function loadall_tour_theodiadiem($id_diadiem){
     $sql = "SELECT * from tour 
@@ -33,11 +43,11 @@ function loadall_tour_theodiadiem($id_diadiem){
 }
 
 
-function loadone_tour($id_tour){
-    $sql = "select * from tour join diadiem on tour.id_diadiem = diadiem.id_diadiem join khuvuichoi on tour.id_khuvuichoi = khuvuichoi.id_khuvuichoi where id_tour = ".$id_tour;
-    $result = pdo_query_one($sql);
-    return $result;
-}
+// function loadone_tour($id_tour){
+//     $sql = "select * from tour join diadiem on tour.id_diadiem = diadiem.id_diadiem join khuvuichoi on tour.id_khuvuichoi = khuvuichoi.id_khuvuichoi where id_tour = ".$id_tour;
+//     $result = pdo_query_one($sql);
+//     return $result;
+// }
 
 function load_gallery($id_khuvuichoi){
     $sql = "select * from gallery";
