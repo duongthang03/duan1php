@@ -29,7 +29,7 @@
   <!-- link to revolution css  -->
   <link rel="stylesheet" type="text/css" href="vendors/revolution/css/settings.css" />
   <!-- include jQuery UI css -->
-  <link media="all" rel="stylesheet" href="vendors/jquery-ui/jquery-ui.min.css"/>
+  <link media="all" rel="stylesheet" href="vendors/jquery-ui/jquery-ui.min.css" />
   <!-- include fancybox css -->
   <link media="all" rel="stylesheet" href="vendors/fancybox/jquery.fancybox.css" />
 </head>
@@ -47,7 +47,7 @@
       <header id="header" class="white-header">
         <div class="container-fluid">
           <!-- logo -->
-          <div class="logo">
+          <div class="logo" style="border: none;">
             <a href="index.php">
               <!-- <img class="normal" src="img/logos/logo.svg" alt="Entrada" /> -->
               <img class="normal" src="../img/logo4.png" alt="Vivu" />
@@ -60,9 +60,6 @@
             <div class="navbar-header">
               <button type="button" class="navbar-toggle nav-opener" data-toggle="collapse" data-target="#nav">
                 <span class="sr-only">Toggle navigation</span>
-                <span class="icon-bar"></span>
-                <span class="icon-bar"></span>
-                <span class="icon-bar"></span>
               </button>
             </div>
             <!-- main menu items and drop for mobile -->
@@ -81,38 +78,46 @@
                   <a href="#" class="dropdown-toggle" data-toggle="dropdown">Hỗ trợ<b class="icon-angle-down"></b></a>
                 </li>
 
-                <li class="visible-xs visible-sm">
-                  <a href="login.php">
+                <!-- icon-user -->
+                <!-- <li class="visible-xs visible-sm">
+                  <a href="index.php?act=dangky">
                     <span class="icon icon-user"></span>
-                    <span class="text">Login</span>
                   </a>
+                </li> -->
+                <!-- <li class="hidden-xs hidden-sm dropdown last-dropdown" style="margin:0 10px 0 10px;">
+                  <a href="index.php?act=dangky" class="dropdown-toggle">
+                    <b class="icon-angle-down"></b>
+                    <span class="icon icon-user"></span>
+                  </a>
+                </li> -->
+                <li class="hidden-xs hidden-sm dropdown last-dropdown" style="margin:0 10px 0 10px;">
+                  <a href="index.php?act=dangky" class="dropdown-toggle">
+                    <b class="icon-angle-down"></b>
+                    <span class="icon icon-user"></span>
+                  </a>
+                  <div class="dropdown-menu">
+                    <ul>
+                      <li><a href="">Blog Default</a></li>
+                      <li>
+                        <a href="">Left Sidebar</a>
+                      </li>
+                      <li>
+                        <a href="">Right Sidebar</a>
+                      </li>
+                      <li><a href="">Full Width</a></li>
+                      <li><a href="index.php?act=thoat">Thoát</a></li>
+                    </ul>
+                  </div>
                 </li>
-                <li class="hidden-xs hidden-sm v-divider">
-                  <a href="?act=icon-login">
-                    <span class="icon icon-user">
-                      <?php
 
-                      if (!$_SESSION) {
-                        echo 'Chưa đăng nhập';
-                      } else {
-                        echo $_SESSION['username'];
-                        echo $_SESSION['id_nguoidung'];
-                      ?>
-                    </span>
-                  </a>
-                </li>
-                  <?php
-                      }
-                    echo '<li><a href="?act=dangxuat">Đăng xuất</a></li>';
-                  ?>
 
                 <!-- Giỏ hàng -->
-                <li class="visible-xs visible-sm nav-visible dropdown last-dropdown v-divider">
+                <li class="visible-xs visible-sm nav-visible dropdown last-dropdown">
                   <a href="?act=my_cart">
                     <!-- <a href="?act=my_cart" data-toggle="dropdown"> -->
                     <span class="icon icon-cart"></span>
                     <span class="text hidden-md hidden-lg">Cart</span>
-                    <span class="text hidden-xs hidden-sm">3</span>
+                    <span class="text hidden-xs hidden-sm"></span>
                   </a>
                   <div class="dropdown-menu dropdown-md">
                     <div class="drop-wrap cart-wrap">

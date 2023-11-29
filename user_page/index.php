@@ -19,6 +19,7 @@ if (isset($_GET['act']) && ($_GET['act'] != "")) {
       $gallery = load_gallery(3);
       include "tour-detail.php";
       break;
+
     case "my_cart":
       // $tour = loadone_tour($_GET['id_tour']);
       // $id_nguoidung = $_SESSION['id_nguoidung'];
@@ -27,6 +28,7 @@ if (isset($_GET['act']) && ($_GET['act'] != "")) {
       $list_donhangdadat = load_donhangdadat($id_nguoidung);
       include "my-cart.php";
       break;
+
     case "add_to_cart":
       // echo $_SESSION['id_nguoidung'];
       $id_nguoidung1 = $_SESSION['id_nguoidung'];
@@ -36,12 +38,14 @@ if (isset($_GET['act']) && ($_GET['act'] != "")) {
       $list_cart = load_cart($id_nguoidung1);
       include "my-cart.php";
       break;
+
     case "delete_cart":
-        delete_cart($_GET['id_giohang']);
-        $list_cart = load_cart($id_nguoidung);
-        $list_donhangdadat = load_donhangdadat($id_nguoidung);
-        include "my-cart.php";
+      delete_cart($_GET['id_giohang']);
+      $list_cart = load_cart($id_nguoidung);
+      $list_donhangdadat = load_donhangdadat($id_nguoidung);
+      include "my-cart.php";
       break;
+
     case "checkout":
       // $add_cart = insert_cart();
       // $add_cart = insert_cart($_GET['id_tour']);
@@ -49,9 +53,9 @@ if (isset($_GET['act']) && ($_GET['act'] != "")) {
       // echo $id;
       $soluong = $_POST['quantity' . $id];
       $tong = $_POST['totalPrice' . $id];
-      if($soluong == 1){
+      if ($soluong == 1) {
         $tong1 = $tong * 1000;
-      } else{
+      } else {
         $tong1 = $tong * 1000000;
       }
       $date = $_POST['ngaydat' . $id];
@@ -59,6 +63,7 @@ if (isset($_GET['act']) && ($_GET['act'] != "")) {
       $one_cart = loadone_cart($id);
       include "checkout.php";
       break;
+
     case "confirmation":
       $one_cart = loadone_cart($_GET['id_giohang']);
       extract($one_cart);
@@ -76,56 +81,83 @@ if (isset($_GET['act']) && ($_GET['act'] != "")) {
       update_tour_soluong($id_tour, $soluong1);
       include "confirmation.php";
       break;
-    case "icon-login":
-      include "login.php";
-      break;
+
+    // case "icon-login":
+    //   include "nguoidung/dangky.php";
+    //   break;
+
     case "dangky":
-      $username_register = $_POST['username_register'];
-      $password_register = $_POST['password_register'];
-      $email_register = $_POST['email_register'];
-      $sdt_register = $_POST['sdt_register'];
-      insert_nguoidung($username_register, $password_register, $email_register, $sdt_register);
-      echo '<script type="text/javascript">alert("Đăng ký thành công!");</script>';
-      include "login.php";
+      if (isset($_POST['dangky']) && ($_POST['dangky'])) {
+        $ten_dangky = $_POST['ten_dangky'];
+        $password_dangky = $_POST['password_dangky'];
+        $email_dangky = $_POST['email_dangky'];
+        $sdt_dangky = $_POST['sdt_dangky'];
+        insert_nguoidung($ten_dangky, $password_dangky, $email_dangky, $sdt_dangky);
+        echo '<script type="text/javascript">alert("Đăng ký thành công!");</script>';
+      }
+      include "nguoidung/dangky.php";
       break;
+
     case "dangnhap":
-      // $_SESSION['username'] = $username;
-      // session_start();
-      if (isset($_POST['dangnhap'])) {
-        $username1 = $_POST['username'];
-        $password1 = $_POST['password'];
-        $dangnhap = dangnhap($username1, $password1);
-        // echo $dangnhap;
-        extract($dangnhap);
-        // $id_nguoidung1 = $id_nguoidung;
-        // echo $username;
-        // echo $password;
-        // echo $id_nguoidung;
-        if ($role == 1) {
-          header('Location:../admin/index.php');
-          exit();
+      if (isset($_POST['dangnhap']) && ($_POST['dangnhap'])) {
+        $username = $_POST['username'];
+        $pass = $_POST['pass'];
+        $checkuser = checkuser($username, $pass);
+        if (is_array($checkuser)) {
+          $_SESSION['username'] = $checkuser;
+          echo "BẠn đã đăng nhập thành công";
+          // include "index.php";
+          // header('Location: header.php');
         } else {
-          $_SESSION['username'] = $username1;
-          $_SESSION['id_nguoidung'] = $id_nguoidung;
-          $list_tour = loadall_tour();
-          include "view/home2.php";
+          $thongbao = "Tài khoản không tồn tại. Vui lòng kiểm tra lại!";
         }
       }
-      // include "view/home.php";
+      include "nguoidung/dangky.php";
       break;
-      case "dangxuat":
-        dangxuat();
-        include "view/home.php";
-        break;
+
+
+    case 'thoat':
+      session_unset();
+      // include "index.php";
       break;
-      case "diadiem":
-        $list_tour_theodiadiem = loadall_tour_theodiadiem($_GET['diadiem']);
-        $list_tour = $list_tour_theodiadiem;
-        include "view/home2.php";
-        break;
+    // case "dangnhap":
+    //   // $_SESSION['username'] = $username;
+    //   // session_start();
+    //   if (isset($_POST['dangnhap'])) {
+    //     $username1 = $_POST['username'];
+    //     $password1 = $_POST['password'];
+    //     $dangnhap = dangnhap($username1, $password1);
+    //     // echo $dangnhap;
+    //     extract($dangnhap);
+    //     // $id_nguoidung1 = $id_nguoidung;
+    //     // echo $username;
+    //     // echo $password;
+    //     // echo $id_nguoidung;
+    //     if ($role == 1) {
+    //       header('Location:../admin/index.php');
+    //       exit();
+    //     } else {
+    //       $_SESSION['username'] = $username1;
+    //       $_SESSION['id_nguoidung'] = $id_nguoidung;
+    //       $list_tour = loadall_tour();
+    //       include "view/home2.php";
+    //     }
+    //   }
+    //   // include "view/home.php";
+    //   break;
+
+
+    case "diadiem":
+      $list_tour_theodiadiem = loadall_tour_theodiadiem($_GET['diadiem']);
+      $list_tour = $list_tour_theodiadiem;
+      include "view/home2.php";
+      break;
+
+    case "defaut":
+      include "view/home2.php";
   }
 } else {
-      $list_tour = loadall_tour();
+  $list_tour = loadall_tour();
   include "view/home2.php";
 }
 include "view/footer.php";

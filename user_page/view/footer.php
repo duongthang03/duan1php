@@ -161,7 +161,6 @@
     </div>
   </div>
 </footer>
-</div>
 <!-- scroll to top -->
 <div class="scroll-holder text-center">
   <a href="javascript:" id="scroll-to-top"><i class="icon-arrow-down"></i></a>
@@ -208,7 +207,7 @@
 <script src="js/revolution.js"></script>
 
 <script src="vendors/jquery-mobile/jquery.mobile.custom.min.js"></script>
-  
+
 </body>
 
 </html>
