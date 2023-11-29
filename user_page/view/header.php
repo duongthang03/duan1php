@@ -35,6 +35,15 @@
 </head>
 
 <body>
+<style>
+    #totalProduct {
+      color: #fff;
+      background-color: red;
+      font-size: 12px;
+      padding: 5px;
+      border-radius: 50%;
+    }
+  </style>
   <div class="preloader" id="pageLoad">
     <div class="holder">
       <div class="coffee_cup"></div>
@@ -112,7 +121,7 @@
                     <!-- <a href="?act=my_cart" data-toggle="dropdown"> -->
                     <span class="icon icon-cart"></span>
                     <span class="text hidden-md hidden-lg">Cart</span>
-                    <span class="text hidden-xs hidden-sm">3</span>
+                    <span id="totalProduct"><?= !empty($_SESSION['cart1giohang']) ? count($_SESSION['giohang']) : 0 ?></span>
                   </a>
                   <div class="dropdown-menu dropdown-md">
                     <div class="drop-wrap cart-wrap">

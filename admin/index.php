@@ -270,42 +270,25 @@ if (isset($_GET['act']) && ($_GET['act'] != "")) {
             $list_khuvuichoi = loadall_khuvuichoi();
             include "tour/update.php";
             break;
-        case "A_update_tour":
-            if (isset($_POST['A_update_tour']) && ($_POST['A_update_tour'])) {
-                $id_tour = $_POST['id_tour'];
-                $id_diadiem = $_POST['id_diadiem'];
-                $id_khuvuichoi = $_POST['id_khuvuichoi'];
-                $hinh = $_FILES['img']['name'];
-                $target_dir = "../img/";
-                $target_file = $target_dir . basename($_FILES["img"]["name"]);
-                if (move_uploaded_file($_FILES["img"]["tmp_name"], $target_file)) {
-                    echo "The file " . htmlspecialchars(basename($_FILES["img"]["name"])) . " has been uploaded.";
-                } else {
-                    echo "Sorry, there was an error uploading your file.";
-                }
-                $mota = $_POST['mota'];
-                $thongtinchitiet = $_POST['thongtinchitiet'];
-                $gia = $_POST['gia'];
-                $soluong = $_POST['soluong'];
-                $ngaybatdau = $_POST['ngaybatdau'];
-                $ngayketthuc = $_POST['ngayketthuc'];
-                $trangthai = $_POST['trangthai'];
-                update_tour($id_tour, $gia, $ngaybatdau, $ngayketthuc, $soluong, $mota, $thongtinchitiet, $hinh, $id_khuvuichoi, $trangthai, $id_diadiem);
-                $thongbao = "Update successfully!";
+        case "delete_donhang":
+            if (isset($_GET['id_donhang'])) {
+                delete_donhang($_GET['id_donhang']);
             }
-            $list_tour = loadall_tour();
-            include "tour/list.php";
-            break;
-        case "delete_tour":
-            if (isset($_GET['id_kvc'])) {
-                delete_tour($_GET['id_kvc']);
-            }
-            $list_tour = loadall_tour();
-            include "tour/list.php";
+            $list_donhang = loadall_donhang();
+            include "donhang/list.php";
             break;
         case "chitietdonhang":
             $one_donhang = loadone_donhang($_GET['id_donhang']);
             include "donhang/chitiet.php";
+            break;
+        case "update_trangthai":
+            $trangthai = $_POST['trangthai'];
+            $id_order = $_POST['id_order'];
+            update_trangthai_donhang($id_order, $trangthai);
+            $list_tour = loadall_tour();
+            $list_diadiem = loadall_diadiem();
+            $list_khuvuichoi = loadall_khuvuichoi();
+            include "donhang/list.php";
             break;
         ///////////////////////////////////////////////////////////////////////////////////////
         case "nguoidung":

@@ -12,7 +12,7 @@
                         <nav class="breadcrumbs">
                             <ul>
                                 <li><a href="index.php">Trang chủ</a></li>
-                                <li><span id="scr">Đăng nhập</span></li>
+                                <li><span id="title">Đăng nhập</span></li>
                             </ul>
                         </nav>
                     </div>

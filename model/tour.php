@@ -9,6 +9,13 @@
 //     $listtour=pdo_query($sql);
 //     return $listtour;
 // }
+function loadone_tourCart ($idList) {
+    $sql = "SELECT * FROM tour 
+            JOIN khuvuichoi ON tour.id_khuvuichoi = khuvuichoi.id_khuvuichoi
+            WHERE id_tour IN ( '" . $idList . "')";
+    $tour = pdo_query($sql);
+    return $tour;
+}
 function loadall_tour(){
     $sql = "SELECT * from tour 
             join diadiem on tour.id_diadiem = diadiem.id_diadiem 

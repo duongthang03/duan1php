@@ -73,7 +73,8 @@
                                 join khuvuichoi on tour.id_khuvuichoi = khuvuichoi.id_khuvuichoi 
                                 join diadiem on tour.id_diadiem = diadiem.id_diadiem 
                                 join nguoidung on datve.id_nguoidung = nguoidung.id_nguoidung 
-                                order by datve.datetime desc 
+                                join tbl_order on datve.id_tbl_order = tbl_order.id_order
+                                order by tbl_order.ngaydathang desc 
                                 LIMIT $start, $limit";
                         $result1 = pdo_query($sql1);
                         $conn = pdo_get_connection();
@@ -91,8 +92,9 @@
                         <table border=2 style="width: 100%" class="tour-table">
                             <tr style="text-align: center">
                              <th>Số hóa đơn</th>
-                             <th>Thời gian</th>
-                             <th>Tour đặt</th>
+                             <th>Thời gian đặt vé</th>
+                             <th>Vé đặt</th>
+                             <th>Thời gian vé hoạt động</th>
                              <th>Trạng thái</th>
                              <th></th>
                              <th></th>
@@ -102,58 +104,47 @@
                             extract($value);
                             $i = $id_donhang;
                             $chuoi = str_pad($i, 5, "0", STR_PAD_LEFT);
-                            if($trangthai_donhang == 0){
-                                $trangthai_donhang1 = 'Chưa thanh toán';
-                            } else if($trangthai_donhang == 1){
-                                $trangthai_donhang1 = 'Đã thanh toán';
-                            } else if($trangthai_donhang == 2){
-                                $trangthai_donhang1 = 'Đơn hàng đã hoàn thành';
+                            $ngaydat = date('d/m/Y');
+                            if($trangthai == 0){
+                                $trangthai1 = 'Đang chờ duyệt';
+                            } else if($trangthai == 1){
+                                $trangthai1 = 'Đã xác nhận';
+                            } else if($trangthai == 2){
+                                $trangthai1 = 'Hoàn thành';
                             }
-                            if($trangthai_donhang == 2){
-                                $trangthai_donhang2 = 'Đơn hàng đã hoàn thành';
-                            } else {
-                                $trangthai_donhang2 = 'Xác nhận đơn hàng';
-                            }
-                    
-                    echo '
+                    ?>
                             <tr style="" class="invoice">
-                                <td>HD'.$chuoi.'</td>
-                                <td>'.$datetime.'</td>
-                                <td>'.$tenkhuvuichoi.' | '.$tendiadiem.'</td>
-                                ';
-                                if($trangthai_donhang == 0){
-                                    echo'<td style="text-align: center"><button id="show'.$id_donhang.'" class="btn btn-warning btn-sm" onclick="cl'.$id_donhang.'()" value="1" type="button" style="margin: 5px">Chưa Thanh Toán</button></td>';
-                                } else {
-                                    echo'<td style="text-align: center"><button id="show'.$id_donhang.'" class="btn btn-success btn-sm" onclick="cl'.$id_donhang.'()" value="2" type="button" style="margin: 5px">Đã Thanh toán</button></td>';
-                                }
-                            echo '
-                                <!--<button id="show" class="btn btn-warning btn-sm" type="button" style="margin: 5px">Chưa Thanh Toán</button> -->
-                                <!--<button id="show" class="btn btn-success btn-sm" type="button" style="margin: 5px">Đã Thanh toán</button>-->
-                                <!--<button id="show" class="btn btn-primary btn-sm" type="button" style="margin: 5px">Xác Nhận Đơn Hàng</button>-->
-                                ';
-                            echo '<td style="text-align: center"><a href="?act=chitietdonhang&id_donhang='.$id_donhang.'">Xem chi tiết</a></td>';
-                            if($trangthai_donhang == 2){
-                                echo'<td style="text-align: center"><button id="" class="btn btn-secondary btn-sm" onclick="" value="1" type="button" style="margin: 5px">Đơn Hàng Đã Hoàn Thành</button></td>';
-                            } else{
-                                echo'<td style="text-align: center"><button id="" class="btn btn-primary btn-sm" onclick="" value="2" type="button" style="margin: 5px">Xác Nhận Đơn Hàng</button></td>';
-                            }
-                            // echo'<td style="text-align: center"><button id="" class="btn btn-primary btn-sm" onclick="" value="2" type="button" style="margin: 5px">'.$trangthai_donhang2.'</button></td>';
-                            echo '
+                                <td>HD<?=$chuoi?></td>
+                                <td><?=$ngaydathang?></td>
+                                <td><?=$tenkhuvuichoi?> | <?=$tendiadiem?></td>
+                                <td>Ngày <?=$ngaydat?></td>
+                                <td style="text-align: center"><button id="show<?= $id_donhang ?>" class="btn btn-warning btn-sm" onclick="cl<?=$id_donhang?>()" value="1" type="button" style="margin: 5px"><?= $trangthai1 ?></button></td>
+                    <?php
+                                // <!--<button id="show" class="btn btn-warning btn-sm" type="button" style="margin: 5px">Chưa Thanh Toán</button> -->
+                                // <!--<button id="show" class="btn btn-success btn-sm" type="button" style="margin: 5px">Đã Thanh toán</button>-->
+                                // <!--<button id="show" class="btn btn-primary btn-sm" type="button" style="margin: 5px">Xác Nhận Đơn Hàng</button>-->
+                    ?>
+                                <td style="text-align: center"><a href="?act=chitietdonhang&id_donhang=<?=$id_donhang?>">Xem chi tiết</a></td>
+                            <!-- // echo'<td style="text-align: center"><button id="" class="btn btn-primary btn-sm" onclick="" value="2" type="button" style="margin: 5px"><?=$trangthai2?></button></td> -->
                             <script>
-                            function cl'.$id_donhang.'(){
-                                var val = document.getElementById("show'.$id_donhang.'");
-                                if(val.value === "1"){
+                            function cl<?=$id_donhang?>(){
+                                var val = document.getElementById("show<?=$id_donhang?>");
+                                if(val.value === "0"){
                                     val.textContent = "Chưa thanh toán";
-                                    val.value = "2";
-                                    val.className = "btn btn-warning btn-sm";
-                                } else {
-                                    val.textContent = "Đã thanh toán";
                                     val.value = "1";
+                                    val.className = "btn btn-warning btn-sm";
+                                } else if(val.value === "1"){
+                                    val.textContent = "Đã xác nhận";
+                                    val.value = "2";
                                     val.className = "btn btn-success btn-sm";
+                                } else {
+                                    val.textContent = "Hoàn thành";
+                                    val.value = "0";
+                                    val.className = "btn btn-primary btn-sm";
                                 }
                             }
                             </script>
-                            ';
+                    <?php        
                         }
                     ?>
                             </tr>

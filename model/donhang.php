@@ -15,7 +15,8 @@ function loadall_donhang(){
             join khuvuichoi on tour.id_khuvuichoi = khuvuichoi.id_khuvuichoi 
             join diadiem on tour.id_diadiem = diadiem.id_diadiem 
             join nguoidung on datve.id_nguoidung = nguoidung.id_nguoidung 
-            order by datve.datetime desc";
+            join tbl_order on datve.id_tbl_order = tbl_order.id_order
+            order by tbl_order.id_order desc";
     $list_donhang=pdo_query($sql);
     return  $list_donhang;
 }
@@ -25,9 +26,9 @@ function load_donhangdadat($id_nguoidung){
             join khuvuichoi on tour.id_khuvuichoi = khuvuichoi.id_khuvuichoi 
             join diadiem on tour.id_diadiem = diadiem.id_diadiem 
             join nguoidung on datve.id_nguoidung = nguoidung.id_nguoidung 
-            where datve.id_nguoidung = " . $id_nguoidung ."
-            order by datve.datetime desc";
-    $list_donhangdadat=pdo_query($sql);
+            where datve.id_nguoidung = " . $id_nguoidung ." 
+            order by datve.id_donhang desc";
+    $list_donhangdadat = pdo_query($sql);
     return  $list_donhangdadat;
 }
 function loadone_donhang($id_donhang){
@@ -40,8 +41,10 @@ function loadone_donhang($id_donhang){
     $one_donhang=pdo_query_one($sql);
     return $one_donhang;
 }
-function update_trangthai_donhang($id_donhang, $trangthai_donhang){
-    $sql=  "UPDATE `datve` SET `trangthai_donhang` = '{$trangthai_donhang}' where `id_donhang` = $id_donhang";
+function update_trangthai_donhang($id_order, $trangthai){
+    $sql=  "UPDATE `tbl_order` 
+            SET `trangthai` = '{$trangthai}' 
+            where `id_order` = $id_order";
     pdo_execute($sql);
 }
 
@@ -61,8 +64,8 @@ function update_trangthai_donhang($id_donhang, $trangthai_donhang){
 //     $result = pdo_query($sql);
 //     return $result;
 // }
-function insert_donhang($tongtien, $ngaydat, $id_tour, $id_nguoidung, $datetime, $soluong_donhang){
-    $sql = "INSERT INTO `datve`(`tongtien`, `ngaydat`, `id_tour`, `id_nguoidung`, `datetime`, `soluong_donhang`) VALUES ('$tongtien', '$ngaydat', '$id_tour', '$id_nguoidung', '$datetime', '$soluong_donhang');";
+function insert_donhang($tongtien, $ngaydat, $id_tour, $id_nguoidung, $datetime, $soluong_donhang, $id_tbl_order){
+    $sql = "INSERT INTO `datve`(`tongtien`, `ngaydat`, `id_tour`, `id_nguoidung`, `datetime`, `soluong_donhang`, `id_tbl_order`) VALUES ('$tongtien', '$ngaydat', '$id_tour', '$id_nguoidung', '$datetime', '$soluong_donhang', '$id_tbl_order');";
     pdo_execute($sql);
 }
 // function update_tour($id_tour, $gia, $ngaybatdau, $ngayketthuc, $soluong, $mota, $thongtinchitiet, $hinh, $id_khuvuichoi, $trangthai, $id_diadiem){

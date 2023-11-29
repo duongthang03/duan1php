@@ -7,113 +7,7 @@
       insert_cart($id_tour, $id_nguoidung);
   }
 ?>
-<!-- search form -->
-<!-- <form class="search-form" action="#">
-            <fieldset>
-              <a href="#" class="search-opener hidden-md hidden-lg">
-                <span class="icon-search"></span>
-              </a>
-              <div class="search-wrap">
-                <a href="#" class="search-opener close">
-                  <span class="icon-cross"></span>
-                </a>
-                <div class="trip-form trip-form-v2 trip-search-main">
-                  <div class="trip-form-wrap">
-                    <div class="holder">
-                      <label>Departing</label>
-                      <div class="select-holder">
-                        <div
-                          id="datepicker"
-                          class="input-group date"
-                          data-date-format="mm-dd-yyyy"
-                        >
-                          <input class="form-control" type="text" readonly />
-                          <span class="input-group-addon"
-                            ><i class="icon-drop"></i
-                          ></span>
-                        </div>
-                      </div>
-                    </div>
-                    <div class="holder">
-                      <label>Returning</label>
-                      <div class="select-holder">
-                        <div
-                          id="datepicker1"
-                          class="input-group date"
-                          data-date-format="mm-dd-yyyy"
-                        >
-                          <input class="form-control" type="text" readonly />
-                          <span class="input-group-addon"
-                            ><i class="icon-drop"></i
-                          ></span>
-                        </div>
-                      </div>
-                    </div>
-                    <div class="holder">
-                      <label for="select-region">Select Region</label>
-                      <div class="select-holder">
-                        <select
-                          class="trip-select trip-select-v2 region"
-                          name="region"
-                          id="select-region"
-                        >
-                          <option value="select">Africa</option>
-                          <option value="select">Arctic</option>
-                          <option value="select">Asia</option>
-                          <option value="select">Europe</option>
-                          <option value="select">Oceanaia</option>
-                          <option value="select">Polar</option>
-                        </select>
-                      </div>
-                    </div>
-                    <div class="holder">
-                      <label for="select-activity">Select Activity</label>
-                      <div class="select-holder">
-                        <select
-                          class="trip-select trip-select-v2 acitvity"
-                          name="activity"
-                          id="select-activity"
-                        >
-                          <option value="Holiday Type">Holiday Type</option>
-                          <option value="Holiday Type">Beach Holidays</option>
-                          <option value="Holiday Type">Weekend Trips</option>
-                          <option value="Holiday Type">Summer and Sun</option>
-                          <option value="Holiday Type">Water Sports</option>
-                          <option value="Holiday Type">Scuba Diving</option>
-                        </select>
-                      </div>
-                    </div>
-                    <div class="holder">
-                      <label for="price-range">Price Range</label>
-                      <div class="select-holder">
-                        <select
-                          class="trip-select trip-select-v2 price"
-                          name="activity"
-                          id="price-range"
-                        >
-                          <option value="Price Range">Price Range</option>
-                          <option value="Price Range">$1 - $499</option>
-                          <option value="Price Range">$500 - $999</option>
-                          <option value="Price Range">$1000 - $1499</option>
-                          <option value="Price Range">$1500 - $2999</option>
-                          <option value="Price Range">$3000+</option>
-                        </select>
-                      </div>
-                    </div>
-                    <div class="holder">
-                      <button class="btn btn-trip btn-trip-v2" type="submit">
-                        Find Tours
-                      </button>
-                    </div>
-                  </div>
-                </div>
-              </div>
-            </fieldset>
-          </form> -->
-<!-- </header> -->
-<!-- main container -->
 <main id="main">
-  <!-- main tour information -->
   <?php extract($tour) ?>
   <section class="container-fluid trip-info">
     <div class="same-height two-columns row">
@@ -170,76 +64,39 @@
                   <span><span class="icon-star"></span></span>
                   <span><span class="icon-star"></span></span>
                   <span><span class="icon-star"></span></span>
-                  <!-- <span class="disable"
-                            ><span class="icon-star"></span
-                          ></span> -->
                 </div>
               </div>
             </li>
-            <!-- <li>
-                      <div class="info-left">
-                        <strong class="title">Vacation Style</strong>
-                        <span class="value">Adult Group</span>
-                      </div>
-                      <div class="info-right">
-                        <ul class="ico-list">
-                          <li>
-                            <span class="icon icon-hiking"></span>
-                          </li>
-                          <li>
-                            <span class="icon icon-mount"></span>
-                          </li>
-                          <li>
-                            <span class="icon icon-camping"></span>
-                          </li>
-                        </ul>
-                        <span class="value">Camping Trek</span>
-                      </div>
-                    </li>
-                    <li>
-                      <div class="info-left">
-                        <strong class="title">Activity Level</strong>
-                        <span class="value">Quite Tough</span>
-                      </div>
-                      <div class="info-right">
-                        <ul class="ico-list">
-                          <li>
-                            <span class="icon icon-level3"></span>
-                          </li>
-                          <li>
-                            <span class="icon icon-level5"></span>
-                          </li>
-                          <li>
-                            <span class="icon icon-level7"></span>
-                          </li>
-                        </ul>
-                        <span class="value">9/10</span>
-                      </div>
-                    </li>
-                    <li>
-                      <div class="info-left">
-                        <strong class="title">Group Size</strong>
-                        <span class="value">Medium Grougs</span>
-                      </div>
-                      <div class="info-right">
-                        <ul class="ico-list">
-                          <li>
-                            <span class="icon icon-group-small"></span>
-                          </li>
-                          <li>
-                            <span class="icon icon-group-medium"></span>
-                          </li>
-                          <li>
-                            <span class="icon icon-group-large"></span>
-                          </li>
-                        </ul>
-                        <span class="value">6/10</span>
-                      </div>
-                    </li> -->
           </ul>
           <div class="btn-holder">
-            <a href="?add_to_cart" class="btn btn-lg btn-info">ĐẶT NGAY</a>
+            <!-- <a href="?act=add_to_cart&id_tour=<?= $id_tour ?>" class="btn btn-lg btn-info">ĐẶT NGAY</a> -->
+            <button data-id="<?= $id ?>" class="btn btn-lg btn-info" onclick="addToCart(<?= $id_tour ?>, '<?= $tenkhuvuichoi?>', <?= $gia ?>)">Thêm vào giỏ hàng</button>
           </div>
+          <script src="https://code.jquery.com/jquery-3.7.1.min.js"></script>
+          <script>
+            let totalProduct = document.getElementById('totalProduct');
+            function addToCart(id_tour, tenkhuvuichoi, gia) {
+                 console.log(id_tour, tenkhuvuichoi, gia);
+                // Sử dụng jQuery
+                $.ajax({
+                    type: 'POST',
+                    // Đường dẫ tới tệp PHP xử lý dữ liệu
+                    url: './view/addToCart.php',
+                    data: {
+                        id: id_tour,
+                        name: tenkhuvuichoi,
+                        price: gia
+                    },
+                    success: function(response) {
+                        totalProduct.innerText = response;
+                        alert('Bạn đã thêm sản phẩm vào giỏ hàng thành công!')
+                    },
+                    error: function(error) {
+                        console.log(error);
+                    }
+                });
+            }
+          </script>
           <ul class="social-networks social-share">
             <li>
               <a href="#" class="facebook">

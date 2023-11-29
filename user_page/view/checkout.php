@@ -1,6 +1,6 @@
 <?php
-  extract($one_cart);
-  echo $id_giohang;
+  // extract($one_cart);
+  // echo $id_giohang;
 ?>
         <!-- main container -->
         <main id="main">
@@ -20,7 +20,7 @@
           </div>
           <div class="inner-main common-spacing container">
             <!-- booking form -->
-            <form class="booking-form" action="?act=confirmation&id_giohang=<?=$id_giohang?>" method="POST">
+            <form class="booking-form" action="" method="POST">
               <div class="row same-height">
                 <div class="col-md-6">
                   <div class="top-box">
@@ -49,44 +49,27 @@
                       <div class="row">
                         <div class="col-md-6">
                           <div class="hold">
-                            <label for="name">First Name</label>
-                            <input type="text" id="name" class="form-control" />
+                            <label for="txthoten">Họ & Tên</label>
+                            <input name="txthoten" type="text" id="name" class="form-control" />
                           </div>
                         </div>
-                        <div class="col-md-6">
-                          <div class="hold">
-                            <label for="lname">Last Name</label>
-                            <input
-                              type="text"
-                              id="lname"
-                              class="form-control"
-                            />
-                          </div>
                         </div>
                       </div>
                       <div class="hold">
-                        <label for="cname">Company Name</label>
-                        <input type="text" id="cname" class="form-control" />
-                      </div>
-                      <div class="hold">
-                        <label for="address">Address</label>
-                        <input type="text" id="address" class="form-control" />
-                      </div>
-                      <div class="hold">
-                        <label for="city">City / Town</label>
-                        <input type="text" id="city" class="form-control" />
+                        <label for="txtaddress">Địa chỉ</label>
+                        <input name="txtaddress" type="text" id="address" class="form-control" />
                       </div>
                       <div class="row">
                         <div class="col-md-6">
                           <div class="hold">
-                            <label for="em">Email address</label>
-                            <input type="email" id="em" class="form-control" />
+                            <label for="txtemail">Email address</label>
+                            <input name="txtemail" type="email" id="em" class="form-control" />
                           </div>
                         </div>
                         <div class="col-md-6">
                           <div class="hold">
-                            <label for="phn">Phone</label>
-                            <input type="text" id="phn" class="form-control" />
+                            <label for="txttel">Số điện thoại</label>
+                            <input name="txttel" type="text" id="phn" class="form-control" />
                           </div>
                         </div>
                       </div>
@@ -94,9 +77,9 @@
                         <li>
                           <header class="title">
                             <label class="custom-radio">
-                              <input type="radio" name="pay" />
+                              <input type="radio" name="pttt" value="1" required/>
                               <span class="check-input"></span>
-                              <span class="check-label">Check Payment</span>
+                              <span class="check-label">Thanh toán trực tiếp tại quầy</span>
                             </label>
                           </header>
                           <div class="info-hold">
@@ -109,9 +92,9 @@
                         <li>
                           <header class="title">
                             <label class="custom-radio">
-                              <input type="radio" name="pay" />
+                              <input type="radio" name="pttt" value="2" required/>
                               <span class="check-input"></span>
-                              <span class="check-label">Paypal Payment</span>
+                              <span class="check-label">Thanh toán online</span>
                             </label>
                           </header>
                           <div class="info-hold">
@@ -160,8 +143,8 @@
                         </li>
                       </ul>
                     </div>
+                    <!-- </form>  -->
                   </div>
-                </div>
                 <div class="col-md-6">
                   <div class="form-holder">
                     <h2 class="small-size">Additional Notes</h2>
@@ -182,73 +165,42 @@
                           <thead>
                             <tr>
                               <th>Selected Tours</th>
-                              <th>Total Price</th>
+                              <th>Price</th>
                             </tr>
                           </thead>
                           <?php
                             // $tongtien = $tongtien * 1000;
-                            $tong1 = number_format($tongtien, 0, '', '.');
+                            // $tong1 = number_format($tongtien, 0, '', '.');
+                            foreach ($cart as $item) {
                           ?>
                                 <tbody>
                                   <tr>
                                     <td>
                                       <span class="title"
-                                        ><?=$tenkhuvuichoi?> &emsp;<span class="amount"
-                                          >x&emsp; <?=$soluong_cart?> tickets</span
+                                        ><?php echo $item['name'] ?> &emsp;<span class="amount"
+                                          > | <?= number_format($item['price'], 0, ',', '.') ?> x&emsp; <?= $item['quantity'] ?> tickets</span
                                         ></span
                                       >
                                       <time datetime="2016-09-29"
-                                        >Booking Date: &emsp; <?=$ngaydat?></time
+                                        >Booking Date: &emsp; <?= $item['date'] ?></time
                                       >
                                     </td>
                                     <td>
-                                      <span class="amount"><?=$tong1?> VND</span>
+                                      <span class="amount"><?php echo number_format($item['price'] * $item['quantity'], 0, ",", "."); ?> VND</span>
                                     </td>
                                   </tr>
                                 </tbody>
-                            <?php
-                              // $TotalT += $tongtien;
-                            ?>
-                          <!-- <tbody>
-                            <tr>
-                              <td>
-                                <span class="title"
-                                  >Everest Trekking &emsp;<span class="amount"
-                                    >x&emsp; 3</span
-                                  ></span
-                                >
-                                <time datetime="2016-09-29"
-                                  >Booking Date:&emsp; 14th Jan 2016</time
-                                >
-                              </td>
-                              <td>
-                                <span class="amount">$2,999</span>
-                              </td>
-                            </tr>
-                            <tr>
-                              <td>
-                                <span class="title"
-                                  >Bungee Jumping &emsp;<span class="amount"
-                                    >x&emsp; 2</span
-                                  ></span
-                                >
-                                <time datetime="2016-09-29"
-                                  >Booking Date:&emsp; 14th Jan 2016</time
-                                >
-                              </td>
-                              <td>
-                                <span class="amount">$1,999</span>
-                              </td>
-                            </tr>
-                          </tbody> -->
-                          <tfoot>
-                            <!-- <tr>
+                          <?php
+                            }
+                          ?>
+                           <tfoot>
+                          <tr>
                               <td>Total Price</td>
-                              <td><?=$TotalT?></td>
-                            </tr> -->
+                              <td><?= number_format($_SESSION['resultTotal'], 0, ",", ".") ?> VND</td>
+                            </tr>
                           </tfoot>
                         </table>
-                        <button type="submit" class="btn btn-default">
+                        <button type="submit" name="order_confirm" class="btn btn-default">
                           Confirm booking
                         </button>
                       </div>
