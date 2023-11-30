@@ -26,6 +26,7 @@ function load_donhangdadat($id_nguoidung){
             join khuvuichoi on tour.id_khuvuichoi = khuvuichoi.id_khuvuichoi 
             join diadiem on tour.id_diadiem = diadiem.id_diadiem 
             join nguoidung on datve.id_nguoidung = nguoidung.id_nguoidung 
+            join tbl_order on datve.id_tbl_order = tbl_order.id_order
             where datve.id_nguoidung = " . $id_nguoidung ." 
             order by datve.id_donhang desc";
     $list_donhangdadat = pdo_query($sql);
@@ -37,6 +38,7 @@ function loadone_donhang($id_donhang){
             join khuvuichoi on tour.id_khuvuichoi = khuvuichoi.id_khuvuichoi 
             join diadiem on tour.id_diadiem = diadiem.id_diadiem 
             join nguoidung on datve.id_nguoidung = nguoidung.id_nguoidung 
+            join tbl_order on datve.id_tbl_order = tbl_order.id_order
             where datve.id_donhang = ".$id_donhang;
     $one_donhang=pdo_query_one($sql);
     return $one_donhang;

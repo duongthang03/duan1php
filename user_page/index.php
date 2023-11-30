@@ -27,6 +27,7 @@ if (isset($_GET['act']) && ($_GET['act'] != "")) {
       // $id_nguoidung = $_SESSION['id_nguoidung'];
       // $id_nguoidung = 1;
       // $list_cart = load_cart($id_nguoidung);
+      $id_nguoidung = $_SESSION['username']['id_nguoidung'];
       $list_donhangdadat = load_donhangdadat($id_nguoidung);
       if (!empty($_SESSION['giohang'])) {
         $cart = $_SESSION['giohang'];

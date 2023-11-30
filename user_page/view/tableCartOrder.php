@@ -78,7 +78,7 @@ if (!empty($_SESSION['giohang'])) {
             <td>
               <div class="cell">
                 <div class="middle">
-                    <input value="<?= number_format((int)$product['gia'], 0, ",", ".")  ?>" style="text-align: right; border: none; background-color: transparent; width:80%"> <u>đ</u>
+                    <input readonly value="<?= number_format((int)$product['gia'], 0, ",", ".")  ?>" style="text-align: right; border: none; background-color: transparent; width:80%"> <u>đ</u>
                 </div>
               </div>
             </td>
@@ -98,7 +98,7 @@ if (!empty($_SESSION['giohang'])) {
             <td>
               <div class="cell">
                 <div class="middle">
-                    <input value="<?= number_format((int)$product['gia'] * (int)$quantityInCart, 0, ",", ".") ?>" style="text-align: right; border: none; background-color: transparent; width:80%"> <u>đ</u>
+                    <input readonly value="<?= number_format((int)$product['gia'] * (int)$quantityInCart, 0, ",", ".") ?>" style="text-align: right; border: none; background-color: transparent; width:80%"> <u>đ</u>
                     <!-- <input style="width: 60%; text-align: center; border: none; background-color: transparent" readonly name="totalPrice<?= $i ?>" id="totalPrice<?= $i ?>" value="<?= $tong1 ?>">VND -->
                 </div>
               </div>

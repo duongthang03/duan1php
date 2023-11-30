@@ -1,11 +1,11 @@
 <?php
   // session_start();
   // echo $_SESSION['id_nguoidung'];
-  $id_nguoidung = $_SESSION['id_nguoidung'];
+  // $id_nguoidung = $_SESSION['id_nguoidung'];
   // echo $id_nguoidung;
-  if(isset($_GET['add_to_cart'])){
-      insert_cart($id_tour, $id_nguoidung);
-  }
+  // if(isset($_GET['add_to_cart'])){
+  //     insert_cart($id_tour, $id_nguoidung);
+  // }
 ?>
 <main id="main">
   <?php extract($tour) ?>

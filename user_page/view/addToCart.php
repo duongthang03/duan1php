@@ -1,6 +1,10 @@
 <?php
 session_start();
-
+// Kiểm tra xem có tồn tại mảng giỏ hàng hay không.
+if (!isset($_SESSION['giohang'])) {
+    // Nếu không có thì đi khởi tạo
+    $_SESSION['giohang'] = [];
+}
 if ($_SERVER['REQUEST_METHOD'] === 'POST') {
     // Lấy dữ liệu từ ajax đẩy lên
     $id_tour = $_POST['id'];

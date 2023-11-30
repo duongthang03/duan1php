@@ -13,36 +13,23 @@
                 <div class="card" style="width: 200%">
                     <form class="form-horizontal" action="" method="POST" style="">
                         <div class="card-body" style="width: 100%">
-                            <div class="">
-                                <select name="id_diadiem" id="">
-                                    <option value="0" selected>Show all</option>
-                                    <option value="0">Theo số lượng</option>
-                                    <option value="0">Theo</option>
-                                    <option value="0">Show all</option>
-                                    <option value="0">Show all</option>
-                                </select>
-                                <input type="submit" name="clickOK" value="Go" style="margin: 5px">
-                            </div>
                             <table border=2 style="width: 100%">
                                 <tr>
-                                    <th>ID</th>
-                                    <th>ĐỊA ĐIỂM</th>
-                                    <th>CÁC KHU VUI CHƠI</th>
-                                    <th>GIÁ NHỎ NHẤT</th>
-                                    <th>GIÁ LỚN NHẤT</th>
-                                    <th>GIÁ TRUNG BÌNH</th>
+                                    <th>STT</th>
+                                    <th>Số lượng vé đã bán</th>
+                                    <th>Ngày bán</th>
+                                    <th>Tổng tiền thu về</th>
                                 </tr>
                                 <?php
-                                foreach ($list_thongke as $key => $value) {
+                                foreach ($list_thongke_doanhthu as $key => $value) {
                                 extract($value);
+                                $ngay = date('d/m/Y');
                                 ?>
                                 <tr>
-                                    <td><?php echo $id_diadiem ?></td>
-                                    <td><?php echo $tendiadiem ?></td>
-                                    <td><?php echo $soluong ?></td>
-                                    <td><?php echo number_format($gia_min, 0, '', '.') ?> VND</td>
-                                    <td><?php echo number_format($gia_max, 0, '', '.') ?> VND</td>
-                                    <td><?php echo number_format($gia_avg, 0, '', '.') ?> VND</td>
+                                    <td><?php echo $key += 1 ?></td>
+                                    <td><?php echo $soluong_ngay ?></td>
+                                    <td><?php echo $ngay ?></td>
+                                    <td><?php echo number_format($tongtien_ngay, 0, '', '.') ?> VND</td>
                                 </tr>
                                 <?php
                                 }
@@ -59,7 +46,7 @@
     <!-- </div>
 </div> -->
 <?php
-            $list_thongke = load_thongke();
+            $list_thongke_doanhthu = load_thongke_doanhthu();
 ?>
                         
     <script>
@@ -80,26 +67,31 @@
 
       function drawChart() {
         const data = google.visualization.arrayToDataTable([
-          ['Danh mục', 'Số lượng'],
+          ['Time', 'Doanh Thu'],
           <?php
-          $list_thongke = load_thongke();
-          foreach ($list_thongke as $thongke) {
+          $list_thongke_doanhthu = load_thongke_doanhthu();
+          foreach ($list_thongke_doanhthu as $thongke) {
             extract($thongke);
-            echo "['$tendiadiem', $soluong],";
+            $ngay1 = strtotime($ngay);
+            $day = date('d/m/Y', $ngay1);
+            echo "['$day', $tongtien_ngay],";
           }
           ?>
         ]);
 
         // Set Options
         const options = {
-          title: 'BIỂU ĐỒ SỐ NƠI BÁN VÉ TRONG KHU VỰC',
-          is3D: true,
-          width: 600,
-          height: 500
+            title: 'BIỂU ĐỒ SỐ DOANH THU',
+            is3D: true,
+            legend: { position: 'none' },
+            width: 600,
+            height: 400,
+            bars: 'vertical', 
+            colors: ['#1b9e77'], 
         };
 
         // Draw
-        const chart = new google.visualization.PieChart(document.getElementById('myChart'));
+        const chart = new google.visualization.ColumnChart(document.getElementById('myChart'));
         chart.draw(data, options);
 
       }

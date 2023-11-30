@@ -12,7 +12,7 @@
 function loadone_tourCart ($idList) {
     $sql = "SELECT * FROM tour 
             JOIN khuvuichoi ON tour.id_khuvuichoi = khuvuichoi.id_khuvuichoi
-            WHERE id_tour IN ( '" . $idList . "')";
+            WHERE id_tour IN ( " . $idList . ")";
     $tour = pdo_query($sql);
     return $tour;
 }

@@ -54,14 +54,10 @@
             // echo $_SESSION['username'];
             $sum_total = 0;
             foreach ($dataDb as $key => $product) :
-              // $i = $id_giohang;
               $dateP = date("Y-m-d");
               $date = '';
               $datePF = date('jS M Y', strtotime($dateP));
               // echo $datePF;
-              // $gia = INTEGER($gia);
-              $gia = number_format($gia, 0, '', '.');
-              // $tong1 = number_format($tongtien, 0, '', '.');
               $quantityInCart = 0;
               foreach ($_SESSION['giohang'] as $item) {
                 if ($item['id'] == $product['id_tour']) {
@@ -108,7 +104,7 @@
                   <td>
                     <div class="cell">
                       <div class="middle">
-                          <input value="<?= number_format((int)$product['gia'], 0, ",", ".")  ?>" style="text-align: right; border: none; background-color: transparent; width:80%"> <u>đ</u>
+                          <input readonly value="<?= number_format((int)$product['gia'], 0, ",", ".")  ?>" style="text-align: right; border: none; background-color: transparent; width:80%"> <u>đ</u>
                       </div>
                     </div>
                   </td>
@@ -128,7 +124,7 @@
                   <td>
                     <div class="cell">
                       <div class="middle">
-                          <input value="<?= number_format((int)$product['gia'] * (int)$quantityInCart, 0, ",", ".") ?>" style="text-align: right; border: none; background-color: transparent; width:80%"> <u>đ</u>
+                          <input readonly value="<?= number_format((int)$product['gia'] * (int)$quantityInCart, 0, ",", ".") ?>" style="text-align: right; border: none; background-color: transparent; width:80%"> <u>đ</u>
                           <!-- <input style="width: 60%; text-align: center; border: none; background-color: transparent" readonly name="totalPrice<?= $i ?>" id="totalPrice<?= $i ?>" value="<?= $tong1 ?>">VND -->
                       </div>
                     </div>
@@ -136,12 +132,11 @@
                   <td>
                     <div class="cell">
                       <div class="middle">
-                        <!-- <a href="?act=checkout&id_tour=<?=$product['id_tour']?>"><button type="submit" class="btn btn-default">Thanh toán</button></a> -->
+                        <a href="?act=checkout&id_tour=<?=$product['id_tour']?>"><button type="submit" class="btn btn-default">Thanh toán</button></a>
                         <p></p>
                       </div>
                     </div>
                   </td>
-                  </form>
                 </tr>
                 <script>
                   function increaseQuantity<?= $product['id_tour'] ?>() {
@@ -159,9 +154,9 @@
                   }
                 </script>
         <?php
-           $sum_total += ((int)$product['gia'] * (int)$quantityInCart);
-           $_SESSION['resultTotal'] = $sum_total;
-        endforeach;
+          $sum_total += ((int)$product['gia'] * (int)$quantityInCart);
+          $_SESSION['resultTotal'] = $sum_total;
+          endforeach;
         ?>
         <tr>
                 <td colspan="3" align="center">
@@ -280,12 +275,12 @@
               $datetime2 = $datetime1 -> format('H\h:i\m:s\s | d-m-Y');
               $ngaydat1 = new dateTime($ngaydat);
               $ngaydat2 = $ngaydat1 -> format('d-m-Y');
-              if($trangthai_donhang == 0){
-                $trangthai_donhang = "Chưa thanh toán";
-              } else if($trangthai_donhang == 1){
-                $trangthai_donhang = "Đã thanh toán";
-              } else if($trangthai_donhang == 2){
-                $trangthai_donhang = "Đã hoàn thành";
+              if($trangthai == 1){
+                $trangthai = "Chờ duyệt";
+              } else if($trangthai == 2){
+                $trangthai = "Đã thanh toán";
+              } else if($trangthai == 3){
+                $trangthai = "Đã hoàn thành";
               } 
             ?>
               <tr>
@@ -341,19 +336,20 @@
                 <td>
                   <div class="cell">
                     <div class="middle">
-                      <input type="button" id="clo" value="<?= $trangthai_donhang ?>" style="text-align: center; border: none; background-color: transparent">
+                      <input type="button" id="clo<?= $trangthai ?>" value="<?= $trangthai ?>" style="text-align: center; border: none; background-color: transparent">
                     </div>
                   </div>
                 </td>
               </tr>
                     <script>
-                      var clo = getElementById("clo");
-                      clo.addEventListener("", function(){
-                      if(clo.value == "Chưa thanh toán"){
-                        clo.style.color = "yellow";
-                      } else if(clo.value == "Đã thanh toán"){
+                      var clo = document.getElementById("clo<?= $trangthai ?>");
+                      // clo.addEventListener("", function(){
+                      if(clo.value === "Chờ duyệt"){
+                        clo.style.color = "red";
+                      } else if(clo.value == "Đã hoàn thành"){
                         clo.style.color = "green";
-                      }})
+                      }
+                    // })
                     </script>
             <?php
             }

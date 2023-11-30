@@ -31,7 +31,12 @@
                             class="hide-menu">Bình luận</span></a></li>
                 <li class="sidebar-item"> <a class="sidebar-link waves-effect waves-dark sidebar-link"
                         href="?act=thongke" aria-expanded="false"><i class="mdi mdi-chart-bar"></i><span
-                            class="hide-menu">Thống kê</span></a></li>
+                            class="hide-menu">Thống kê</span></a>
+                            <ul aria-expanded="false" class="collapse  first-level">
+                                <li class="sidebar-item"><a href="?act=thongke" class="sidebar-link"><i class="mdi mdi-note-outline"></i><span class="hide-menu"> Thống kê </span></a></li>
+                                <li class="sidebar-item"><a href="?act=thongke_doanhthu" class="sidebar-link"><i class="mdi mdi-note-plus"></i><span class="hide-menu"> Doanh thu </span></a></li>
+                            </ul>
+                    </li>
                 <li class="sidebar-item"> <a class="sidebar-link waves-effect waves-dark sidebar-link"
                         href="../user_page" aria-expanded="false"><i class="mdi mdi-logout"></i><span
                             class="hide-menu">Quay về trang người dùng</span></a></li>

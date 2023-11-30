@@ -357,9 +357,9 @@ if (isset($_GET['act']) && ($_GET['act'] != "")) {
             $list_thongke = load_thongke();
             include "thongke/list.php";
             break;
-        case "bieudo":
-            $list_thongke = load_thongke();
-            include "thongke/bieudo.php";
+        case "thongke_doanhthu":
+            $list_thongke_doanhthu = load_thongke_doanhthu();
+            include "thongke/list_doanhthu.php";
             break;
             ///////////////////////////////////////////////
         case "form-basic":

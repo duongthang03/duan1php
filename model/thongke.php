@@ -9,3 +9,15 @@ function load_thongke()
     $list_thongke = pdo_query($sql);
     return $list_thongke;
 }
+function load_thongke_doanhthu()
+{
+    $sql = "SELECT 
+                DATE(ngaydat) AS ngay,
+                SUM(tongtien) AS tongtien_ngay,
+                SUM(soluong_donhang) AS soluong_ngay
+            FROM datve
+            GROUP BY DATE(ngaydat)
+            ORDER BY ngay;";
+    $list_thongke_doanhthu = pdo_query($sql);
+    return $list_thongke_doanhthu;
+}

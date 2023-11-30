@@ -58,9 +58,10 @@
                                     <div class="content">
                                     <div class="customer-info">
                                         <h3>Thông tin khách hàng</h3>
-                                        <p><strong>Họ tên:</strong> John Doe</p>
-                                        <p><strong>Email:</strong> johndoe@example.com</p>
-                                        <p><strong>Số điện thoại:</strong> +123456789</p>
+                                        <p><strong>Họ tên:</strong> <?= $hoten ?></p>
+                                        <p><strong>Email:</strong> <?= $email ?></p>
+                                        <p><strong>Số điện thoại:</strong> <?= $sdt ?></p>
+                                        <p><strong>Địa chỉ:</strong> <?= $diachi ?></p>
                                     </div>
                                     <div class="order-details">
                                         <h3>Chi tiết đơn hàng</h3>

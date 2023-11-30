@@ -149,37 +149,42 @@
                       <strong class="title">Giỏ hàng</strong>
                       <ul class="cart-list">
                         <?php
-                        $list_cart_2 = load_cart_2();
-                        $tong2 = 0;
-                        foreach ($list_cart_2 as $key => $value) {
-                          extract($value);
-                          $tong1 = number_format($tongtien, 0, '', '.');
-                          echo '
-                              <li>
+                         if (!empty($_SESSION['giohang'])) {
+                          $cart = $_SESSION['giohang'];
+                          $id_tour = array_column($cart, 'id');
+                          $idList = implode(',', $id_tour);
+                          $dataDb = loadone_tourCart($idList);
+                        }
+                        foreach ($dataDb as $key => $product) :
+                          foreach ($_SESSION['giohang'] as $item) {
+                            if ($item['id'] == $product['id_tour']) {
+                              $quantityInCart = $item['quantity'];
+                        ?>
+                            <li>
                                 <div class="img">
                                   <a href="#">
-                                    <img src="../img/' . $img . '" height="165" width="170" alt="image description" />
+                                    <img src="../img/<?= $product['img'] ?>" height="165" width="170" alt="image description" />
                                   </a>
                                 </div>
                                 <div class="text-holder">
-                                  <span class="amount">x ' . $soluong_cart . '</span>
+                                  <span class="amount">x <?= $item['quantity'] ?></span>
                                   <div class="text-wrap">
-                                    <strong class="name"><a href="#">' . $tenkhuvuichoi . '</a></strong>
-                                    <span class="price">' . $tong1 . 'VND</span>
+                                    <strong class="name"><a href="#"><?= $item['name'] ?></a></strong>
+                                    <span class="price"><?= number_format((int)$product['gia'] * (int)$quantityInCart, 0, ",", ".") ?>VND</span>
                                   </div>
                                 </div>
                             </li>
-                            ';
-                          $tong2 += $tongtien;
+                          <?php
+                          }
                         }
-                        $tong2 = number_format($tong2, 0, '', '.');
+                          endforeach;
                         ?>
                         <li>
                       </ul>
                       <div class="footer">
                         <a href="?act=my_cart" class="btn btn-primary">View cart</a>
                         <span class="total">
-                          <?= $tong2 ?>VND
+                          <?= number_format((int)$_SESSION['resultTotal'], 0, ",", ".") ?>VND
                         </span>
                       </div>
                     </div>
