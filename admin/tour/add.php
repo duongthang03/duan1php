@@ -17,13 +17,13 @@
                         <div class="">
                             <div>
                                 <label>ID: </label> <br>
-                                <input class="form-control" type="text" name="" placeholder="No comment" readonly>
+                                <input class="form-control" type="button" name="" value="No comment" readonly>
                             </div>
                             <div>
                                 <label>Địa điểm: </label> <br>
                                 <!-- <input class="form-control" type="text" name="diadiem" placeholder="Nhập địa điểm"> -->
-                                <select name="diadiem" id="">
-                                    <option value="0" selected>Chọn địa điểm</option>
+                                <select class="form-control" name="diadiem" id="">
+                                    <option value="1" selected>Hà Nội</option>
                                     <?php
                                         foreach ($list_diadiem as $key => $value) {
                                             extract($value);
@@ -62,7 +62,11 @@
                             </div>
                             <div>
                                 <label>Trạng thái: </label> <br>
-                                <input class="form-control" type="text" name="trangthai" placeholder="Nhập trạng thái">
+                                <!-- <input class="form-control" type="text" name="trangthai" placeholder="Nhập trạng thái"> -->
+                                <select class="form-control" name="diadiem" id="">
+                                    <option value="0" selected>Hữu hiệu</option>
+                                    <option value="1" >Tạm ẩn</option>
+                                </select>
                             </div>
                             <input class="btn btn-success" name="add" type="submit" value="Add" style="margin: 5px">
                             <input class="btn btn-primary" type="reset" value="Reset" style="margin: 5px">

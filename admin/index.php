@@ -241,6 +241,7 @@ if (isset($_GET['act']) && ($_GET['act'] != "")) {
                 $khuvuichoiw = $id_khuvuichoi;
                 insert_tour($gia, $soluong, $mota, $thongtinchitiet, $hinh, $khuvuichoiw, $trangthai, $id_diadiem);
                 $thongbao = "Update successfully!";
+                // header('Location: ./index.php');
             }
 
             $list_tour = loadall_tour();
