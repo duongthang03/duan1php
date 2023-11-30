@@ -10326,7 +10326,7 @@ h4,
 		margin: 0;
 		padding: 25px 15px 25px 0;
 		float: left;
-		border-right: 1px solid #2d2d2d;
+		/* border-right: 1px solid #2d2d2d; */
 	}
 
 	.logo a {
@@ -11547,7 +11547,7 @@ h4,
 
 	.has-mega-dropdown.mega-md .dropdown-menu {
 		left: auto;
-		width: 850px;
+		width: 100px;
 		right: 140px;
 	}
 

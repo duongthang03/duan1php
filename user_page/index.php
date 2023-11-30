@@ -1,4 +1,5 @@
 <?php
+ob_start();
 session_start();
 include "../model/pdo.php";
 include "../model/diadiem.php";
@@ -20,6 +21,7 @@ if (isset($_GET['act']) && ($_GET['act'] != "")) {
       $gallery = load_gallery(3);
       include "view/tour-detail.php";
       break;
+
     case "my_cart":
       // $tour = loadone_tour($_GET['id_tour']);
       // $id_nguoidung = $_SESSION['id_nguoidung'];
@@ -42,6 +44,7 @@ if (isset($_GET['act']) && ($_GET['act'] != "")) {
       // include "view/listCartOrder.php";
       include "view/my-cart.php";
       break;
+
     case "add_to_cart":
       // echo $_SESSION['id_nguoidung'];
       $id_nguoidung1 = $_SESSION['id_nguoidung'];
@@ -51,43 +54,31 @@ if (isset($_GET['act']) && ($_GET['act'] != "")) {
       $list_cart = load_cart($id_nguoidung1);
       include "view/my-cart.php";
       break;
+
     case "delete_cart":
         delete_cart($_GET['id_giohang']);
         $list_cart = load_cart($id_nguoidung);
         $list_donhangdadat = load_donhangdadat($id_nguoidung);
-        include "view/my-cart.php";
+        include "my-cart.php";
       break;
+
     case "checkout":
-      if (isset($_SESSION['giohang'])) {
-        $cart = $_SESSION['giohang'];
-        if (isset($_POST['order_confirm'])) {
-           echo '<script>window.alert("fhwhfuwrg")</script>';
-            $txthoten = $_POST['txthoten'];
-            $txttel = $_POST['txttel'];
-            $txtemail = $_POST['txtemail'];
-            $txtaddress = $_POST['txtaddress'];
-            $pttt = $_POST['pttt'];
-            date_default_timezone_set('Asia/Ho_Chi_Minh');
-            $currentDateTime = date('H:i:s d/m/Y');
-            if (isset($_SESSION['username'])) {
-                $id_user = $_SESSION['id_nguoidung'];
-            } else {
-                $id_user = 0;
-            }
-            $idBill = addOrder($id_user, $txthoten, $txttel, $txtemail, $txtaddress, $_SESSION['resultTotal'], $pttt);
-            foreach ($cart as $item) {
-                // addOrderDetail($idBill, $item['id'], $item['price'], $item['quantity'], $item['price'] * $item['quantity']);
-                  insert_donhang($item['price'] * $item['quantity'], '11-10-2012', $item['id'], $id_user, $currentDateTime, $item['quantity'], $idBill);
-            }
-            unset($_SESSION['cart']);
-            $_SESSION['success'] = $idBill;
-            header("Location: index.php?act=confirmation");
-        }
-        include "view/checkout.php";
-    } else {
-        header("Location: index.php?act=my_cart");
-    }
-    break;
+      // $add_cart = insert_cart();
+      // $add_cart = insert_cart($_GET['id_tour']);
+      $id = $_POST['id_giohang'];
+      // echo $id;
+      $soluong = $_POST['quantity' . $id];
+      $tong = $_POST['totalPrice' . $id];
+      if($soluong == 1){
+        $tong1 = $tong * 1000;
+      } else{
+        $tong1 = $tong * 1000000;
+      }
+      $date = $_POST['ngaydat' . $id];
+      update_cart($id, $date, $tong1, $soluong);
+      $one_cart = loadone_cart($id);
+      include "checkout.php";
+      break;
     case "confirmation":
       // $one_cart = loadone_cart($_GET['id_giohang']);
       // extract($one_cart);
@@ -106,7 +97,7 @@ if (isset($_GET['act']) && ($_GET['act'] != "")) {
       include "view/confirmation.php";
       break;
     case "icon-login":
-      include "view/login.php";
+      include "login.php";
       break;
     case "dangky":
       $username_register = $_POST['username_register'];
@@ -115,48 +106,44 @@ if (isset($_GET['act']) && ($_GET['act'] != "")) {
       $sdt_register = $_POST['sdt_register'];
       insert_nguoidung($username_register, $password_register, $email_register, $sdt_register);
       echo '<script type="text/javascript">alert("Đăng ký thành công!");</script>';
-      include "view/login.php";
+      include "login.php";
       break;
+
     case "dangnhap":
-      // $_SESSION['username'] = $username;
-      // session_start();
-      if (isset($_POST['dangnhap'])) {
-        $username1 = $_POST['username'];
-        $password1 = $_POST['password'];
-        $dangnhap = dangnhap($username1, $password1);
-        // echo $dangnhap;
-        extract($dangnhap);
-        // $id_nguoidung1 = $id_nguoidung;
-        // echo $username;
-        // echo $password;
-        // echo $id_nguoidung;
-        if ($role == 1) {
-          header('Location:../admin/index.php');
-          exit();
+      if (isset($_POST['dangnhap']) && ($_POST['dangnhap'])) {
+        $username = $_POST['username'];
+        $pass = $_POST['pass'];
+        $checkuser = checkuser($username, $pass);
+        if (is_array($checkuser)) {
+          $_SESSION['username'] = $checkuser;
+          echo "<script>alert('Bạn đã đăng nhập thành công!')</script>";
+          // include "index.php";
+          echo "<script>window.location.href = 'index.php';</script>";
+          // header('Location: index.php');
         } else {
-          $_SESSION['username'] = $username1;
-          $_SESSION['id_nguoidung'] = $id_nguoidung;
-          $list_tour = loadall_tour();
-          include "view/home2.php";
+          $thongbao = "Tài khoản không tồn tại. Vui lòng kiểm tra lại!";
+          include "nguoidung/dangky.php";
         }
       }
-      // include "view/home.php";
+      include "nguoidung/dangky.php";
       break;
       case "dangxuat":
-        // dangxuat();
-        session_unset();
-        header('Location: index.php');
+        dangxuat();
         include "view/home.php";
         break;
       break;
-      case "diadiem":
-        $list_tour_theodiadiem = loadall_tour_theodiadiem($_GET['diadiem']);
-        $list_tour = $list_tour_theodiadiem;
-        include "view/home2.php";
-        break;
+
+    case "diadiem":
+      $list_tour_theodiadiem = loadall_tour_theodiadiem($_GET['diadiem']);
+      $list_tour = $list_tour_theodiadiem;
+      include "view/home2.php";
+      break;
+
+    case "defaut":
+      include "view/home2.php";
   }
 } else {
-      $list_tour = loadall_tour();
+  $list_tour = loadall_tour();
   include "view/home2.php";
 }
 include "view/footer.php";
