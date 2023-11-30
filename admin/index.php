@@ -258,6 +258,11 @@ if (isset($_GET['act']) && ($_GET['act'] != "")) {
             //     // $list_diadiem = loadall_diadiem();
             //     include "donhang/list.php";
             // }
+            if(isset($_POST['mi'])){
+                $id = $_GET['id'];
+                $tt = $_POST['mi'];
+                update_trangthai_donhang($id, $tt);
+            }
             $list_donhang = loadall_donhang();
             include "donhang/list.php";
             break;
@@ -278,7 +283,7 @@ if (isset($_GET['act']) && ($_GET['act'] != "")) {
             include "donhang/list.php";
             break;
         case "chitietdonhang":
-            $one_donhang = loadone_donhang($_GET['id_donhang']);
+            $one_donhang = loadone_donhang($_GET['id_tbl_order']);
             include "donhang/chitiet.php";
             break;
         case "update_trangthai":

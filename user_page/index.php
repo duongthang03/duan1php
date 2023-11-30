@@ -45,7 +45,40 @@ if (isset($_GET['act']) && ($_GET['act'] != "")) {
       // include "view/listCartOrder.php";
       include "view/my-cart.php";
       break;
-
+    case "checkout":
+      if (isset($_SESSION['giohang'])) {
+          $cart = $_SESSION['giohang'];
+          // print_r($cart);
+          if (isset($_POST['order_confirm'])) {
+              $txthoten = $_POST['txthoten'];
+              $txttel = $_POST['txttel'];
+              $txtemail = $_POST['txtemail'];
+              $txtaddress = $_POST['txtaddress'];
+              $pttt = $_POST['pttt'];
+              date_default_timezone_set('Asia/Ho_Chi_Minh');
+              $currentDateTime = date('Y-m-d H:i:s');
+              if (isset($_SESSION['username'])) {
+                  $id_user = $_SESSION['username']['id_nguoidung'];
+              } else {
+                  $id_user = 0;
+              }
+              $idBill = addOrder($id_user, $txthoten, $txttel, $txtemail, $txtaddress, $_SESSION['resultTotal'], $pttt);
+              foreach ($cart as $item) {
+                  insert_donhang($item['price'] * $item['quantity'], $currentDateTime, $item['id'], $id_user, $currentDateTime, $item['quantity'], $idBill);
+                  $one_tour = loadone_tour($item['id']);
+                  extract($one_tour);
+                  $soluong1 = $soluong - $item['quantity'];
+                  update_tour_soluong($item['id'], $soluong1);
+              }
+              unset($_SESSION['cart']);
+              $_SESSION['success'] = $idBill;
+              header("Location: ?act=confirmation");
+          }
+          include "view/checkout.php";
+      } else {
+          header("Location: index.php?act=listCart");
+      }
+      break;
     case "add_to_cart":
       // echo $_SESSION['id_nguoidung'];
       $id_nguoidung1 = $_SESSION['id_nguoidung'];
@@ -63,7 +96,7 @@ if (isset($_GET['act']) && ($_GET['act'] != "")) {
         include "my-cart.php";
       break;
 
-    case "checkout":
+    case "checkout1":
       // $add_cart = insert_cart();
       // $add_cart = insert_cart($_GET['id_tour']);
       $id = $_POST['id_giohang'];

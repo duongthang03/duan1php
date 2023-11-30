@@ -16,6 +16,7 @@ function loadall_donhang(){
             join diadiem on tour.id_diadiem = diadiem.id_diadiem 
             join nguoidung on datve.id_nguoidung = nguoidung.id_nguoidung 
             join tbl_order on datve.id_tbl_order = tbl_order.id_order
+            group by datve.id_tbl_order
             order by tbl_order.id_order desc";
     $list_donhang=pdo_query($sql);
     return  $list_donhang;
@@ -32,15 +33,16 @@ function load_donhangdadat($id_nguoidung){
     $list_donhangdadat = pdo_query($sql);
     return  $list_donhangdadat;
 }
-function loadone_donhang($id_donhang){
+function loadone_donhang($id_order){
     $sql = "SELECT * from datve 
             join tour on datve.id_tour = tour.id_tour 
             join khuvuichoi on tour.id_khuvuichoi = khuvuichoi.id_khuvuichoi 
             join diadiem on tour.id_diadiem = diadiem.id_diadiem 
             join nguoidung on datve.id_nguoidung = nguoidung.id_nguoidung 
             join tbl_order on datve.id_tbl_order = tbl_order.id_order
-            where datve.id_donhang = ".$id_donhang;
-    $one_donhang=pdo_query_one($sql);
+            where datve.id_tbl_order = ".$id_order." 
+            ";
+    $one_donhang=pdo_query($sql);
     return $one_donhang;
 }
 function update_trangthai_donhang($id_order, $trangthai){

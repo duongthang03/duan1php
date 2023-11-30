@@ -132,7 +132,7 @@
                   <td>
                     <div class="cell">
                       <div class="middle">
-                        <a href="?act=checkout&id_tour=<?=$product['id_tour']?>"><button type="submit" class="btn btn-default">Thanh toán</button></a>
+                        <!-- <a href="?act=checkout&id_tour=<?=$product['id_tour']?>"><button type="submit" class="btn btn-default">Thanh toán</button></a> -->
                         <p></p>
                       </div>
                     </div>

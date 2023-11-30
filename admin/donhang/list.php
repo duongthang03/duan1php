@@ -68,12 +68,20 @@
                         }
                         $limit = 9;
                         $start = ($page - 1) * $limit;
-                        $sql1 = "SELECT * FROM datve 
+                        $sql1 = "SELECT SUM(soluong_donhang) AS soluong,
+                                        datve.datetime,
+                                        datve.id_nguoidung,
+                                        datve.id_donhang,
+                                        tbl_order.trangthai,
+                                        tbl_order.id_order,
+                                        datve.tongtien
+                                FROM datve 
                                 join tour on datve.id_tour = tour.id_tour 
                                 join khuvuichoi on tour.id_khuvuichoi = khuvuichoi.id_khuvuichoi 
                                 join diadiem on tour.id_diadiem = diadiem.id_diadiem 
                                 join nguoidung on datve.id_nguoidung = nguoidung.id_nguoidung 
                                 join tbl_order on datve.id_tbl_order = tbl_order.id_order
+                                group by datve.datetime
                                 order by tbl_order.ngaydathang desc 
                                 LIMIT $start, $limit";
                         $result1 = pdo_query($sql1);
@@ -93,8 +101,9 @@
                             <tr style="text-align: center">
                              <th>Số hóa đơn</th>
                              <th>Thời gian đặt vé</th>
-                             <th>Vé đặt</th>
-                             <th>Thời gian vé hoạt động</th>
+                             <th>Số lượng</th>
+                             <th>Tổng tiền</th>
+                             <th>ID user</th>
                              <th>Trạng thái</th>
                              <th></th>
                              <th></th>
@@ -105,41 +114,57 @@
                             $i = $id_donhang;
                             $chuoi = str_pad($i, 5, "0", STR_PAD_LEFT);
                             $ngaydat = date('d/m/Y');
-                            if($trangthai == 0){
-                                $trangthai1 = 'Đang chờ duyệt';
-                            } else if($trangthai == 1){
-                                $trangthai1 = 'Đã xác nhận';
+                            if($trangthai == 1){
+                                $trangthai1 = 'Chờ duyệt';
                             } else if($trangthai == 2){
+                                $trangthai1 = 'Xác nhận';
+                            } else if($trangthai == 3){
                                 $trangthai1 = 'Hoàn thành';
                             }
                     ?>
                             <tr style="" class="invoice">
                                 <td>HD<?=$chuoi?></td>
-                                <td><?=$ngaydathang?></td>
-                                <td><?=$tenkhuvuichoi?> | <?=$tendiadiem?></td>
-                                <td>Ngày <?=$ngaydat?></td>
-                                <td style="text-align: center"><button id="show<?= $id_donhang ?>" class="btn btn-warning btn-sm" onclick="cl<?=$id_donhang?>()" value="1" type="button" style="margin: 5px"><?= $trangthai1 ?></button></td>
+                                <td><?=$datetime?></td>
+                                <td><?= $soluong ?></td>
+                                <td><?= number_format($tongtien, 0, '', '.') ?> VND</td>
+                                <td><?= $id_nguoidung ?></td>
+                                <td style="text-align: center"><form action="?act=donhang&id=<?= $id_order ?>" method="POST"> <button name="mi" id="show<?= $id_donhang ?>" class="btn btn-warning btn-sm" onclick="cl<?=$id_donhang?>()" value="<?= $trangthai ?>" type="submit" style="margin: 5px"><?= $trangthai1 ?></button> </form></td>
                     <?php
                                 // <!--<button id="show" class="btn btn-warning btn-sm" type="button" style="margin: 5px">Chưa Thanh Toán</button> -->
                                 // <!--<button id="show" class="btn btn-success btn-sm" type="button" style="margin: 5px">Đã Thanh toán</button>-->
                                 // <!--<button id="show" class="btn btn-primary btn-sm" type="button" style="margin: 5px">Xác Nhận Đơn Hàng</button>-->
                     ?>
-                                <td style="text-align: center"><a href="?act=chitietdonhang&id_donhang=<?=$id_donhang?>">Xem chi tiết</a></td>
+                                <td style="text-align: center"><a href="?act=chitietdonhang&id_tbl_order=<?=$id_order?>">Xem chi tiết</a></td>
                             <!-- // echo'<td style="text-align: center"><button id="" class="btn btn-primary btn-sm" onclick="" value="2" type="button" style="margin: 5px"><?=$trangthai2?></button></td> -->
                             <script>
+                                var val = document.getElementById("show<?=$id_donhang?>");
+
+                                if(val.value === "1"){
+                                    // val.textContent = "Chưa thanh toán";
+                                    // val.value = "1";
+                                    val.className = "btn btn-warning btn-sm";
+                                } else if(val.value === "2"){
+                                    // val.textContent = "Đã xác nhận";
+                                    // val.value = "2";
+                                    val.className = "btn btn-success btn-sm";
+                                } else if(val.value === "3"){
+                                    // val.textContent = "Hoàn thành";
+                                    // val.value = "0";
+                                    val.className = "btn btn-primary btn-sm";
+                                }
                             function cl<?=$id_donhang?>(){
                                 var val = document.getElementById("show<?=$id_donhang?>");
-                                if(val.value === "0"){
-                                    val.textContent = "Chưa thanh toán";
-                                    val.value = "1";
-                                    val.className = "btn btn-warning btn-sm";
-                                } else if(val.value === "1"){
-                                    val.textContent = "Đã xác nhận";
+                                if(val.value === "1"){
+                                    val.textContent = "Chờ duyệt";
                                     val.value = "2";
+                                    val.className = "btn btn-warning btn-sm";
+                                } else if(val.value === "2"){
+                                    val.textContent = "Xác nhận";
+                                    val.value = "3";
                                     val.className = "btn btn-success btn-sm";
-                                } else {
+                                } else if(val.value === "3"){
                                     val.textContent = "Hoàn thành";
-                                    val.value = "0";
+                                    val.value = "1";
                                     val.className = "btn btn-primary btn-sm";
                                 }
                             }
@@ -157,7 +182,13 @@
                     echo "</ul>";
                     };
                     ?>
-                    
+                    <?php
+                        if(isset($_POST['mi'])){
+                            $id = $_GET['id'];
+                            $tt = $_POST['mi'];
+                            update_trangthai_donhang($id, $tt);
+                        }
+                    ?>
                     <style>
                         ul.pagination {
                             display: flex;
@@ -192,7 +223,6 @@
         <!-- </form> -->
     </div>
 </div>
-
 
 
 

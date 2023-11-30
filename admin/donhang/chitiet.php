@@ -48,8 +48,8 @@
                             <div class="" >
                             <?php
                                 extract($one_donhang);
-                                $tongtien1 = number_format($tongtien, 0, '', '.');
-                                $ngaydat1 = date('d/m/Y');
+                                // $tongtien1 = number_format($tongtien, 0, '', '.');
+                                $datetime = date('H:m:i d/m/Y');
                             ?>
                                 <div class="invoice" style=" margin-left: 10%">
                                     <div class="header">
@@ -57,25 +57,95 @@
                                     </div>
                                     <div class="content">
                                     <div class="customer-info">
+                                    <?php
+                                        foreach($one_donhang as $value){
+                                    ?>
                                         <h3>Thông tin khách hàng</h3>
-                                        <p><strong>Họ tên:</strong> <?= $hoten ?></p>
-                                        <p><strong>Email:</strong> <?= $email ?></p>
-                                        <p><strong>Số điện thoại:</strong> <?= $sdt ?></p>
-                                        <p><strong>Địa chỉ:</strong> <?= $diachi ?></p>
+                                        <p><strong>Họ tên:</strong><?= $value['hoten'] ?></p>
+                                        <p><strong>Email:</strong> <?= $value['email'] ?></p>
+                                        <p><strong>Số điện thoại:</strong> <?= $value['sdt'] ?></p>
+                                        <p><strong>Địa chỉ:</strong> <?= $value['diachi'] ?></p>
+                                    <?php
+                                            break;
+                                        }
+                                    ?>
                                     </div>
                                     <div class="order-details">
                                         <h3>Chi tiết đơn hàng</h3>
-                                        <p><strong>Ngày đặt hàng:</strong> <?=$ngaydat1?></p>
-                                        <p><strong>Sản phẩm:</strong> Vé <a href="?act=chitiet_tour&id_ve=<?=$id_tour?>"><?=$tenkhuvuichoi?></a></p>
-                                        <p><strong>Số lượng:</strong> <?=$soluong_donhang?></p>
-                                        <p><strong>Tổng cộng:</strong> <?=$tongtien1?> VND</p>
-                                        <p><strong>Địa chỉ:</strong> <?=$tenkhuvuichoi?> - <?=$diachi?> - <?=$tendiadiem?></p>
+                                        <p><strong>Ngày đặt hàng:</strong> <?=$datetime?></p>
+                                        <p><strong>Sản phẩm:</strong>
+                                        <?php
+                                            foreach($one_donhang as $value){
+                                                echo 'Vé '.'<a href="?act=chitiet_tour&id_ve='.$value['id_tour'].'">'.$value['tenkhuvuichoi'].'</a>'.' x '.$value['soluong_donhang'].' vé'.'<br>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;';
+                                            }
+                                        ?>
+                                            <!-- <a href="?act=chitiet_tour&id_ve=<?=$id_tour?>"><?=$tenkhuvuichoi?> -->
+                                            </a>
+                                        </p>
+                                        <p><strong>Tổng tiền:</strong> <?= number_format($value['tongtien'], 0, '', '.') ?> VND</p>
+                                        <!-- <p><strong>Địa chỉ:</strong> <?=$tenkhuvuichoi?> - <?=$diachi?> - <?=$tendiadiem?></p> -->
                                     </div>
                                     </div>
                                 </div>
                             </div>
+                            <table class="" border=2 style="width: 100%;">
+                    <tr>
+                        <th>ID</th>
+                        <th>Địa điểm</th>
+                        <th>Khu vui chơi & địa chỉ</th>
+                        <th>Giá vé</th>
+                        <th>Số lượng</th>
+                        <th>Trạng thái</th>
+                        <th></th>
+                    </tr>
+                    <?php
+                    $output = '';
+                    foreach($one_donhang as $value) {
+                        $output .= ($output === "" ? "'" : ",'").$value["id_tour"]."'";
+                    }
+                    function loadall_tour2($output){
+                        $sql = "SELECT * from tour 
+                                join diadiem on tour.id_diadiem = diadiem.id_diadiem 
+                                join khuvuichoi on tour.id_khuvuichoi = khuvuichoi.id_khuvuichoi
+                                where id_tour IN (".$output.")
+                                ";
+                        $sql.=" order by id_tour desc";
+                        $list_tour = pdo_query($sql);
+                        return  $list_tour;
+                    }
+                    $list_tour = loadall_tour2($output);
+                    foreach ($list_tour as $key => $value) {
+                        extract($value);
+                        $hinhpath = "../img/" . $img;
+                        $update_tour = "?act=update_tour&id_tour=" . $id_tour;
+                        $delete_tour = "?act=delete_tour&id_tour=" . $id_tour;
+                        if (is_file($hinhpath)) {
+                            $hinhpath = "<img src= '" . $hinhpath . "' width='300px' height='150px'>";
+                        } else {
+                            $hinhpath = "No file img!";
+                        }
+                        if($trangthai == 0){
+                            $trangthai = "Hữu hiệu";
+                        }
+                        $gia = number_format($gia, 0, '', '.');
+                    ?>
+                    <tr>
+                        <td><?=$id_tour?></td>
+                        <td><?=$tendiadiem?></td>
+                        <td><?=$tenkhuvuichoi?> | <?=$diachi?></td>
+                        <td><?=$gia?> VND</td>
+                        <td><?=$soluong?></td>
+                        <td><?=$trangthai?></td>
+                        <td><a href="?act=chitiet_tour&id_ve=<?=$id_tour?>">Chi tiết</a></td>
+                    </tr>         
+                    <?php
+                    }
+                    ?>
+                </table>
+
                         </div>
                 </div>
+
                         </div>
                     </div>
                 </div>

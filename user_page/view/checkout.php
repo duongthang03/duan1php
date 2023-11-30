@@ -182,7 +182,7 @@
                                         ></span
                                       >
                                       <time datetime="2016-09-29"
-                                        >Booking Date: &emsp; <?= $item['date'] ?></time
+                                        >Booking Date: &emsp; 01/12/2023</time
                                       >
                                     </td>
                                     <td>
