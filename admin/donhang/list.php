@@ -38,13 +38,15 @@
                                 }
                             </script>
                             <br>
+                            <form action="?act=donhang" method="POST">
                                 <select name="statusFilter" id="">
                                     <option value="0" selected>Show all</option>
-                                    <option value="1">Mới nhất</option>
-                                    <option value="2">Đã thanh toán</option>
-                                    <option value="3">Chưa thanh toán</option>
+                                    <option value="choduyet">Chờ duyệt</option>
+                                    <option value="xacnhan">Đang xác nhận</option>
+                                    <option value="hoanthanh">Hoàn thành</option>
                                 </select>
                                 <input type="submit" name="clickOK" value="Go" style="margin: 5px">
+                            </form>
                     </form>
                     <button type="button" onclick="applyFilters()">i</button>
                     <div class="" style=" display: flex; flex-wrap:wrap; justify-content: space-between">
@@ -61,36 +63,36 @@
                             </script>
                             
                     <?php
-                        if (isset($_GET['page'])) {
-                            $page = $_GET['page'];
-                        } else {
-                            $page = 1;
-                        }
-                        $limit = 9;
-                        $start = ($page - 1) * $limit;
-                        $sql1 = "SELECT SUM(soluong_donhang) AS soluong,
-                                        datve.datetime,
-                                        datve.id_nguoidung,
-                                        datve.id_donhang,
-                                        tbl_order.trangthai,
-                                        tbl_order.id_order,
-                                        datve.tongtien
-                                FROM datve 
-                                join tour on datve.id_tour = tour.id_tour 
-                                join khuvuichoi on tour.id_khuvuichoi = khuvuichoi.id_khuvuichoi 
-                                join diadiem on tour.id_diadiem = diadiem.id_diadiem 
-                                join nguoidung on datve.id_nguoidung = nguoidung.id_nguoidung 
-                                join tbl_order on datve.id_tbl_order = tbl_order.id_order
-                                group by datve.datetime
-                                order by tbl_order.ngaydathang desc 
-                                LIMIT $start, $limit";
-                        $result1 = pdo_query($sql1);
-                        $conn = pdo_get_connection();
-                        $sql = "SELECT COUNT(*) AS total FROM datve";
-                        $result = $conn->query($sql);
-                        $row = $result->fetch();
-                        $total_records = $row['total'];
-                        $total_pages = ceil($total_records / $limit);
+                        // if (isset($_GET['page'])) {
+                        //     $page = $_GET['page'];
+                        // } else {
+                        //     $page = 1;
+                        // }
+                        // $limit = 9;
+                        // $start = ($page - 1) * $limit;
+                        // $sql1 = "SELECT SUM(soluong_donhang) AS soluong,
+                        //                 datve.datetime,
+                        //                 datve.id_nguoidung,
+                        //                 datve.id_donhang,
+                        //                 tbl_order.trangthai,
+                        //                 tbl_order.id_order,
+                        //                 datve.tongtien
+                        //         FROM datve 
+                        //         join tour on datve.id_tour = tour.id_tour 
+                        //         join khuvuichoi on tour.id_khuvuichoi = khuvuichoi.id_khuvuichoi 
+                        //         join diadiem on tour.id_diadiem = diadiem.id_diadiem 
+                        //         join nguoidung on datve.id_nguoidung = nguoidung.id_nguoidung 
+                        //         join tbl_order on datve.id_tbl_order = tbl_order.id_order
+                        //         group by datve.datetime
+                        //         order by tbl_order.ngaydathang desc 
+                        //         LIMIT $start, $limit";
+                        // $result1 = pdo_query($sql1);
+                        // $conn = pdo_get_connection();
+                        // $sql = "SELECT COUNT(*) AS total FROM datve";
+                        // $result = $conn->query($sql);
+                        // $row = $result->fetch();
+                        // $total_records = $row['total'];
+                        // $total_pages = ceil($total_records / $limit);
                     $option = 0;
                     if(isset($P_POST['option'])){
                         $option = $_POST['option'];

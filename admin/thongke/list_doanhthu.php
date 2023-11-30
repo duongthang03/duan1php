@@ -23,12 +23,14 @@
                                 <?php
                                 foreach ($list_thongke_doanhthu as $key => $value) {
                                 extract($value);
-                                $ngay = date('d/m/Y');
+                                // $ngay = date('d/m/Y');
+                                $ngay1 = strtotime($ngay);
+                                $day = date('d/m/Y', $ngay1);
                                 ?>
                                 <tr>
                                     <td><?php echo $key += 1 ?></td>
                                     <td><?php echo $soluong_ngay ?></td>
-                                    <td><?php echo $ngay ?></td>
+                                    <td><?php echo $day ?></td>
                                     <td><?php echo number_format($tongtien_ngay, 0, '', '.') ?> VND</td>
                                 </tr>
                                 <?php

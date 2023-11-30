@@ -17,7 +17,7 @@ function load_thongke_doanhthu()
                 SUM(soluong_donhang) AS soluong_ngay
             FROM datve
             GROUP BY DATE(ngaydat)
-            ORDER BY ngay;";
+            ORDER BY ngay";
     $list_thongke_doanhthu = pdo_query($sql);
     return $list_thongke_doanhthu;
 }

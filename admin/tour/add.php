@@ -63,7 +63,7 @@
                             <div>
                                 <label>Trạng thái: </label> <br>
                                 <!-- <input class="form-control" type="text" name="trangthai" placeholder="Nhập trạng thái"> -->
-                                <select class="form-control" name="diadiem" id="">
+                                <select class="form-control" name="trangthai" id="">
                                     <option value="0" selected>Hữu hiệu</option>
                                     <option value="1" >Tạm ẩn</option>
                                 </select>

@@ -229,7 +229,7 @@ if (isset($_GET['act']) && ($_GET['act'] != "")) {
                 $thongtinchitiet = $_POST['thongtinchitiet'];
                 $gia = $_POST['gia'];
                 $soluong = $_POST['soluong'];
-                $trangthai = $_POST['trangthai'];
+                $trangthai1 = $_POST['trangthai'];
                 insert_khuvuichoi($diadiem, $diachi, $khuvuichoi);
                 function loadone2_khuvuichoi($khuvuichoi){
                     $sql = "select * from khuvuichoi join diadiem on khuvuichoi.id_diadiem = diadiem.id_diadiem where khuvuichoi.tenkhuvuichoi = '".$khuvuichoi."'";
@@ -239,7 +239,7 @@ if (isset($_GET['act']) && ($_GET['act'] != "")) {
                 $load_kvc = loadone2_khuvuichoi($khuvuichoi);
                 extract($load_kvc);
                 $khuvuichoiw = $id_khuvuichoi;
-                insert_tour($gia, $soluong, $mota, $thongtinchitiet, $hinh, $khuvuichoiw, $trangthai, $id_diadiem);
+                insert_tour($gia, $soluong, $mota, $thongtinchitiet, $hinh, $khuvuichoiw, $trangthai1, $id_diadiem);
                 $thongbao = "Update successfully!";
                 // header('Location: ./index.php');
             }
@@ -262,8 +262,8 @@ if (isset($_GET['act']) && ($_GET['act'] != "")) {
             include "tour/list.php";
             break;
         case "delete_tour":
-            if (isset($_GET['id_kvc'])) {
-                delete_tour($_GET['id_kvc']);
+            if (isset($_GET['id_tour'])) {
+                delete_tour($_GET['id_tour']);
             }
             $list_tour = loadall_tour();
             include "tour/list.php";
@@ -293,7 +293,93 @@ if (isset($_GET['act']) && ($_GET['act'] != "")) {
                 $tt = $_POST['mi'];
                 update_trangthai_donhang($id, $tt);
             }
-            $list_donhang = loadall_donhang();
+            if (isset($_GET['page'])) {
+                $page = $_GET['page'];
+            } else {
+                $page = 1;
+            }
+            $limit = 9;
+            $start = ($page - 1) * $limit;
+            if(isset($_POST['statusFilter']) && ($_POST['statusFilter'] == "choduyet")){
+                // echo '<script>window.alert("vvvvvvvvvvvv")</script>';
+                $sql1 = "SELECT SUM(soluong_donhang) AS soluong,
+                            datve.datetime,
+                            datve.id_nguoidung,
+                            datve.id_donhang,
+                            tbl_order.trangthai,
+                            tbl_order.id_order,
+                            datve.tongtien
+                    FROM datve 
+                    join tour on datve.id_tour = tour.id_tour 
+                    join khuvuichoi on tour.id_khuvuichoi = khuvuichoi.id_khuvuichoi 
+                    join diadiem on tour.id_diadiem = diadiem.id_diadiem 
+                    join nguoidung on datve.id_nguoidung = nguoidung.id_nguoidung 
+                    join tbl_order on datve.id_tbl_order = tbl_order.id_order
+                    where tbl_order.trangthai = 1
+                    group by datve.datetime
+                    order by tbl_order.ngaydathang desc 
+                    LIMIT $start, $limit";
+            } else if(isset($_POST['statusFilter']) && ($_POST['statusFilter'] == "xacnhan")){
+                $sql1 = "SELECT SUM(soluong_donhang) AS soluong,
+                            datve.datetime,
+                            datve.id_nguoidung,
+                            datve.id_donhang,
+                            tbl_order.trangthai,
+                            tbl_order.id_order,
+                            datve.tongtien
+                    FROM datve 
+                    join tour on datve.id_tour = tour.id_tour 
+                    join khuvuichoi on tour.id_khuvuichoi = khuvuichoi.id_khuvuichoi 
+                    join diadiem on tour.id_diadiem = diadiem.id_diadiem 
+                    join nguoidung on datve.id_nguoidung = nguoidung.id_nguoidung 
+                    join tbl_order on datve.id_tbl_order = tbl_order.id_order
+                    where tbl_order.trangthai = 2
+                    group by datve.datetime
+                    order by tbl_order.ngaydathang desc 
+                    LIMIT $start, $limit";
+            } else if(isset($_POST['statusFilter']) && ($_POST['statusFilter'] == "hoanthanh")){
+                $sql1 = "SELECT SUM(soluong_donhang) AS soluong,
+                            datve.datetime,
+                            datve.id_nguoidung,
+                            datve.id_donhang,
+                            tbl_order.trangthai,
+                            tbl_order.id_order,
+                            datve.tongtien
+                    FROM datve 
+                    join tour on datve.id_tour = tour.id_tour 
+                    join khuvuichoi on tour.id_khuvuichoi = khuvuichoi.id_khuvuichoi 
+                    join diadiem on tour.id_diadiem = diadiem.id_diadiem 
+                    join nguoidung on datve.id_nguoidung = nguoidung.id_nguoidung 
+                    join tbl_order on datve.id_tbl_order = tbl_order.id_order
+                    where tbl_order.trangthai = 3
+                    group by datve.datetime
+                    order by tbl_order.ngaydathang desc 
+                    LIMIT $start, $limit";
+            } else{
+                $sql1 = "SELECT SUM(soluong_donhang) AS soluong,
+                            datve.datetime,
+                            datve.id_nguoidung,
+                            datve.id_donhang,
+                            tbl_order.trangthai,
+                            tbl_order.id_order,
+                            datve.tongtien
+                    FROM datve 
+                    join tour on datve.id_tour = tour.id_tour 
+                    join khuvuichoi on tour.id_khuvuichoi = khuvuichoi.id_khuvuichoi 
+                    join diadiem on tour.id_diadiem = diadiem.id_diadiem 
+                    join nguoidung on datve.id_nguoidung = nguoidung.id_nguoidung 
+                    join tbl_order on datve.id_tbl_order = tbl_order.id_order
+                    group by datve.datetime
+                    order by tbl_order.ngaydathang desc 
+                    LIMIT $start, $limit";
+            }
+            $result1 = pdo_query($sql1);
+            $conn = pdo_get_connection();
+            $sql = "SELECT COUNT(*) AS total FROM datve";
+            $result = $conn->query($sql);
+            $row = $result->fetch();
+            $total_records = $row['total'];
+            $total_pages = ceil($total_records / $limit);
             include "donhang/list.php";
             break;
         case "update_donhang":
