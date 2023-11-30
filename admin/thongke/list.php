@@ -16,8 +16,8 @@
                             <div class="">
                                 <select name="id_diadiem" id="">
                                     <option value="0" selected>Show all</option>
-                                    <option value="0">Theo số lượng</option>
-                                    <option value="0">Theo</option>
+                                    <option value="0">Doanh thu</option>
+                                    <option value="0">Tổng số vé bán ra</option>
                                     <option value="0">Show all</option>
                                     <option value="0">Show all</option>
                                 </select>

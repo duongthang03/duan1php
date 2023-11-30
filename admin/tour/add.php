@@ -11,7 +11,7 @@
         <div class="row">
             <div class="col-md-6">
             <div class="card" style="width: 200%">
-                <form class="form-horizontal" style="" method="POST">
+                <form class="form-horizontal" style="" method="POST" enctype="multipart/form-data">
                                 <div class="card-body" style="width: 100%">
 
                         <div class="">
@@ -21,10 +21,19 @@
                             </div>
                             <div>
                                 <label>Địa điểm: </label> <br>
-                                <input class="form-control" type="text" name="diadiem" placeholder="Nhập địa điểm">
+                                <!-- <input class="form-control" type="text" name="diadiem" placeholder="Nhập địa điểm"> -->
+                                <select name="diadiem" id="">
+                                    <option value="0" selected>Chọn địa điểm</option>
+                                    <?php
+                                        foreach ($list_diadiem as $key => $value) {
+                                            extract($value);
+                                            echo '<option value="' . $id_diadiem . '">' . $tendiadiem . '</option>';
+                                        }
+                                    ?>
+                                </select>
                             </div>
                             <div>
-                                <label>Khu vui chơi: </label> <br>
+                                <label>Tên khu vui chơi: </label> <br>
                                 <input class="form-control" type="text" name="khuvuichoi" placeholder="Nhập tên khu vui chơi">
                             </div>
                             <div>
@@ -45,19 +54,19 @@
                             </div>
                             <div>
                                 <label>Giá: </label> <br>
-                                <input class="form-control" type="text" name="diachi" placeholder="Nhập giá">
+                                <input class="form-control" type="text" name="gia" placeholder="Nhập giá">
                             </div>
                             <div>
                                 <label>Số lượng: </label> <br>
-                                <input class="form-control" type="text" name="diachi" placeholder="Nhập số lượng">
+                                <input class="form-control" type="text" name="soluong" placeholder="Nhập số lượng">
                             </div>
                             <div>
                                 <label>Trạng thái: </label> <br>
-                                <input class="form-control" type="text" name="diachi" placeholder="Nhập trạng thái">
+                                <input class="form-control" type="text" name="trangthai" placeholder="Nhập trạng thái">
                             </div>
                             <input class="btn btn-success" name="add" type="submit" value="Add" style="margin: 5px">
                             <input class="btn btn-primary" type="reset" value="Reset" style="margin: 5px">
-                            <a href="?act=khuvuichoi"><input  class="btn btn-warning" type="button" value="List" style="margin: 5px"></a>
+                            <a href="?act=tour"><input  class="btn btn-warning" type="button" value="List" style="margin: 5px"></a>
                         </div>
                             <?php
                                 if(isset($status) && ($status!="")){

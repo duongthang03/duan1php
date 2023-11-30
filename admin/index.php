@@ -213,7 +213,36 @@ if (isset($_GET['act']) && ($_GET['act'] != "")) {
             include "tour/list.php";
             break;
         case "add_tour":
-            
+            if (isset($_POST['add'])) {
+                $diadiem = $_POST['diadiem'];
+                $khuvuichoi = $_POST['khuvuichoi'];
+                $diachi = $_POST['diachi'];
+                $hinh=$_FILES['image']['name'];
+                $target_dir = "../img/";
+                $target_file = $target_dir . basename($_FILES["image"]["name"]);
+                if (move_uploaded_file($_FILES["image"]["tmp_name"], $target_file)) {
+                echo "The file ". htmlspecialchars( basename( $_FILES["image"]["name"])). " has been uploaded.";
+                    } else {
+                echo "Sorry, there was an error uploading your file.";
+                    }
+                $mota = $_POST['mota'];
+                $thongtinchitiet = $_POST['thongtinchitiet'];
+                $gia = $_POST['gia'];
+                $soluong = $_POST['soluong'];
+                $trangthai = $_POST['trangthai'];
+                insert_khuvuichoi($diadiem, $diachi, $khuvuichoi);
+                function loadone2_khuvuichoi($khuvuichoi){
+                    $sql = "select * from khuvuichoi join diadiem on khuvuichoi.id_diadiem = diadiem.id_diadiem where khuvuichoi.tenkhuvuichoi = '".$khuvuichoi."'";
+                    $result = pdo_query_one($sql);
+                    return $result;
+                }
+                $load_kvc = loadone2_khuvuichoi($khuvuichoi);
+                extract($load_kvc);
+                $khuvuichoiw = $id_khuvuichoi;
+                insert_tour($gia, $soluong, $mota, $thongtinchitiet, $hinh, $khuvuichoiw, $trangthai, $id_diadiem);
+                $thongbao = "Update successfully!";
+            }
+
             $list_tour = loadall_tour();
             $list_diadiem = loadall_diadiem();
             include "tour/add.php";

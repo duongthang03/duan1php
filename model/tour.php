@@ -78,8 +78,12 @@ function update_tour($id_tour, $gia, $soluong, $mota, $thongtinchitiet, $hinh, $
     }
     pdo_execute($sql);
 }
+function insert_tour($gia, $soluong, $mota, $thongtinchitiet, $hinh, $id_khuvuichoi, $trangthai, $id_diadiem){
+    $sql = "INSERT INTO `tour`(`gia`, `soluong`, `mota`, `thongtinchitiet`, `img`, `id_khuvuichoi`, `trangthai`, `id_diadiem`) VALUES ('$gia', '$soluong', '$mota', '$thongtinchitiet', '$hinh', '$id_khuvuichoi', '$trangthai', '$id_diadiem')";
+    pdo_execute($sql);
+}
 function update_tour_soluong($id_tour, $soluong){
-        $sql =  "UPDATE `tour` SET `soluong` = '{$soluong}' WHERE `tour`.`id_tour` = $id_tour";
+    $sql =  "UPDATE `tour` SET `soluong` = '{$soluong}' WHERE `tour`.`id_tour` = $id_tour";
     pdo_execute($sql);
 }
 function delete_tour($id_tour){
