@@ -48,7 +48,7 @@
                                 <input type="submit" name="clickOK" value="Go" style="margin: 5px">
                             </form>
                     </form>
-                    <button type="button" onclick="applyFilters()">i</button>
+                    <!-- <button type="button" onclick="applyFilters()">i</button> -->
                     <div class="" style=" display: flex; flex-wrap:wrap; justify-content: space-between">
                     <script>
                         function applyFilters() {

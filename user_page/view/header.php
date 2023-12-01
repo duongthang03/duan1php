@@ -100,7 +100,13 @@
                   </a>
                 </li> -->
                 <li class="hidden-xs hidden-sm dropdown last-dropdown" style="margin:0 10px 0 10px;">
-                  <a href="index.php?act=dangnhap" class="dropdown-toggle">
+                <?php
+                if (isset($_SESSION['username'])) {
+                  echo '<a href="" class="dropdown-toggle">';
+                } else{
+                  echo '<a href="index.php?act=dangnhap" class="dropdown-toggle">';
+                }
+                ?>
                     <b class="icon-angle-down"></b>
                     <span class="icon icon-user"></span>
 
@@ -110,7 +116,7 @@
                       ?>
                       <div class="dropdown-menu">
                         <ul>
-                          <li style="font-size: 20px; margin-left: 10px;">
+                          <li style="font-size: 20px; margin-left: 10px;"> User: 
                             <?php echo $_SESSION['username']['username'] ?? ""; ?>
                           </li>
                           <li><a href="">Cập nhật tài khoản</a></li>
@@ -154,7 +160,6 @@
                           $id_tour = array_column($cart, 'id');
                           $idList = implode(',', $id_tour);
                           $dataDb = loadone_tourCart($idList);
-                        }
                         foreach ($dataDb as $key => $product) :
                           foreach ($_SESSION['giohang'] as $item) {
                             if ($item['id'] == $product['id_tour']) {
@@ -183,11 +188,14 @@
                       </ul>
                       <div class="footer">
                         <a href="?act=my_cart" class="btn btn-primary">View cart</a>
-                        <span class="total">
+                        <span class="total"> Tổng tiền: 
                           <?= number_format((int)$_SESSION['resultTotal'], 0, ",", ".") ?>VND
                         </span>
                       </div>
                     </div>
+                    <?php
+                      }
+                    ?>
                   </div>
                 </li>
                 <!-- End giỏ hàng -->

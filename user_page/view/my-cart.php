@@ -96,6 +96,7 @@
                               ><?= $product['tenkhuvuichoi'] ?></strong
                             >
                             <!-- <input type="date" name="" value="<?= $date ?>" oninput="updateQuantity(<?= $product['id_tour'] ?>, <?= $key ?>)" id="date_<?= $product['id_tour'] ?>"> -->
+                            <!-- <input type="date" name="" value="<?= $date ?>"> -->
                           </div>
                         </div>
                       </div>
