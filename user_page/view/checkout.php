@@ -45,15 +45,9 @@
                 <div class="col-md-6">
                   <div class="form-holder">
                     <h2 class="small-size">Billing Information</h2>
-                    <div class="wrap">
-                      <div class="row">
-                        <div class="col-md-6">
-                          <div class="hold">
-                            <label for="txthoten">Họ & Tên</label>
-                            <input name="txthoten" type="text" id="name" class="form-control" />
-                          </div>
-                        </div>
-                        </div>
+                      <div class="hold">
+                        <label for="txthoten">Họ & Tên</label>
+                        <input name="txthoten" type="text" id="name" class="form-control" />
                       </div>
                       <div class="hold">
                         <label for="txtaddress">Địa chỉ</label>
@@ -178,11 +172,11 @@
                                     <td>
                                       <span class="title"
                                         ><?php echo $item['name'] ?> &emsp;<span class="amount"
-                                          > | <?= number_format($item['price'], 0, ',', '.') ?> x&emsp; <?= $item['quantity'] ?> tickets</span
+                                          > | <?= number_format($item['price'], 0, ',', '.') ?> <u>đ</u>&emsp;x&emsp; <?= $item['quantity'] ?> tickets</span
                                         ></span
                                       >
-                                      <time datetime="2016-09-29"
-                                        >Booking Date: &emsp; 01/12/2023</time
+                                      <time datetime=""
+                                        >Booking Date: &emsp; <?= $item['date'] ?> </time
                                       >
                                     </td>
                                     <td>

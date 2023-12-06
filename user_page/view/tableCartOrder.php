@@ -24,19 +24,13 @@ if (!empty($_SESSION['giohang'])) {
     // var_dump($dataDb);
     $sum_total = 0;
     foreach ($dataDb as $key => $product) :
-        // $i = $id_giohang;
-        $dateP = date("Y-m-d");
-        $date = '';
-        $datePF = date('jS M Y', strtotime($dateP));
-        // echo $datePF;
-        // $gia = INTEGER($gia);
-        // $gia = number_format($gia, 0, '', '.');
-        // $tong1 = number_format($tongtien, 0, '', '.');
         $quantityInCart = 0;
         foreach ($_SESSION['giohang'] as $item) {
           if ($item['id'] == $product['id_tour']) {
               $quantityInCart = $item['quantity'];
-              // $date = $item['date'];
+              $date = $item['date'];
+              $timestamp = strtotime($date);
+              $formattedDate = date('Y-m-d', $timestamp);
               break;
           }
         }
@@ -69,7 +63,8 @@ if (!empty($_SESSION['giohang'])) {
                       <strong class="product-title"
                         ><?= $product['tenkhuvuichoi'] ?></strong
                       >
-                      <!-- <input type="date" name="" value="<?= $date ?>" oninput="updateQuantity(<?= $product['id_tour'] ?>, <?= $key ?>)" id="date_<?= $product['id_tour'] ?>"> -->
+                      <!-- <input type="date" class="ngaydat" name="ngaydat" value="<?= $date ?>" min="<?= date('Y-m-d'); ?>" max="<?= date('Y-m-d', strtotime('+10 day')); ?>" oninput="updateQuantity(<?= $product['id_tour'] ?>, <?= $key ?>)" id="date_<?= $product['id_tour'] ?>"> -->
+                      <input type="date" class="ngaydat" name="ngaydat" value="<?= $formattedDate; ?>" min="<?= date('Y-m-d'); ?>" max="<?= date('Y-m-d', strtotime('+10 day')); ?>" oninput="updateQuantity(<?= $product['id_tour'] ?>, <?= $key ?>)" id="date_<?= $product['id_tour'] ?>">
                     </div>
                   </div>
                 </div>
@@ -90,7 +85,7 @@ if (!empty($_SESSION['giohang'])) {
                     <button type="button" class="plus control" onclick="increaseQuantity<?= $product['id_tour'] ?>()" style="font-size: 25px">+</button> -->
                     <input type="number" value="<?= $quantityInCart ?>" min="1" max=<?=$product['soluong']?> id="quantity_<?= $product['id_tour'] ?>" oninput="updateQuantity(<?= $product['id_tour'] ?>, <?= $key ?>)" style="width:42%; text-align: center; border: none; background-color: transparent">
                     <!-- <input style="width:42%; text-align: center; border: none; background-color: transparent"  id="quantity<?= $i ?>" value="<?= $soluong_cart ?>" readonly name="quantity<?= $i ?>"> -->
-                    <input style="width:100%; margin-top: 5px; height: 20px; text-align: center; background-color: #4f4949; color: white" value="Tổng: <?= $product['soluong'] ?> vé" readonly>
+                    <input style="width:100%; margin-top: 5px; height: 20px; text-align: center; background-color: #4f4949; color: white" value="Tổng: <?= ($product['soluong'] - $quantityInCart) ?> vé" readonly>
                   </div>
                 </div>
               </div>
@@ -133,7 +128,7 @@ if (!empty($_SESSION['giohang'])) {
             endforeach;
         ?>
         <tr>
-                <td colspan="5" align="center">
+                <td colspan="3" align="center">
                     <h2>Tổng tiền hàng:</h2>
                 </td>
                 <td colspan="2" align="center">

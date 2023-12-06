@@ -23,12 +23,23 @@
         //die;
         pdo_execute($sql);
     }
-    function all_binhluan(){
-        $sql = "
-            SELECT sanpham.name, binhluan.noidung, taikhoan._nguoidung, binhluan.ngaybinhluan FROM `binhluan` 
-            LEFT JOIN taikhoan ON binhluan.id_nguoidung = taikhoan.id
-            LEFT JOIN sanpham ON binhluan.idpro = sanpham.id
-           ;
+    function all_binhluan($id_tour){
+        $sql = "SELECT
+                    binhluan.id_binhluan,
+                    binhluan.noidung,
+                    binhluan.id_nguoidung,
+                    binhluan.id_tour,
+                    binhluan.ngaybinhluan,
+                    nguoidung.id_nguoidung,
+                    nguoidung.username
+                FROM
+                    binhluan
+                JOIN 
+                    nguoidung ON binhluan.id_nguoidung = nguoidung.id_nguoidung
+                JOIN 
+                    tour ON binhluan.id_tour= tour.id_tour
+                WHERE
+                    tour.id_tour = $id_tour
         ";
         $result =  pdo_query($sql);
         return $result;

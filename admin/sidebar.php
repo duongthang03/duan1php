@@ -20,6 +20,9 @@
                 <li class="sidebar-item"> <a class="sidebar-link waves-effect waves-dark sidebar-link" href="?act=tour"
                         aria-expanded="false"><i class="mdi mdi-ticket-confirmation"></i><span
                             class="hide-menu">Vé</span></a></li>
+                <li class="sidebar-item"> <a class="sidebar-link waves-effect waves-dark sidebar-link" href="?act=anh"
+                        aria-expanded="false"><i class="mdi mdi-ticket-confirmation"></i><span
+                            class="hide-menu">Ảnh</span></a></li>
                 <li class="sidebar-item"> <a class="sidebar-link waves-effect waves-dark sidebar-link"
                         href="?act=donhang" aria-expanded="false"><i class="mdi mdi-clipboard-text"></i><span
                             class="hide-menu">Đơn hàng</span></a></li>

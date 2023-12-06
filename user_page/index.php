@@ -9,16 +9,38 @@ include "../model/cart.php";
 include "../model/donhang.php";
 include "../model/nguoidung.php";
 include "../model/order.php";
+include "../model/binhluan.php";
 include "../global.php";
 // $list_tour = loadall_tour();
 include "view/header.php";
 if (isset($_GET['act']) && ($_GET['act'] != "")) {
   $act = $_GET['act'];
   switch ($act) {
-    case "chitiettour":
+    case "home":
       $list_tour = loadall_tour();
-      $tour = loadone_tour($_GET['id_tour']);
+      $list_tour_limit = loadall_tour_limit();
+
+      include "view/home3.php";
+      break;
+    case "chitiettour":
+      // $list_tour = loadall_tour();
+      // $tour = loadone_tour($_GET['id_tour']);
       $gallery = load_gallery(3);
+      if (isset($_GET['id_tour']) && ($_GET['id_tour'] > 0)) {
+        $id_tour = $_GET['id_tour'];
+        $tour = loadone_tour($id_tour);
+        $list_tour = loadall_tour_limit();
+        $list_binhluan = all_binhluan($id_tour);
+      } else {
+        $id_tour = "";
+      }
+      if(isset($_POST['binhluan'])) {
+        $id_tour = $_POST['id'];
+        $noidung = $_POST['noidung'];
+        $userID = $_SESSION['username']['id_nguoidung'];
+        insert_binhluan($id_tour, $userID, $noidung);
+        header("Location: ".$_SERVER['HTTP_REFERER']);
+      }
       include "view/tour-detail.php";
       break;
 
@@ -41,6 +63,7 @@ if (isset($_GET['act']) && ($_GET['act'] != "")) {
         // Lấy sản phẩm trong bảng sản phẩm theo id
         $dataDb = loadone_tourCart($idList);
         // var_dump($dataDb);
+        // var_dump($cart);
       }
       // include "view/listCartOrder.php";
       include "view/my-cart.php";
@@ -64,7 +87,7 @@ if (isset($_GET['act']) && ($_GET['act'] != "")) {
               }
               $idBill = addOrder($id_user, $txthoten, $txttel, $txtemail, $txtaddress, $_SESSION['resultTotal'], $pttt);
               foreach ($cart as $item) {
-                  insert_donhang($item['price'] * $item['quantity'], $currentDateTime, $item['id'], $id_user, $currentDateTime, $item['quantity'], $idBill);
+                  insert_donhang($item['price'] * $item['quantity'], $item['date'], $item['id'], $id_user, $currentDateTime, $item['quantity'], $idBill);
                   $one_tour = loadone_tour($item['id']);
                   extract($one_tour);
                   $soluong1 = $soluong - $item['quantity'];
@@ -156,17 +179,24 @@ if (isset($_GET['act']) && ($_GET['act'] != "")) {
           // header('Location: index.php');
         } else {
           $thongbao = "Tài khoản không tồn tại. Vui lòng kiểm tra lại!";
-          include "nguoidung/dangky.php";
+          include "view/nguoidung/dangky.php";
         }
       }
-      include "nguoidung/dangky.php";
+      include "view/nguoidung/dangky.php";
       break;
-      case "dangxuat":
+      case "thoat":
         dangxuat();
-        include "view/home.php";
+        unset($_SESSION['giohang']);
+        $list_tour = loadall_tour();
+        echo "<script>window.location.href = 'index.php';</script>";
+        // include "view/home2.php";
         break;
       break;
-
+    case "all_diadiem":
+      $list_tour = loadall_tour();
+      $list_tour_limit = loadall_tour_limit();
+      include "view/alldiadiem.php";
+      break;
     case "diadiem":
       $list_tour_theodiadiem = loadall_tour_theodiadiem($_GET['diadiem']);
       $list_tour = $list_tour_theodiadiem;
@@ -178,7 +208,7 @@ if (isset($_GET['act']) && ($_GET['act'] != "")) {
   }
 } else {
   $list_tour = loadall_tour();
-  include "view/home2.php";
+  include "view/home3.php";
 }
 include "view/footer.php";
 

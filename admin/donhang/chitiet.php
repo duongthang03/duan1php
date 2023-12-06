@@ -94,7 +94,7 @@
                         <th>Địa điểm</th>
                         <th>Khu vui chơi & địa chỉ</th>
                         <th>Giá vé</th>
-                        <th>Số lượng</th>
+                        <th>Số lượng tồn</th>
                         <th>Trạng thái</th>
                         <th></th>
                     </tr>

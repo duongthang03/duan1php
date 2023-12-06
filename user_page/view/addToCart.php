@@ -10,7 +10,7 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
     $id_tour = $_POST['id'];
     $tenkhuvuichoi = $_POST['name'];
     $gia = $_POST['price'];
-    // $ngaydat = '';
+    $ngaydat = date('Y-m-d');
     // echo $ngaydat;
     // $_SESSION['giohang'] = [];
     // Kiểm tra sản phẩm đã có trong giỏ hàng chưa
@@ -25,8 +25,8 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
             'id' => $id_tour,
             'name' => $tenkhuvuichoi,
             'price' => $gia,
-            'quantity' => 1,
-            // 'date' => $ngaydat
+            'date' => date('Y-m-d'),
+            'quantity' => 1
         ];
         $_SESSION['giohang'][] = $product;
     }

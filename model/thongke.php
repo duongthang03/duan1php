@@ -12,7 +12,7 @@ function load_thongke()
 function load_thongke_doanhthu()
 {
     $sql = "SELECT 
-                DATE(ngaydat) AS ngay,
+                DATE(datetime) AS ngay,
                 SUM(tongtien) AS tongtien_ngay,
                 SUM(soluong_donhang) AS soluong_ngay
             FROM datve
@@ -20,4 +20,17 @@ function load_thongke_doanhthu()
             ORDER BY ngay";
     $list_thongke_doanhthu = pdo_query($sql);
     return $list_thongke_doanhthu;
+}
+function load_thongke_doanhthu_thang($month)
+{
+    $sql = "SELECT 
+                DATE(datetime) AS ngay,
+                SUM(tongtien) AS tongtien_ngay,
+                SUM(soluong_donhang) AS soluong_ngay
+            FROM datve
+            WHERE MONTH(datetime) = " . $month . "
+            GROUP BY DATE(ngaydat)
+            ORDER BY ngay";
+    $list_thongke_doanhthu_thang = pdo_query($sql);
+    return $list_thongke_doanhthu_thang;
 }

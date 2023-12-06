@@ -68,6 +68,22 @@
               </div>
             </li>
           </ul>
+          <!-- <?php
+            // $date3 = date("m-d-Y");
+            // $datePF = date('jS M Y', strtotime($date3));
+            // echo $datePF;
+          ?>
+          <div class="description">
+          <input type="date" class="ngaydat" value="<?= $date3 ?>" name="ngaydat" min="<?= date('Y-m-d'); ?>" max="<?= date('Y-m-d', strtotime('+10 days')); ?>">
+          </div>
+          <div class="info-left">
+                  <strong class="title">Chọn ngày</strong>
+                </div>
+                <div class="info-right">
+                  <div class="star-rating">
+                    <input type="date" class="ngaydat" name="ngaydat" min="<?= date('Y-m-d'); ?>" max="<?= date('Y-m-d', strtotime('+10 day')); ?>">
+                  </div>
+                </div> -->
           <div class="btn-holder">
             <!-- <a href="?act=add_to_cart&id_tour=<?= $id_tour ?>" class="btn btn-lg btn-info">ĐẶT NGAY</a> -->
             <button data-id="<?= $id ?>" class="btn btn-lg btn-info" onclick="addToCart(<?= $id_tour ?>, '<?= $tenkhuvuichoi?>', <?= $gia ?>)">Thêm vào giỏ hàng</button>
@@ -76,7 +92,7 @@
           <script>
             let totalProduct = document.getElementById('totalProduct');
             function addToCart(id_tour, tenkhuvuichoi, gia) {
-                 console.log(id_tour, tenkhuvuichoi, gia);
+                console.log(id_tour, tenkhuvuichoi, gia);
                 // Sử dụng jQuery
                 $.ajax({
                     type: 'POST',
@@ -145,13 +161,10 @@
           </li>
 
           <li role="presentation">
-            <a href="#tab04" aria-controls="tab04" role="tab" data-toggle="tab">Đánh giá</a>
+            <a href="#tab04" aria-controls="tab04" role="tab" data-toggle="tab">Bình Luận</a>
           </li>
           <li role="presentation">
             <a href="#tab05" aria-controls="tab05" role="tab" data-toggle="tab">Ảnh</a>
-          </li>
-          <li role="presentation">
-            <a href="#tab06" aria-controls="tab06" role="tab" data-toggle="tab">Ngày &amp; Giá</a>
           </li>
         </ul>
       </div>
@@ -200,88 +213,58 @@
             </div>
             <div class="comments reviews-body">
               <div class="comment-holder">
-
-                <div class="comment-slot">
-                  <div class="thumb">
-                    <a href="#"><img src="img/thumbs/img-05.jpg" height="50" width="50" alt="image description" /></a>
-                  </div>
-                  <div class="text">
-                    <header class="comment-head">
-                      <div class="left">
-                        <strong class="name">
-                          <a href="#">Cleona Torez - Spain</a>
-                        </strong>
-                        <div class="meta">Reviewed on 14/1/2016</div>
+                <?php
+                  foreach($list_binhluan as $binhluan) {
+                    extract($binhluan);
+                    ?>
+                      <div class="comment-slot">
+                        <div class="thumb">
+                          <a href="#"><img src="img/thumbs/img-05.jpg" height="50" width="50" alt="image description" /></a>
+                        </div>
+                        <div class="text">
+                          <header class="comment-head">
+                            <div class="left">
+                              <strong class="name">
+                                <a href="#"><?= $username ?></a>
+                              </strong>
+                              <div class="meta"><?= date("d-m-Y", strtotime($ngaybinhluan)) ?></div>
+                            </div>
+                          </header>
+                          <div class="des">
+                            <p>
+                              <?= $noidung ?>
+                            </p>
+                          </div>
+                        </div>
                       </div>
-                    </header>
-                    <div class="des">
-                      <p>
-                        This is Photoshop's version of Lorem Ipsum.
-                        Proin gravida nibh vel velit auctor aliquet.
-                        Aenean sollicitudin, lorem quis bibendum auctor,
-                        nisi elit consequat ipsum, nec sagittis sem nibh
-                        id elit. Duis sed odio sit amet nibh vulputate
-                        cursus a sit amet mauris.
-                      </p>
-                    </div>
-                  </div>
-                </div>
-
-                <div class="comment-slot">
-                  <div class="thumb">
-                    <a href="#"><img src="img/thumbs/img-05.jpg" height="50" width="50" alt="image description" /></a>
-                  </div>
-                  <div class="text">
-                    <header class="comment-head">
-                      <div class="left">
-                        <strong class="name">
-                          <a href="#">Cleona Torez - Spain</a>
-                        </strong>
-                        <div class="meta">Reviewed on 14/1/2016</div>
+                    <?php
+                  }
+                ?>
+                <?php
+                  if(isset($_SESSION['username'])) {
+                    ?>
+                      <form action="index.php?act=chitiettour" method="post">
+                        <div class="comment-slot">
+                          <input type="hidden" name="id" value="<?= $id_tour ?>">
+                          <textarea name="noidung" style="width: 100%; outline: none" placeholder="Viết bình luận của bạn..." id="" cols="30" rows="10"></textarea><br>
+                          <input type="submit" name="binhluan" value="Bình luận">
+                        </div>
+                      </form>
+                    <?php
+                  } else {
+                    ?>
+                      <div class="comment-slot">
+                        Vui lòng đăng nhập để sử dụng chức năng bình luận.
                       </div>
-                    </header>
-                    <div class="des">
-                      <p>
-                        This is Photoshop's version of Lorem Ipsum.
-                        Proin gravida nibh vel velit auctor aliquet.
-                        Aenean sollicitudin, lorem quis bibendum auctor,
-                        nisi elit consequat ipsum, nec sagittis sem nibh
-                        id elit. Duis sed odio sit amet nibh vulputate
-                        cursus a sit amet mauris.
-                      </p>
-                    </div>
-                  </div>
-                </div>
-
-                <div class="comment-slot">
-                  <div class="thumb">
-                    <a href="#"><img src="img/thumbs/img-05.jpg" height="50" width="50" alt="image description" /></a>
-                  </div>
-                  <div class="text">
-                    <header class="comment-head">
-                      <div class="left">
-                        <strong class="name">
-                          <a href="#">Cleona Torez - Spain</a>
-                        </strong>
-                        <div class="meta">Reviewed on 14/1/2016</div>
-                      </div>
-                    </header>
-                    <div class="des">
-                      <p>
-                        This is Photoshop's version of Lorem Ipsum.
-                        Proin gravida nibh vel velit auctor aliquet.
-                        Aenean sollicitudin, lorem quis bibendum auctor,
-                        nisi elit consequat ipsum, nec sagittis sem nibh
-                        id elit. Duis sed odio sit amet nibh vulputate
-                        cursus a sit amet mauris.
-                      </p>
-                    </div>
-                  </div>
-                </div>
+                    <?php
+                  }
+                ?>
+                
               </div>
               <div class="link-more text-center">
                 <a href="#">Show More Reviews - 75 Reviews</a>
               </div>
+
             </div>
           </div>
         </div>
@@ -370,85 +353,11 @@
 
         </ul>
       </div>
-
-      <!-- dates and prices tab content -->
-      <div role="tabpanel" class="tab-pane" id="tab06">
-        <div class="table-container">
-          <div class="table-responsive">
-            <table class="table table-striped">
-              <thead>
-                <tr>
-                  <th>
-                    <strong class="date-text">Chọn ngày đi</strong>
-                  </th>
-                  <th>
-                    <strong class="date-text">Trạng thái</strong>
-                  </th>
-                  <th>
-                    <strong class="date-text">Giá</strong>
-                  </th>
-                  <th>&nbsp;</th>
-                </tr>
-              </thead>
-              <tbody>
-                <tr>
-                  <td>
-                    <div class="cell">
-                      <div class="middle">
-                        <input type="date" name="ngaydat" value="<?php echo date('Y-m-d'); ?>">
-                      </div>
-                    </div>
-                  </td>
-                  <td>
-                    <div class="cell">
-                      <div class="middle">
-                        <?php if ($trangthai == 0) {
-                          $trangthai2 = "Available";
-                        } else {
-                          $trangthai2 = "Not available";
-                        }
-                        ?>
-                        <?= $trangthai2 ?>
-                      </div>
-                    </div>
-                  </td>
-                  <?php $gia = number_format($gia); ?>
-                  <td>
-                    <div class="cell">
-                      <div class="middle">
-                        <?= $gia ?> VND
-                      </div>
-                    </div>
-                  </td>
-                  <td>
-                    <div class="cell">
-                      <div class="middle">
-                        <!-- <a href="?act=add_to_cart" class="btn btn-default">BOOK NOW</a> -->
-                        <a href="?act=add_to_cart&id_tour=<?= $id_tour ?>"><button class="btn btn-default"
-                            onclick="showAlert()">BOOK NOW</button></a>
-                        <script>
-                          function showAlert() {
-                            alert('Đã thêm vào giỏ hàng');
-                          }
-                        </script>
-                        <!-- <p><?= $id_tour ?></p> -->
-                      </div>
-                    </div>
-                  </td>
-                </tr>
-              </tbody>
-            </table>
-          </div>
-        </div>
-      </div>
-    </div>
-  </div>
-
   <!-- recent block -->
   <aside class="recent-block recent-gray recent-wide-thumbnail">
     <div class="container">
-      <h2 class="text-center text-uppercase">RECENTLY VIEWED</h2>
-      <div class="row">
+      <h2 class="text-center text-uppercase">Sản phẩm mới nhất</h2>
+      <div class="row db-3-col">
         <?php
         $i = 0;
         foreach ($list_tour as $key => $value) {
@@ -462,37 +371,33 @@
           // if($lines > $limit){
           $shortText = implode("\n", array_slice(explode("\n", $text), 0, $limit));
           $motaN = $shortText . $ellipsis;
-          // } else {
-          //   $motaN = $text;
-          // }
-          // echo $text;
-          // echo $shortText;
-        
-          echo '<article class="col-sm-6 col-md-4 article has-hover-s3">
-                    <div class="img-wrap">
-                      <a href="?act=chitiettour&id_tour=' . $id_tour . '">
-                        <img src="' . $hinh . '" height="215" width="370" alt="image description">
-                      </a>
-                      <div class="img-caption text-uppercase">
-                        ' . $tendiadiem . '
-                      </div>
-                      <div class="hover-article">
-                        <div class="star-rating">
-                          <span><span class="icon-star"></span></span>
-                          <span><span class="icon-star"></span></span>
-                          <span><span class="icon-star"></span></span>
-                          <span><span class="icon-star"></span></span>
-                          <span class="disable"><span class="icon-star"></span></span>
-                        </div>
-                        <div class="info-footer">
-                          <span class="price">Giá<span>' . $gia . ' VND</span></span>
-                          <a href="?act=chitiettour&id_tour=' . $id_tour . '" class="link-more">Xem chi tiết</a>
-                        </div>
-                      </div>
+          ?>
+              <article class="col-sm-6 col-md-4 article has-hover-s3">
+                <div class="img-wrap">
+                  <a href="?act=chitiettour&id_tour=' . $id_tour . '">
+                    <img src="<?= $hinh ?>" height="215" width="370" alt="image description">
+                  </a>
+                  <div class="img-caption text-uppercase">
+                    <?= $tendiadiem ?>
+                  </div>
+                  <div class="hover-article">
+                    <div class="star-rating">
+                      <span><span class="icon-star"></span></span>
+                      <span><span class="icon-star"></span></span>
+                      <span><span class="icon-star"></span></span>
+                      <span><span class="icon-star"></span></span>
+                      <span class="disable"><span class="icon-star"></span></span>
                     </div>
-                    <h3 style="color: red;"><a style="color: red; font-weight: bold" href="#">Vé ' . $tenkhuvuichoi . ' // ' . $tendiadiem . '</a></h3>
-                    <h3 class="mota" style=""><a class="mota" href="#">' . $motaN . '</a></h3>
-                  </article>';
+                    <div class="info-footer">
+                      <span class="price">Giá<span><?= $gia ?> VND</span></span>
+                      <a href="?act=chitiettour&id_tour=<?= $id_tour ?>" class="link-more">Xem chi tiết</a>
+                    </div>
+                  </div>
+                </div>
+                <h3 style="color: red;"><a style="color: red; font-weight: bold" href="#">Vé <?= $tenkhuvuichoi ?> // <?= $tendiadiem ?></a></h3>
+                <h3 class="mota" style=""><a class="mota" href="#"><?= $motaN ?></a></h3>
+              </article>
+          <?php
           $i++;
           if ($i == 20) {
             break;
@@ -502,50 +407,6 @@
 
         ?>
 
-
-
-        <!-- <article class="col-sm-6 col-md-3 article">
-                  <div class="thumbnail">
-                    <h3 class="no-space">
-                      <a href="#">Everest Basecamp Trek</a>
-                    </h3>
-                    <strong class="info-title">Everest Region, Nepal</strong>
-                    <div class="img-wrap">
-                      <img
-                        src="img/listing/img-34.jpg"
-                        height="210"
-                        width="250"
-                        alt="image description"
-                      />
-                    </div>
-                    <footer>
-                      <div class="sub-info">
-                        <span>5 Days</span>
-                        <span>$299</span>
-                      </div>
-                      <ul class="ico-list">
-                        <li class="pop-opener">
-                          <a href="#">
-                            <span class="icon-hiking"></span>
-                            <span class="popup"> Hiking </span>
-                          </a>
-                        </li>
-                        <li class="pop-opener">
-                          <a href="#">
-                            <span class="icon-mountain"></span>
-                            <span class="popup"> Mountain </span>
-                          </a>
-                        </li>
-                        <li class="pop-opener">
-                          <a href="#">
-                            <span class="icon-level5"></span>
-                            <span class="popup"> Level 5 </span>
-                          </a>
-                        </li>
-                      </ul>
-                    </footer>
-                  </div>
-                </article> -->
       </div>
     </div>
   </aside>

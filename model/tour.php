@@ -90,3 +90,21 @@ function delete_tour($id_tour){
     $sql = "DELETE FROM tour WHERE id_tour=" .$id_tour;
     pdo_execute($sql);
 }
+
+function loadall_tour_page($begin){
+    $sql = "SELECT * from tour 
+            join diadiem on tour.id_diadiem = diadiem.id_diadiem 
+            join khuvuichoi on tour.id_khuvuichoi = khuvuichoi.id_khuvuichoi";
+    $sql.=" order by id_tour desc LIMIT $begin,9";
+    $list_tour = pdo_query($sql);
+    return  $list_tour;
+}
+
+function loadall_tour_limit(){
+    $sql = "SELECT * from tour 
+            join diadiem on tour.id_diadiem = diadiem.id_diadiem 
+            join khuvuichoi on tour.id_khuvuichoi = khuvuichoi.id_khuvuichoi";
+    $sql.=" order by id_tour desc LIMIT 0,6";
+    $list_tour = pdo_query($sql);
+    return  $list_tour;
+}

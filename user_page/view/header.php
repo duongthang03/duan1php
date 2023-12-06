@@ -116,8 +116,11 @@
                       ?>
                       <div class="dropdown-menu">
                         <ul>
-                          <li style="font-size: 20px; margin-left: 10px;"> User: 
+                          <li style="font-size: 20px; margin-left: 2px;"> Tài khoản: 
                             <?php echo $_SESSION['username']['username'] ?? ""; ?>
+                          </li>
+                          <li style="font-size: 20px; margin-left: 2px;"> Email: 
+                            <?php echo $_SESSION['username']['email'] ?? ""; ?>
                           </li>
                           <li><a href="">Cập nhật tài khoản</a></li>
 

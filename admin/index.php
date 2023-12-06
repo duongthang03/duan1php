@@ -1,4 +1,5 @@
 <?php
+session_start();
 include "../model/pdo.php";
 include "../model/diadiem.php";
 include "../model/khuvuichoi.php";
@@ -24,6 +25,9 @@ if (isset($_GET['act']) && ($_GET['act'] != "")) {
             break;
         case "grid":
             include "grid.php";
+            break;
+        case "anh":
+            include "anh.php";
             break;
         ///////////////////////////////////////////////////////////////////////////////////////
         // case "diadiem":
@@ -480,6 +484,15 @@ if (isset($_GET['act']) && ($_GET['act'] != "")) {
             break;
         case "thongke_doanhthu":
             $list_thongke_doanhthu = load_thongke_doanhthu();
+            // $thang = 11;
+            date_default_timezone_set('Asia/Ho_Chi_Minh');
+            $month = (int)date('m');
+            if(!isset($_SESSION['thang'])){
+                $_SESSION['thang'] = $month;
+            }
+            if(!isset($_SESSION['thang3'])){
+                $_SESSION['thang3'] = $month;
+            }
             include "thongke/list_doanhthu.php";
             break;
             ///////////////////////////////////////////////

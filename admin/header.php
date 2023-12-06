@@ -28,6 +28,8 @@
     <link rel="stylesheet" type="text/css" href="assets/libs/quill/dist/quill.snow.css">
     <script src="https://www.gstatic.com/charts/loader.js"></script>
     <link href="https://fonts.googleapis.com/css2?family=Roboto:wght@300;400;500;700;900&display=swap" rel="stylesheet">
+<script src="https://code.jquery.com/jquery-3.7.1.min.js"></script>
+
 </head>
 
 <body>

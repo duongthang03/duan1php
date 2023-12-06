@@ -105,7 +105,7 @@
                              <th>Thời gian đặt vé</th>
                              <th>Số lượng</th>
                              <th>Tổng tiền</th>
-                             <th>ID user</th>
+                             <!-- <th>ID user</th> -->
                              <th>Trạng thái</th>
                              <th></th>
                              <th></th>
@@ -129,7 +129,7 @@
                                 <td><?=$datetime?></td>
                                 <td><?= $soluong ?></td>
                                 <td><?= number_format($tongtien, 0, '', '.') ?> VND</td>
-                                <td><?= $id_nguoidung ?></td>
+                                <!-- <td><?= $id_nguoidung ?></td> -->
                                 <td style="text-align: center"><form action="?act=donhang&id=<?= $id_order ?>" method="POST"> <button name="mi" id="show<?= $id_donhang ?>" class="btn btn-warning btn-sm" onclick="cl<?=$id_donhang?>()" value="<?= $trangthai ?>" type="submit" style="margin: 5px"><?= $trangthai1 ?></button> </form></td>
                     <?php
                                 // <!--<button id="show" class="btn btn-warning btn-sm" type="button" style="margin: 5px">Chưa Thanh Toán</button> -->

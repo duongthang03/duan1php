@@ -49,11 +49,14 @@
                                 ?>
                             </table>
                         <p></p>
-                        <div class="">
-                            <input class="" id="show"  type="button" value="XEM BIỂU ĐỒ">
+                        <!-- <input class="" id="show"  type="button" value="XEM BIỂU ĐỒ"> -->
+                        <h4>Biểu đồ</h4>
+                        <div class="" style="width: 100%; display: flex; flex-wrap: none">
+                            <div id="myChart" style="width:49%; height: auto; align-items: center; display: block">
+                                </div>
+                            <div id="myChart2" style="width:49%; height: auto; align-items: center; display: block">
+                                </div>
                         </div>
-                        <div id="myChart" style="width:100%; width:80%; height: auto; align-items: center; display: none">
-                            </div>
                     </form>
 
     <!-- </div>
@@ -103,6 +106,37 @@
         chart.draw(data, options);
 
       }
+    </script>
+    <script>
+      google.charts.setOnLoadCallback(drawChart2);
+        function drawChart2() {
+        const data = google.visualization.arrayToDataTable([
+        ['Khu vực', 'Giá Max', 'Giá min'],
+        <?php
+        $list_thongke = load_thongke();
+        foreach ($list_thongke as $thongke) {
+            extract($thongke);
+            echo "['$tendiadiem', $gia_max, $gia_min],";
+        }
+        ?>
+        ]);
+
+        // Set Options
+        const options = {
+            title: 'BIỂU ĐỒ SỐ GIÁ CÁC KHU VỰC',
+            is3D: true,
+            legend: { position: 'none' },
+            width: 600,
+            height: 400,
+            bars: 'vertical', 
+            colors: ['#1b9e77', '#d95f02'], 
+        };
+
+        // Draw
+        const chart = new google.visualization.ColumnChart(document.getElementById('myChart2'));
+        chart.draw(data, options);
+
+        }
     </script>
 
         </div>

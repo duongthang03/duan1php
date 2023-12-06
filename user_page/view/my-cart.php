@@ -54,15 +54,13 @@
             // echo $_SESSION['username'];
             $sum_total = 0;
             foreach ($dataDb as $key => $product) :
-              $dateP = date("Y-m-d");
-              $date = '';
-              $datePF = date('jS M Y', strtotime($dateP));
-              // echo $datePF;
               $quantityInCart = 0;
               foreach ($_SESSION['giohang'] as $item) {
                 if ($item['id'] == $product['id_tour']) {
                     $quantityInCart = $item['quantity'];
-                    // $date = $item['date'];
+                    $date = $item['date'];
+                    $timestamp = strtotime($date);
+                    $formattedDate = date('Y-m-d', $timestamp);
                     break;
                 }
               }
@@ -95,8 +93,8 @@
                             <strong class="product-title"
                               ><?= $product['tenkhuvuichoi'] ?></strong
                             >
-                            <!-- <input type="date" name="" value="<?= $date ?>" oninput="updateQuantity(<?= $product['id_tour'] ?>, <?= $key ?>)" id="date_<?= $product['id_tour'] ?>"> -->
-                            <!-- <input type="date" name="" value="<?= $date ?>"> -->
+                            <input type="date" class="ngaydat" name="ngaydat" value="<?= $formattedDate ?>" min="<?= date('Y-m-d'); ?>" max="<?= date('Y-m-d', strtotime('+10 day')); ?>" oninput="updateQuantity(<?= $product['id_tour'] ?>, <?= $key ?>)" id="date_<?= $product['id_tour'] ?>">
+                            
                           </div>
                         </div>
                       </div>
@@ -117,7 +115,7 @@
                           <button type="button" class="plus control" onclick="increaseQuantity<?= $product['id_tour'] ?>()" style="font-size: 25px">+</button> -->
                           <input type="number" value="<?= $quantityInCart ?>" min="1" max=<?=$product['soluong']?> id="quantity_<?= $product['id_tour'] ?>" oninput="updateQuantity(<?= $product['id_tour'] ?>, <?= $key ?>)" style="width:42%; text-align: center; border: none; background-color: transparent">
                           <!-- <input style="width:42%; text-align: center; border: none; background-color: transparent"  id="quantity<?= $i ?>" value="<?= $soluong_cart ?>" readonly name="quantity<?= $i ?>"> -->
-                          <input style="width:100%; margin-top: 5px; height: 20px; text-align: center; background-color: #4f4949; color: white" value="Tổng: <?= $product['soluong'] ?> vé" readonly>
+                          <input style="width:100%; margin-top: 5px; height: 20px; text-align: center; background-color: #4f4949; color: white" value="Tổng: <?= ($product['soluong'] - $quantityInCart) ?> vé" readonly>
                         </div>
                       </div>
                     </div>
@@ -182,11 +180,13 @@
     function updateQuantity(id, index) {
         // lấy giá trị của ô input
         let newQuantity = $('#quantity_' + id).val();
-        // let newDate = $('#date_').val();
+        let newDate = $('#date_' + id).val();
+        newDate = newDate.toString();
+        // alert(newDate);
+        // alert(newQuantity);
         if (newQuantity <= 0) {
             newQuantity = 1
         }
-
         // Gửi yêu cầu bằng ajax để cập nhật giỏ hàng
         $.ajax({
             type: 'POST',
@@ -194,7 +194,7 @@
             data: {
                 id: id,
                 quantity: newQuantity,
-                // date: newDate
+                date: newDate
             },
             success: function(response) {
                 // Sau khi cập nhật thành công
@@ -370,44 +370,3 @@
   <!-- </form> -->
 </main>
 </div>
-<?php
-// $i = 1;
-// foreach ($list_cart as $key => $value){
-//   extract($value);
-//   $ngaydat.$i = $_POST["ngaydat$i"];
-//   $quantity.$i = $_POST["quantity$i"];
-//   $tongtien.$i = $_POST["totalPrice$i"];
-//   $update_cart = update_cart($id_giohang, $ngaydat.$i, $tongtien.$i, $quantity.$i);
-//   $i++;
-// }
-?>
-<!-- <script>
-  var i = 0;
-  function increaseQuantity(){
-    i++;
-      var quantityInput = document.getElementById("ocl"); 
-      var currentQuantity = parseInt(quantityInput.value); 
-      quantityInput.value = currentQuantity + 1;
-  }
-  function decreaseQuantity(){
-      var quantityInput = document.getElementById("ocl"); 
-      var currentQuantity = parseInt(quantityInput.value); 
-      if(currentQuantity > 1){
-          quantityInput.value = currentQuantity - 1;}
-    }
-  function total(){
-      var quantityInput2 = document.getElementById("total"); 
-      var quantityInput = document.getElementById("ocl"); 
-      var currentQuantity = parseInt(quantityInput.value); 
-      var currentQuantity2 = parseInt(quantityInput.value); 
-      quantityInput2.value = currentQuantity2 * quantityInput;
-  }
-</script> -->
-
-<script>
-  const input2'.$i.' = document.getElementById("input2'.$i.'");
-  const input1'.$i.' = document.getElementById("input1'.$i.'"); 
-                                            input2'.$i.'.addEventListener("change", function () {
-                                              input1'.$i.'.value = input2'.$i.'.value;
-  });
-</script>
