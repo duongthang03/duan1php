@@ -225,6 +225,7 @@ if (isset($_GET['act']) && ($_GET['act'] != "")) {
   }
 } else {
   $list_tour = loadall_tour();
+  $list_tour_limit = loadall_tour_limit();
   include "view/home3.php";
 }
 include "view/footer.php";
