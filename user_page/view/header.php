@@ -102,9 +102,9 @@
                 <li class="hidden-xs hidden-sm dropdown last-dropdown" style="margin:0 10px 0 10px;">
                   <?php
                   if (isset($_SESSION['username'])) {
-                    echo '<a href="" class="dropdown-toggle">';
+                    echo '<a href="index.php?act=hoso" class="dropdown-toggle">';
                   } else {
-                    echo '<a href="index.php?act=dangnhap" class="dropdown-toggle">';
+                    echo '<a href="index.php?act=dangky" class="dropdown-toggle">';
                   }
                   ?>
                   <b class="icon-angle-down"></b>
@@ -112,19 +112,19 @@
 
                   <?php
                   if (isset($_SESSION['username'])) {
-                    extract($_SESSION['username']);
+                    // extract($_SESSION['username']);
                     ?>
                     <div class="dropdown-menu">
                       <ul>
-                        <li style="font-size: 20px; margin-left: 2px;"> Tài khoản:
-                          <?php echo $_SESSION['username']['username'] ?? ""; ?>
+                        <li style="font-size: 13px; margin-left: 0px; font-weight: bold;"> Tài khoản:
+                          <?php echo $user['username'] ?? ""; ?>
                         </li>
-                        <li style="font-size: 20px; margin-left: 2px;"> Email:
-                          <?php echo $_SESSION['username']['email'] ?? ""; ?>
+                        <li style="font-size: 13px; margin-left: 0px; font-weight: bold;"> Email:
+                          <?php echo $user['email'] ?? ""; ?>
                         </li>
-                        <li><a href="">Cập nhật tài khoản</a></li>
+                        <li><a href="index.php?act=edit_user">Cập nhật tài khoản</a></li>
 
-                        <?php if ($role == 1) { ?>
+                        <?php if ($user['role'] == 1) { ?>
                           <li>
                             <a href="../admin">Đăng nhập admin</a>
                           </li>
@@ -137,6 +137,11 @@
                     <?php
                   } else {
                     echo "<span>Chưa đăng nhập</span>";
+                    echo '<div class="dropdown-menu">
+                          <ul>
+                          <li><a href="index.php?act=quenmk">Quên mật khẩu</a></li>
+                          </ul>
+                          </div>';
                   }
                   ?>
                   </a>

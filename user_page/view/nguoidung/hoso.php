@@ -7,14 +7,14 @@
             <nav class="breadcrumbs">
                 <ul>
                     <li><a href="index.php">Trang chủ</a></li>
-                    <li><span id="scr">Cập nhật tài khoản</span></li>
+                    <li><span id="scr">Thông tin tài khoản</span></li>
                 </ul>
             </nav>
         </div>
     </div>
     <div class="inner-main common-spacing container">
         <div class="btn-hold">
-            <h2>Cập nhật tài khoản</h2>
+            <h2>Thông tin tài khoản</h2>
         </div>
         <!-- form -->
         <form class="twocol-form" action="index.php?act=edit_user" method="post">
@@ -39,10 +39,7 @@
                         <input type="text" value="<?= $user['sdt'] ?>" name="sdt_dangky" class="form-control" />
                     </div>
 
-                    <div class="btn-hold">
-                        <input type="submit" class="btn btn-default" name="capnhat" value="Cập nhật tài khoản">
-                        </input>
-                    </div>
+
                 </div>
             </div>
         </form>

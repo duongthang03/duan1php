@@ -11,7 +11,10 @@ include "../model/nguoidung.php";
 include "../model/order.php";
 include "../model/binhluan.php";
 include "../global.php";
-// $list_tour = loadall_tour();
+// // $list_tour = loadall_tour();
+$userID = $_SESSION['username'] ?? 0;
+$user = loadone_nguoidung($userID);
+
 include "view/header.php";
 if (isset($_GET['act']) && ($_GET['act'] != "")) {
   $act = $_GET['act'];
@@ -152,27 +155,27 @@ if (isset($_GET['act']) && ($_GET['act'] != "")) {
       // update_tour_soluong($id_tour, $soluong1);
       include "view/confirmation.php";
       break;
-    case "icon-login":
-      include "login.php";
-      break;
+
     case "dangky":
-      $username_register = $_POST['username_register'];
-      $password_register = $_POST['password_register'];
-      $email_register = $_POST['email_register'];
-      $sdt_register = $_POST['sdt_register'];
-      insert_nguoidung($username_register, $password_register, $email_register, $sdt_register);
-      echo '<script type="text/javascript">alert("Đăng ký thành công!");</script>';
-      include "login.php";
+      if (isset($_POST['dangky']) && ($_POST['dangky'])) {
+        $ten_dangky = $_POST['ten_dangky'];
+        $password_dangky = $_POST['password_dangky'];
+        $email_dangky = $_POST['email_dangky'];
+        $sdt_dangky = $_POST['sdt_dangky'];
+        insert_nguoidung($ten_dangky, $password_dangky, $email_dangky, $sdt_dangky);
+        echo '<script type="text/javascript">alert("Đăng ký thành công!");</script>';
+      }
+      include "view/nguoidung/dangky.php";
       break;
 
     case "dangnhap":
       if (isset($_POST['dangnhap']) && ($_POST['dangnhap'])) {
         $username = $_POST['username'];
         $pass = $_POST['pass'];
-        $checkuser = checkuser($username, $pass);
+        $checkuser = dangnhap($username, $pass);
         if (is_array($checkuser)) {
-          $_SESSION['username'] = $checkuser;
-          echo "<script>alert('Bạn đã đăng nhập thành công!')</script>";
+          $_SESSION['username'] = $checkuser['id_nguoidung'];
+          echo "<script>alert('Xin chào: {$checkuser['username']}')</script>";
           // include "index.php";
           echo "<script>window.location.href = 'index.php';</script>";
           // header('Location: index.php');
@@ -181,7 +184,31 @@ if (isset($_GET['act']) && ($_GET['act'] != "")) {
           include "view/nguoidung/dangky.php";
         }
       }
-      include "view/nguoidung/dangky.php";
+
+    case "edit_user":
+      if (isset($_POST['capnhat'])) {
+        update_nguoidung($_POST['id_user'], $_POST['ten_dangky'], $_POST['password_dangky'], $_POST['email_dangky'], $_POST['sdt_dangky'], 0, $_POST['id_user']);
+        echo "<script>alert('Cập nhật tài khoản thành công.')</script>";
+        echo "<script>window.location.href = " . $_SERVER['HTTP_REFERER'] . ";</script>";
+      }
+      include "view/nguoidung/edit_account.php";
+      break;
+
+    case "hoso":
+      include "view/nguoidung/hoso.php";
+      break;
+
+    case "quenmk":
+      if (isset($_POST['guiemail']) && ($_POST['guiemail'])) {
+        $email = $_POST['email'];
+        $checkemail = checkemail($email);
+        if (is_array($checkemail)) {
+          $thongbao = "Mật khẩu của bạn là: " . $checkemail['password'];
+        } else {
+          $thongbao = 'Email này không tồn tại!';
+        }
+      }
+      include "view/nguoidung/quenmk.php";
       break;
 
     case "thoat":
