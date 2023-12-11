@@ -15,26 +15,15 @@
       <div class="height col-md-6">
         <!-- top image slideshow -->
         <div id="tour-slide">
-          <?php
-          extract($gallery);
-          $i = 0;
-          foreach ($gallery as $key => $value) {
-            extract($value);
-            $Imgg = '../gallery/' . $anh;
-            echo '
-                          <div class="slide">
-                            <div class="bg-stretch">
-                              <img
-                                src="' . $Imgg . '"
-                                alt="image descriprion"
-                                height="1104"
-                                width="966"
-                              />
-                            </div>
-                          </div>';
-            $i += 1;
-          }
-          ?>
+          <div class="slide">
+            <div class="bg-stretch">
+              <img src="../img/<?= $tour['img'] ?>" alt="image descriprion" height="1104" width="966" />
+              <input type="text" name="id" value="<?= $tour['id_tour'] ?>">
+              <input type="text" name="name" value="<?= $tour['tenkhuvuichoi'] ?>">
+              <input type="text" name="img" value="<?= $tour['img'] ?>">
+              <input type="text" name="price" value="<?= $tour['gia'] ?>">
+            </div>
+          </div>
         </div>
       </div>
       <?php
@@ -88,7 +77,9 @@
           <div class="btn-holder">
             <!-- <a href="?act=add_to_cart&id_tour=<?= $id_tour ?>" class="btn btn-lg btn-info">ĐẶT NGAY</a> -->
             <button data-id="<?= $id ?>" class="btn btn-lg btn-info"
-              onclick="addToCart(<?= $id_tour ?>, '<?= $tenkhuvuichoi ?>', <?= $gia ?>)">Thêm vào giỏ hàng</button>
+              onclick="if (!isset($_SESSION['username'])) {
+                
+              }addToCart(<?= $id_tour ?>, '<?= $tenkhuvuichoi ?>', <?= $gia ?>)">Thêm vào giỏ hàng</button>
           </div>
           <script src="https://code.jquery.com/jquery-3.7.1.min.js"></script>
           <script>

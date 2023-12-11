@@ -104,15 +104,20 @@ if (isset($_GET['act']) && ($_GET['act'] != "")) {
         header("Location: index.php?act=listCart");
       }
       break;
-    case "add_to_cart":
-      // echo $_SESSION['id_nguoidung'];
-      $id_nguoidung1 = $_SESSION['id_nguoidung'];
-      $add_cart = insert_cart($_GET['id_tour'], $id_nguoidung1);
-      // $add_tour_cart = loadone_tour($_GET['id_tour']);
-      $list_donhangdadat = load_donhangdadat($id_nguoidung);
-      $list_cart = load_cart($id_nguoidung1);
-      include "view/my-cart.php";
-      break;
+    // case "add_to_cart":
+    //   if (!isset($_SESSION['username'])) {
+    //     echo "<script>alert('Bạn cần đăng nhập trước khi thêm giỏ hàng!')</script>";
+    //     echo "<script>window.location.href = 'index.php?act=dangky'</script>";
+    //     exit();
+    //   }
+    //   // echo $_SESSION['id_nguoidung'];
+    //   $id_nguoidung1 = $_SESSION['id_nguoidung'];
+    //   $add_cart = insert_cart($_GET['id_tour'], $id_nguoidung1);
+    //   // $add_tour_cart = loadone_tour($_GET['id_tour']);
+    //   $list_donhangdadat = load_donhangdadat($id_nguoidung);
+    //   $list_cart = load_cart($id_nguoidung1);
+    //   include "view/my-cart.php";
+    //   break;
 
     case "delete_cart":
       delete_cart($_GET['id_giohang']);
