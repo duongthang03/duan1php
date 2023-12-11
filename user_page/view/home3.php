@@ -40,14 +40,16 @@ $row = $resultm->fetch();
                       foreach ($list_diadiem as $key => $value) {
                         extract($value);
                         ?>
-                          <li>
-                            <a href="index.php?act=diadiem&diadiem=<?= $id_diadiem ?>">
-                              <span class="ico-holder">
-                                <span class="icon-asia"></span>
-                              </span>
-                              <span class="text"><?= $tendiadiem ?></span>
-                            </a>
-                          </li>
+                        <li>
+                          <a href="index.php?act=diadiem&diadiem=<?= $id_diadiem ?>">
+                            <span class="ico-holder">
+                              <span class="icon-asia"></span>
+                            </span>
+                            <span class="text">
+                              <?= $tendiadiem ?>
+                            </span>
+                          </a>
+                        </li>
                         <?php
                       }
                       ?>
@@ -99,12 +101,11 @@ $row = $resultm->fetch();
         <div id="content" class="col-md-8 col-lg-9">
           <div class="filter-option filter-box">
             <strong class="result-info">
-              <?= $row['total'] ?> TRIPS MATCHES YOUR SEARCH
+              TOP VÉ MỚI
             </strong>
             <div class="layout-holder">
               <div class="layout-action">
-                <a href="#" class="link link-list"><span class="icon-list"></span></a>
-                <a href="#" class="link link-grid active"><span class="icon-grid"></span></a>
+                <a class="link link-grid active"><span class="icon-grid"></span></a>
               </div>
               <div class="select-holder">
                 <div class="select-col">
@@ -117,8 +118,8 @@ $row = $resultm->fetch();
 
                 <script>
                   let price_href = document.querySelector('.price_href');
-                
-                  price_href.addEventListener('change', function() {
+
+                  price_href.addEventListener('change', function () {
                     window.location.href = `index.php?act=home&page=${price_href.value}`;
                   })
                 </script>
@@ -128,26 +129,22 @@ $row = $resultm->fetch();
           <div class="content-holder content-sub-holder">
             <div class="row db-3-col">
               <?php
+
               if (isset($_GET['page'])) {
                 $page = $_GET['page'];
               } else {
                 $page = 1;
               }
               $product = "tour.id_tour desc";
-              
-              if(isset($_GET['thapdencao'])) {
-                $product = "tour.gia asc";
-              } else {
-                $product = "tour.gia desc";
-              }
 
-              if(isset($_GET['caodenthap'])) {
-                $product = "tour.gia desc";
-              } else {
+              if (isset($_GET['thapdencao'])) {
                 $product = "tour.gia asc";
               }
 
-              
+              if (isset($_GET['caodenthap'])) {
+                $product = "tour.gia desc";
+              }
+
               $limit = 6;
               $start = ($page - 1) * $limit;
               $sql1 = "SELECT * from tour 
@@ -231,11 +228,9 @@ $row = $resultm->fetch();
                               ></a>
                             </li>
                           </ul>
-                          <span style="
-                                              font-weight: 900;
-                                              font-style: normal;
-                                              font-size: 1.286em;
-                                              margin-top: -5px;">Chỉ từ <span>' . $gia . ' VND</span></span>
+                          <span style="font-weight: 900;font-style: normal;font-size: 1.286em;margin-top: -5px;"> 
+                          Giá <span>' . $gia . ' VND</span>
+                          </span>
                         </footer>
                       </div>
                     </article>
@@ -257,9 +252,9 @@ $row = $resultm->fetch();
             <ul class='pagination'>
 
               <?php
-                for ($i = 1; $i <= $total_pages; $i++) {
-                  echo "<li><a href='index.php?act=home&page=" . $i . "'>" . $i . "</a></li>";
-                }
+              for ($i = 1; $i <= $total_pages; $i++) {
+                echo "<li><a href='index.php?act=home&page=" . $i . "'>" . $i . "</a></li>";
+              }
               ?>
             </ul>
             <div class="btn-next">

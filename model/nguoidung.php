@@ -38,6 +38,13 @@ function checkuser($username, $password)
     $sp = pdo_query_one($sql);
     return $sp;
 }
+
+function checkemail($email)
+{
+    $sql = "SELECT * FROM nguoidung WHERE email='" . $email . "' ";
+    $sp = pdo_query_one($sql);
+    return $sp;
+}
 function insert_nguoidung2($username, $password, $email, $sdt, $role)
 {
     $sql = "INSERT INTO `nguoidung` (`username`, `password`, `email`, `sdt`, `role`) VALUES ('$username', '$password', '$email', '$sdt', '$role')";

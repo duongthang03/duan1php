@@ -35,7 +35,7 @@
 </head>
 
 <body>
-<style>
+  <style>
     #totalProduct {
       color: #fff;
       background-color: red;
@@ -100,45 +100,50 @@
                   </a>
                 </li> -->
                 <li class="hidden-xs hidden-sm dropdown last-dropdown" style="margin:0 10px 0 10px;">
-                <?php
-                if (isset($_SESSION['username'])) {
-                  echo '<a href="" class="dropdown-toggle">';
-                } else{
-                  echo '<a href="index.php?act=dangnhap" class="dropdown-toggle">';
-                }
-                ?>
-                    <b class="icon-angle-down"></b>
-                    <span class="icon icon-user"></span>
+                  <?php
+                  if (isset($_SESSION['username'])) {
+                    echo '<a href="index.php?act=hoso" class="dropdown-toggle">';
+                  } else {
+                    echo '<a href="index.php?act=dangky" class="dropdown-toggle">';
+                  }
+                  ?>
+                  <b class="icon-angle-down"></b>
+                  <span class="icon icon-user"></span>
 
-                    <?php
-                    if (isset($_SESSION['username'])) {
-                      extract($_SESSION['username']);
-                      ?>
-                      <div class="dropdown-menu">
-                        <ul>
-                          <li style="font-size: 20px; margin-left: 2px;"> Tài khoản: 
-                            <?php echo $_SESSION['username']['username'] ?? ""; ?>
-                          </li>
-                          <li style="font-size: 20px; margin-left: 2px;"> Email: 
-                            <?php echo $_SESSION['username']['email'] ?? ""; ?>
-                          </li>
-                          <li><a href="">Cập nhật tài khoản</a></li>
-
-                          <?php if ($role == 1) { ?>
-                            <li>
-                              <a href="../admin">Đăng nhập admin</a>
-                            </li>
-                          <?php } ?>
-
-                          <li><a href="index.php?act=thoat">Thoát</a></li>
-
-                        </ul>
-                      </div>
-                      <?php
-                    } else {
-                      echo "<span>Chưa đăng nhập</span>";
-                    }
+                  <?php
+                  if (isset($_SESSION['username'])) {
+                    // extract($_SESSION['username']);
                     ?>
+                    <div class="dropdown-menu">
+                      <ul>
+                        <li style="font-size: 13px; margin-left: 0px; font-weight: bold;"> Tài khoản:
+                          <?php echo $user['username'] ?? ""; ?>
+                        </li>
+                        <li style="font-size: 13px; margin-left: 0px; font-weight: bold;"> Email:
+                          <?php echo $user['email'] ?? ""; ?>
+                        </li>
+                        <li><a href="index.php?act=edit_user">Cập nhật tài khoản</a></li>
+
+                        <?php if ($user['role'] == 1) { ?>
+                          <li>
+                            <a href="../admin">Đăng nhập admin</a>
+                          </li>
+                        <?php } ?>
+
+                        <li><a href="index.php?act=thoat">Thoát</a></li>
+
+                      </ul>
+                    </div>
+                    <?php
+                  } else {
+                    echo "<span>Chưa đăng nhập</span>";
+                    echo '<div class="dropdown-menu">
+                          <ul>
+                          <li><a href="index.php?act=quenmk">Quên mật khẩu</a></li>
+                          </ul>
+                          </div>';
+                  }
+                  ?>
                   </a>
                 </li>
 
@@ -150,7 +155,9 @@
                     <span class="icon icon-cart"></span>
                     <span class="text hidden-md hidden-lg">Cart</span>
 
-                    <span id="totalProduct"><?= !empty($_SESSION['giohang']) ? count($_SESSION['giohang']) : 0 ?></span>
+                    <span id="totalProduct">
+                      <?= !empty($_SESSION['giohang']) ? count($_SESSION['giohang']) : 0 ?>
+                    </span>
                     <!-- <span class="text hidden-xs hidden-sm"></span> -->
                   </a>
                   <div class="dropdown-menu dropdown-md">
@@ -158,47 +165,54 @@
                       <strong class="title">Giỏ hàng</strong>
                       <ul class="cart-list">
                         <?php
-                         if (!empty($_SESSION['giohang'])) {
+                        if (!empty($_SESSION['giohang'])) {
                           $cart = $_SESSION['giohang'];
                           $id_tour = array_column($cart, 'id');
                           $idList = implode(',', $id_tour);
                           $dataDb = loadone_tourCart($idList);
-                        foreach ($dataDb as $key => $product) :
-                          foreach ($_SESSION['giohang'] as $item) {
-                            if ($item['id'] == $product['id_tour']) {
-                              $quantityInCart = $item['quantity'];
-                        ?>
-                            <li>
-                                <div class="img">
-                                  <a href="#">
-                                    <img src="../img/<?= $product['img'] ?>" height="165" width="170" alt="image description" />
-                                  </a>
-                                </div>
-                                <div class="text-holder">
-                                  <span class="amount">x <?= $item['quantity'] ?></span>
-                                  <div class="text-wrap">
-                                    <strong class="name"><a href="#"><?= $item['name'] ?></a></strong>
-                                    <span class="price"><?= number_format((int)$product['gia'] * (int)$quantityInCart, 0, ",", ".") ?>VND</span>
+                          foreach ($dataDb as $key => $product):
+                            foreach ($_SESSION['giohang'] as $item) {
+                              if ($item['id'] == $product['id_tour']) {
+                                $quantityInCart = $item['quantity'];
+                                ?>
+                                <li>
+                                  <div class="img">
+                                    <a href="#">
+                                      <img src="../img/<?= $product['img'] ?>" height="165" width="170"
+                                        alt="image description" />
+                                    </a>
                                   </div>
-                                </div>
-                            </li>
-                          <?php
-                          }
-                        }
+                                  <div class="text-holder">
+                                    <span class="amount">x
+                                      <?= $item['quantity'] ?>
+                                    </span>
+                                    <div class="text-wrap">
+                                      <strong class="name"><a href="#">
+                                          <?= $item['name'] ?>
+                                        </a></strong>
+                                      <span class="price">
+                                        <?= number_format((int) $product['gia'] * (int) $quantityInCart, 0, ",", ".") ?>VND
+                                      </span>
+                                    </div>
+                                  </div>
+                                </li>
+                                <?php
+                              }
+                            }
                           endforeach;
-                        ?>
-                        <li>
-                      </ul>
-                      <div class="footer">
-                        <a href="?act=my_cart" class="btn btn-primary">View cart</a>
-                        <span class="total"> Tổng tiền: 
-                          <?= number_format((int)$_SESSION['resultTotal'], 0, ",", ".") ?>VND
-                        </span>
+                          ?>
+                          <li>
+                        </ul>
+                        <div class="footer">
+                          <a href="?act=my_cart" class="btn btn-primary">View cart</a>
+                          <span class="total"> Tổng tiền:
+                            <?= number_format((int) $_SESSION['resultTotal'], 0, ",", ".") ?>VND
+                          </span>
+                        </div>
                       </div>
-                    </div>
-                    <?php
-                      }
-                    ?>
+                      <?php
+                        }
+                        ?>
                   </div>
                 </li>
                 <!-- End giỏ hàng -->
@@ -326,7 +340,7 @@
                       text-align: center;
                       color: #ffffff;
                     ">
-                  Những Cuộc Phiêu Lưu
+                  Những Chuyến Vui Chơi
                 </div>
 
                 <div class="tp-caption tp-resizeme banner-heading-sub rs-parallaxlevel-10"
@@ -345,7 +359,7 @@
                       font-weight: 900;
                       white-space: nowrap;
                     ">
-                  KỲ THÚ
+                  Đáng Nhớ
                 </div>
               </li>
             </ul>
@@ -355,102 +369,28 @@
         <div class="feature-block">
           <div class="holder">
             <ul>
-
-              <li>
-                <a href="?act=khuvuc&hanoi">
+              <?php
+              $i = 0;
+              $list_diadiem = loadall_diadiem();
+              foreach ($list_diadiem as $key) {
+                extract($key);
+                echo '<li>
+                <a>
                   <span class="ico">
                     <script src="https://cdn.lordicon.com/lordicon-1.2.0.js"></script>
                     <lord-icon src="https://cdn.lordicon.com/tdtlrbly.json" trigger="loop-on-hover" stroke="bold"
                       colors="primary:#848484,secondary:#848484" style="width:40px;height:40px">
                     </lord-icon>
                   </span>
-                  <span class="info">Hà Nội</span>
+                  <span class="info">' . $tendiadiem . '</span>
                 </a>
-              </li>
-
-              <li>
-                <a href="?act=khuvuc&hcm">
-                  <span class="ico">
-                    <script src="https://cdn.lordicon.com/lordicon-1.2.0.js"></script>
-                    <lord-icon src="https://cdn.lordicon.com/tdtlrbly.json" trigger="loop-on-hover" stroke="bold"
-                      colors="primary:#848484,secondary:#848484" style="width:40px;height:40px">
-                    </lord-icon>
-                  </span>
-                  <span class="info">TP.HCM</span>
-                </a>
-              </li>
-
-              <li>
-                <a href="?act=khuvuc&nhatrang">
-                  <span class="ico">
-                    <script src="https://cdn.lordicon.com/lordicon-1.2.0.js"></script>
-                    <lord-icon src="https://cdn.lordicon.com/tdtlrbly.json" trigger="loop-on-hover" stroke="bold"
-                      colors="primary:#848484,secondary:#848484" style="width:40px;height:40px">
-                    </lord-icon>
-                  </span>
-                  <span class="info">Nha Trang</span>
-                </a>
-              </li>
-
-              <li>
-                <a href="?act=khuvuc&danang">
-                  <span class="ico">
-                    <script src="https://cdn.lordicon.com/lordicon-1.2.0.js"></script>
-                    <lord-icon src="https://cdn.lordicon.com/tdtlrbly.json" trigger="loop-on-hover" stroke="bold"
-                      colors="primary:#848484,secondary:#848484" style="width:40px;height:40px">
-                    </lord-icon>
-                  </span>
-                  <span class="info">Đà Nẵng</span>
-                </a>
-              </li>
-
-              <li>
-                <a href="?act=khuvuc&hoian">
-                  <span class="ico">
-                    <script src="https://cdn.lordicon.com/lordicon-1.2.0.js"></script>
-                    <lord-icon src="https://cdn.lordicon.com/tdtlrbly.json" trigger="loop-on-hover" stroke="bold"
-                      colors="primary:#848484,secondary:#848484" style="width:40px;height:40px">
-                    </lord-icon>
-                  </span>
-                  <span class="info">Hội An</span>
-                </a>
-              </li>
-
-              <li>
-                <a href="?act=khuvuc&hue">
-                  <span class="ico">
-                    <script src="https://cdn.lordicon.com/lordicon-1.2.0.js"></script>
-                    <lord-icon src="https://cdn.lordicon.com/tdtlrbly.json" trigger="loop-on-hover" stroke="bold"
-                      colors="primary:#848484,secondary:#848484" style="width:40px;height:40px">
-                    </lord-icon>
-                  </span>
-                  <span class="info">Huế</span>
-                </a>
-              </li>
-
-              <li>
-                <a href="?halong">
-                  <span class="ico">
-                    <script src="https://cdn.lordicon.com/lordicon-1.2.0.js"></script>
-                    <lord-icon src="https://cdn.lordicon.com/tdtlrbly.json" trigger="loop-on-hover" stroke="bold"
-                      colors="primary:#848484,secondary:#848484" style="width:40px;height:40px">
-                    </lord-icon>
-                  </span>
-                  <span class="info">Hạ Long</span>
-                </a>
-              </li>
-
-              <li>
-                <a href="?phuquoc">
-                  <span class="ico">
-                    <script src="https://cdn.lordicon.com/lordicon-1.2.0.js"></script>
-                    <lord-icon src="https://cdn.lordicon.com/tdtlrbly.json" trigger="loop-on-hover" stroke="bold"
-                      colors="primary:#848484,secondary:#848484" style="width:40px;height:40px">
-                    </lord-icon>
-                  </span>
-                  <span class="info">Phú Quốc</span>
-                </a>
-              </li>
+              </li>';
+                $i++;
+                if ($i == 8) {
+                  break;
+                }
+              }
+              ?>
 
             </ul>
           </div>
