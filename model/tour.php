@@ -75,13 +75,13 @@ function load_gallery($id_khuvuichoi)
 //     $sql = "INSERT INTO `tour`(`name`, `price`, `img`, `mota`, `id_tourdm`) VALUES ('$tensp', '$giasp', '$hinh', '$mota', '$id_tourdm');";
 //     pdo_execute($sql);
 // }
-function update_tour($id_tour, $gia, $soluong, $mota, $thongtinchitiet, $hinh, $id_khuvuichoi, $trangthai, $id_diadiem)
+function update_tour($id_tour, $gia, $soluong, $mota, $thongtinchitiet, $id_khuvuichoi, $trangthai, $id_diadiem)
 {
-    if ($hinh != "") {
-        $sql = "UPDATE `tour` SET `gia` = '{$gia}',`soluong` = '{$soluong}', `mota` = '{$mota}', `thongtinchitiet` = '{$thongtinchitiet}', `img` = '{$hinh}', `id_khuvuichoi` = '{$id_khuvuichoi}', `trangthai` = '{$trangthai}', `id_diadiem` = '{$id_diadiem}', `img` = '{$hinh}' WHERE `tour`.`id_tour` = $id_tour";
-    } else {
-        $sql = "UPDATE `tour` SET `gia` = '{$gia}',`soluong` = '{$soluong}', `mota` = '{$mota}', `thongtinchitiet` = '{$thongtinchitiet}', `id_khuvuichoi` = '{$id_khuvuichoi}', `trangthai` = '{$trangthai}', `id_diadiem` = '{$id_diadiem}' WHERE `tour`.`id_tour` = $id_tour";
-    }
+    // if ($hinh != "") {
+    //     $sql = "UPDATE `tour` SET `gia` = '{$gia}',`soluong` = '{$soluong}', `mota` = '{$mota}', `thongtinchitiet` = '{$thongtinchitiet}', `img` = '{$hinh}', `id_khuvuichoi` = '{$id_khuvuichoi}', `trangthai` = '{$trangthai}', `id_diadiem` = '{$id_diadiem}', `img` = '{$hinh}' WHERE `tour`.`id_tour` = $id_tour";
+    // } else { }
+        $sql = "UPDATE tour SET `gia` = '{$gia}',`soluong` = '{$soluong}', `mota` = '{$mota}', `thongtinchitiet` = '{$thongtinchitiet}', `id_khuvuichoi` = '{$id_khuvuichoi}', `trangthai` = '{$trangthai}', `id_diadiem` = '{$id_diadiem}' WHERE `tour`.`id_tour` = $id_tour";
+   
     pdo_execute($sql);
 }
 function insert_tour($gia, $soluong, $mota, $thongtinchitiet, $hinh, $id_khuvuichoi, $trangthai, $id_diadiem)

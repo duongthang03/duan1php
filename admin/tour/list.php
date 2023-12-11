@@ -55,6 +55,8 @@
                         }
                         if($trangthai == 0){
                             $trangthai = "Hữu hiệu";
+                        }else{
+                            $trangthai = "Không hữu hiệu";
                         }
                         $gia = number_format($gia, 0, '', '.');
                     ?>

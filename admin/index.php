@@ -26,9 +26,7 @@ if (isset($_GET['act']) && ($_GET['act'] != "")) {
         case "grid":
             include "grid.php";
             break;
-        case "anh":
-            include "anh.php";
-            break;
+
         ///////////////////////////////////////////////////////////////////////////////////////
         // case "diadiem":
         //     include "diadiem/index.php";
@@ -197,22 +195,24 @@ if (isset($_GET['act']) && ($_GET['act'] != "")) {
                 $id_tour = $_POST['id_tour'];
                 $id_diadiem = $_POST['id_diadiem'];
                 $id_khuvuichoi = $_POST['id_khuvuichoi'];
-                $hinh = $_FILES['img']['name'];
-                $target_dir = "../img/";
-                $target_file = $target_dir . basename($_FILES["img"]["name"]);
-                if (move_uploaded_file($_FILES["img"]["tmp_name"], $target_file)) {
-                    echo "The file " . htmlspecialchars(basename($_FILES["img"]["name"])) . " has been uploaded.";
-                } else {
-                    echo "Sorry, there was an error uploading your file.";
-                }
+                // $hinh = $_FILES['img']['name'];
+                // $target_dir = "./img/";
+                // $target_file = $target_dir . basename($_FILES["img"]["name"]);
+                // if (move_uploaded_file($_FILES["img"]["tmp_name"], $target_file)) {
+                //     // echo "The file " . htmlspecialchars(basename($_FILES["img"]["name"])) . " has been uploaded.";
+                // } else {
+                //     // echo "Sorry, there was an error uploading your file.";
+                // }
                 $mota = $_POST['mota'];
                 $thongtinchitiet = $_POST['thongtinchitiet'];
                 $gia = $_POST['gia'];
                 $soluong = $_POST['soluong'];
                 $trangthai = $_POST['trangthai'];
-                update_tour($id_tour, $gia, $soluong, $mota, $thongtinchitiet, $hinh, $id_khuvuichoi, $trangthai, $id_diadiem);
+                update_tour($id_tour, $gia, $soluong, $mota, $thongtinchitiet, $id_khuvuichoi, $trangthai, $id_diadiem);
                 $thongbao = "Update successfully!";
             }
+            $list_diadiem = loadall_diadiem();
+            $list_khuvuichoi = loadall_khuvuichoi();
             $list_tour = loadall_tour();
             include "tour/list.php";
             break;
