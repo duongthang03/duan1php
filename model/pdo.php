@@ -1,7 +1,7 @@
 <?php
 function pdo_get_connection()
 {
-    $servername = "localhost:3307";
+    $servername = "localhost";
     $username = "root";
     $password = "";
     try {
@@ -12,20 +12,19 @@ function pdo_get_connection()
         echo "Connection failed: " . $e->getMessage();
     }
 }
-function pdo_executeid($sql){
-    $sql_args=array_slice(func_get_args(),1);
-    try{
-        $conn=pdo_get_connection();
-        $stmt=$conn->prepare($sql);
+function pdo_executeid($sql)
+{
+    $sql_args = array_slice(func_get_args(), 1);
+    try {
+        $conn = pdo_get_connection();
+        $stmt = $conn->prepare($sql);
         $stmt->execute($sql_args);
         $lastInsertId = $conn->lastInsertId();
 
         return $lastInsertId;
-    }
-    catch(PDOException $e){
+    } catch (PDOException $e) {
         throw $e;
-    }
-    finally{
+    } finally {
         unset($conn);
     }
 }
