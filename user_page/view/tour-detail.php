@@ -77,20 +77,21 @@
           <div class="btn-holder">
             <!-- <a href="?act=add_to_cart&id_tour=<?= $id_tour ?>" class="btn btn-lg btn-info">ĐẶT NGAY</a> -->
             <button data-id="<?= $id ?>" class="btn btn-lg btn-info"
-              onclick="if (!isset($_SESSION['username'])) {
-                
-              }addToCart(<?= $id_tour ?>, '<?= $tenkhuvuichoi ?>', <?= $gia ?>)">Thêm vào giỏ hàng</button>
+              onclick="addToCart(<?= $id_tour ?>, '<?= $tenkhuvuichoi ?>', <?= $gia ?>)">Thêm vào giỏ hàng</button>
           </div>
           <script src="https://code.jquery.com/jquery-3.7.1.min.js"></script>
+          <?php
+          if (isset($_SESSION['username'])) {
+            echo '
           <script>
-            let totalProduct = document.getElementById('totalProduct');
+            let totalProduct = document.getElementById("totalProduct");
             function addToCart(id_tour, tenkhuvuichoi, gia) {
               console.log(id_tour, tenkhuvuichoi, gia);
               // Sử dụng jQuery
               $.ajax({
-                type: 'POST',
+                type: "POST",
                 // Đường dẫ tới tệp PHP xử lý dữ liệu
-                url: './view/addToCart.php',
+                url: "./view/addToCart.php",
                 data: {
                   id: id_tour,
                   name: tenkhuvuichoi,
@@ -98,14 +99,24 @@
                 },
                 success: function (response) {
                   totalProduct.innerText = response;
-                  alert('Bạn đã thêm sản phẩm vào giỏ hàng thành công!')
+                  alert("Bạn đã thêm sản phẩm vào giỏ hàng thành công!")
                 },
                 error: function (error) {
                   console.log(error);
                 }
               });
             }
-          </script>
+          </script>';
+          } else {
+            echo '<script>
+            function addToCart(id_tour, tenkhuvuichoi, gia) {
+              alert("Bạn cần đăng nhập trước khi thêm giỏ hàng!");
+              window.location.href = "index.php?act=dangky";
+            }
+            </script>';
+          }
+          ?>
+
           <ul class="social-networks social-share">
             <li>
               <a href="#" class="facebook">

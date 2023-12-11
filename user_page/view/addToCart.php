@@ -19,6 +19,8 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
     if ($index !== false) {
         $_SESSION['giohang'][$index]['quantity'] += 1;
         // $_SESSION['giohang'][$index]['date'] += 1;
+        // $sum_total = ((int) $_SESSION['giohang'][$index]['price'] * (int) $_SESSION['giohang'][$index]['quantity']);
+        // $_SESSION['resultTotal'] = $sum_total;
     } else {
         // Nếu sản phẩm chưa tồn tại thì thêm mới vào giỏ hàng
         $product = [

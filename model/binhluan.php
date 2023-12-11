@@ -15,15 +15,24 @@ function delete_binhluan($id_binhluan)
     $sql = "DELETE FROM binhluan WHERE id_binhluan=" . $id_binhluan;
     pdo_execute($sql);
 }
-function insert_binhluan($id_tour, $id_nguoidung, $noidung)
+// function insert_binhluan($noidung, $id_nguoidung, $id_tour)
+// {
+//     $date = date('Y-m-d');
+//     $sql = "
+//             INSERT INTO `binhluan`(`noidung`, `id_nguoidung`, `id_tour`, `ngaybinhluan`) 
+//             VALUES ('$noidung','$id_nguoidung','$id_tour','$date');
+//         ";
+//     //echo $sql;
+//     //die;
+//     pdo_execute($sql);
+// }
+function insert_binhluan($noidung, $id_nguoidung, $id_tour)
 {
     $date = date('Y-m-d');
     $sql = "
-            INSERT INTO `binhluan`(`noidung`, `id_nguoidung`, `id_tour`, `ngaybinhluan`) 
-            VALUES ('$noidung','$id_nguoidung','$id_tour','$date');
-        ";
-    //echo $sql;
-    //die;
+        INSERT INTO `binhluan`(`noidung`, `id_nguoidung`, `id_tour`,`ngaybinhluan`) 
+        VALUES ('$noidung','$id_nguoidung','$id_tour', '$date');
+    ";
     pdo_execute($sql);
 }
 function all_binhluan($id_tour)

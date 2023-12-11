@@ -11,7 +11,7 @@ include "../model/nguoidung.php";
 include "../model/order.php";
 include "../model/binhluan.php";
 include "../global.php";
-// // $list_tour = loadall_tour();
+// $list_tour = loadall_tour();
 $userID = $_SESSION['username'] ?? 0;
 $user = loadone_nguoidung($userID);
 
@@ -39,8 +39,7 @@ if (isset($_GET['act']) && ($_GET['act'] != "")) {
       if (isset($_POST['binhluan'])) {
         $id_tour = $_POST['id'];
         $noidung = $_POST['noidung'];
-        $userID = $_SESSION['username']['id_nguoidung'];
-        insert_binhluan($id_tour, $userID, $noidung);
+        insert_binhluan($noidung, $userID, $id_tour);
         header("Location: " . $_SERVER['HTTP_REFERER']);
       }
       include "view/tour-detail.php";
@@ -51,7 +50,7 @@ if (isset($_GET['act']) && ($_GET['act'] != "")) {
       // $id_nguoidung = $_SESSION['id_nguoidung'];
       // $id_nguoidung = 1;
       // $list_cart = load_cart($id_nguoidung);
-      $id_nguoidung = $_SESSION['username']['id_nguoidung'];
+      $id_nguoidung = $_SESSION['username'];
       $list_donhangdadat = load_donhangdadat($id_nguoidung);
       if (!empty($_SESSION['giohang'])) {
         $cart = $_SESSION['giohang'];
@@ -83,7 +82,7 @@ if (isset($_GET['act']) && ($_GET['act'] != "")) {
           date_default_timezone_set('Asia/Ho_Chi_Minh');
           $currentDateTime = date('Y-m-d H:i:s');
           if (isset($_SESSION['username'])) {
-            $id_user = $_SESSION['username']['id_nguoidung'];
+            $id_user = $_SESSION['username'];
           } else {
             $id_user = 0;
           }
@@ -97,6 +96,7 @@ if (isset($_GET['act']) && ($_GET['act'] != "")) {
           }
           unset($_SESSION['cart']);
           $_SESSION['success'] = $idBill;
+          unset($_SESSION['giohang']);
           header("Location: ?act=confirmation");
         }
         include "view/checkout.php";
