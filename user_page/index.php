@@ -27,7 +27,7 @@ if (isset($_GET['act']) && ($_GET['act'] != "")) {
     case "chitiettour":
       // $list_tour = loadall_tour();
       // $tour = loadone_tour($_GET['id_tour']);
-      $gallery = load_gallery(3);
+      // $gallery = load_gallery(3);
       if (isset($_GET['id_tour']) && ($_GET['id_tour'] > 0)) {
         $id_tour = $_GET['id_tour'];
         $tour = loadone_tour($id_tour);

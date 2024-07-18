@@ -47,7 +47,7 @@ if (isset($_GET['act']) && ($_GET['act'] != "")) {
             if (isset($_POST['update']) && ($_POST['update'])) {
                 $id_diadiem = $_POST['id_diadiem'];
                 $tendiadiem = $_POST['tendiadiem'];
-                
+
                 update_diadiem($id_diadiem, $tendiadiem);
                 $thongbao = "Cập nhật thành công!";
             }
@@ -84,7 +84,7 @@ if (isset($_GET['act']) && ($_GET['act'] != "")) {
             if (isset($_POST['clickOK']) && ($_POST['clickOK'])) {
                 $keyw = $_POST['keyw'];
                 $id_diadiem = $_POST['id_diadiem'];
-                if($id_diadiem == 0){
+                if ($id_diadiem == 0) {
                     $list_khuvuichoi = loadall_khuvuichoi();
                     $list_diadiem = loadall_diadiem();
                     include "khuvuichoi/list.php";
@@ -123,20 +123,20 @@ if (isset($_GET['act']) && ($_GET['act'] != "")) {
             include "khuvuichoi/list.php";
             break;
         case "add_kvc":
-            
+
             $list_khuvuichoi = loadall_khuvuichoi();
             $list_diadiem = loadall_diadiem();
             include "khuvuichoi/add.php";
             break;
         case "add_khuvuichoi":
-            
+
             // if (isset($_POST['add'])) {
 
-           $tenkhuvuichoi = $_POST['tenkhuvuichoi'];
-                $id_diadiem = $_POST['id_diadiem'];
-                $diachi = $_POST['diachi'];
-                insert_khuvuichoi($id_diadiem, $diachi, $tenkhuvuichoi);
-                $status = "Thêm thành công";
+            $tenkhuvuichoi = $_POST['tenkhuvuichoi'];
+            $id_diadiem = $_POST['id_diadiem'];
+            $diachi = $_POST['diachi'];
+            insert_khuvuichoi($id_diadiem, $diachi, $tenkhuvuichoi);
+            $status = "Thêm thành công";
             // }
             $list_khuvuichoi = loadall_khuvuichoi();
             include "khuvuichoi/list.php";
@@ -159,7 +159,7 @@ if (isset($_GET['act']) && ($_GET['act'] != "")) {
             if (isset($_POST['clickOK']) && ($_POST['clickOK'])) {
                 $keyw = $_POST['keyw'];
                 $id_diadiem = $_POST['id_diadiem'];
-                if($id_diadiem == 0){
+                if ($id_diadiem == 0) {
                     $list_tour = loadall_tour();
                     $list_diadiem = loadall_diadiem();
                     include "tour/list.php";
@@ -178,8 +178,8 @@ if (isset($_GET['act']) && ($_GET['act'] != "")) {
             // include "tour/list.php";
             break;
         case "chitiet_tour":
-                $tour = loadone_tour($_GET['id_ve']);
-                include "tour/chitiet.php";
+            $tour = loadone_tour($_GET['id_ve']);
+            include "tour/chitiet.php";
             break;
         case "update_tour":
             if (isset($_GET['id_tour']) && ($_GET['id_tour'] > 0)) {
@@ -221,22 +221,23 @@ if (isset($_GET['act']) && ($_GET['act'] != "")) {
                 $diadiem = $_POST['diadiem'];
                 $khuvuichoi = $_POST['khuvuichoi'];
                 $diachi = $_POST['diachi'];
-                $hinh=$_FILES['image']['name'];
+                $hinh = $_FILES['image']['name'];
                 $target_dir = "../img/";
                 $target_file = $target_dir . basename($_FILES["image"]["name"]);
                 if (move_uploaded_file($_FILES["image"]["tmp_name"], $target_file)) {
-                echo "The file ". htmlspecialchars( basename( $_FILES["image"]["name"])). " has been uploaded.";
-                    } else {
-                echo "Sorry, there was an error uploading your file.";
-                    }
+                    echo "The file " . htmlspecialchars(basename($_FILES["image"]["name"])) . " has been uploaded.";
+                } else {
+                    echo "Sorry, there was an error uploading your file.";
+                }
                 $mota = $_POST['mota'];
                 $thongtinchitiet = $_POST['thongtinchitiet'];
                 $gia = $_POST['gia'];
                 $soluong = $_POST['soluong'];
                 $trangthai1 = $_POST['trangthai'];
                 insert_khuvuichoi($diadiem, $diachi, $khuvuichoi);
-                function loadone2_khuvuichoi($khuvuichoi){
-                    $sql = "select * from khuvuichoi join diadiem on khuvuichoi.id_diadiem = diadiem.id_diadiem where khuvuichoi.tenkhuvuichoi = '".$khuvuichoi."'";
+                function loadone2_khuvuichoi($khuvuichoi)
+                {
+                    $sql = "select * from khuvuichoi join diadiem on khuvuichoi.id_diadiem = diadiem.id_diadiem where khuvuichoi.tenkhuvuichoi = '" . $khuvuichoi . "'";
                     $result = pdo_query_one($sql);
                     return $result;
                 }
@@ -253,14 +254,14 @@ if (isset($_GET['act']) && ($_GET['act'] != "")) {
             include "tour/add.php";
             break;
         case "A_add_tour":
-            
+
             // if (isset($_POST['add'])) {
 
-           $tentour = $_POST['tentour'];
-                $id_diadiem = $_POST['id_diadiem'];
-                $diachi = $_POST['diachi'];
-                insert_tour($id_diadiem, $diachi, $tentour);
-                $status = "Thêm thành công";
+            $tentour = $_POST['tentour'];
+            $id_diadiem = $_POST['id_diadiem'];
+            $diachi = $_POST['diachi'];
+            insert_tour($id_diadiem, $diachi, $tentour);
+            $status = "Thêm thành công";
             // }
             $list_tour = loadall_tour();
             include "tour/list.php";
@@ -292,7 +293,7 @@ if (isset($_GET['act']) && ($_GET['act'] != "")) {
             //     // $list_diadiem = loadall_diadiem();
             //     include "donhang/list.php";
             // }
-            if(isset($_POST['mi'])){
+            if (isset($_POST['mi'])) {
                 $id = $_GET['id'];
                 $tt = $_POST['mi'];
                 update_trangthai_donhang($id, $tt);
@@ -304,7 +305,7 @@ if (isset($_GET['act']) && ($_GET['act'] != "")) {
             }
             $limit = 9;
             $start = ($page - 1) * $limit;
-            if(isset($_POST['statusFilter']) && ($_POST['statusFilter'] == "choduyet")){
+            if (isset($_POST['statusFilter']) && ($_POST['statusFilter'] == "choduyet")) {
                 // echo '<script>window.alert("vvvvvvvvvvvv")</script>';
                 $sql1 = "SELECT SUM(soluong_donhang) AS soluong,
                             datve.datetime,
@@ -323,7 +324,7 @@ if (isset($_GET['act']) && ($_GET['act'] != "")) {
                     group by datve.datetime
                     order by tbl_order.ngaydathang desc 
                     LIMIT $start, $limit";
-            } else if(isset($_POST['statusFilter']) && ($_POST['statusFilter'] == "xacnhan")){
+            } else if (isset($_POST['statusFilter']) && ($_POST['statusFilter'] == "xacnhan")) {
                 $sql1 = "SELECT SUM(soluong_donhang) AS soluong,
                             datve.datetime,
                             datve.id_nguoidung,
@@ -341,7 +342,7 @@ if (isset($_GET['act']) && ($_GET['act'] != "")) {
                     group by datve.datetime
                     order by tbl_order.ngaydathang desc 
                     LIMIT $start, $limit";
-            } else if(isset($_POST['statusFilter']) && ($_POST['statusFilter'] == "hoanthanh")){
+            } else if (isset($_POST['statusFilter']) && ($_POST['statusFilter'] == "hoanthanh")) {
                 $sql1 = "SELECT SUM(soluong_donhang) AS soluong,
                             datve.datetime,
                             datve.id_nguoidung,
@@ -359,7 +360,7 @@ if (isset($_GET['act']) && ($_GET['act'] != "")) {
                     group by datve.datetime
                     order by tbl_order.ngaydathang desc 
                     LIMIT $start, $limit";
-            } else{
+            } else {
                 $sql1 = "SELECT SUM(soluong_donhang) AS soluong,
                             datve.datetime,
                             datve.id_nguoidung,
@@ -452,7 +453,7 @@ if (isset($_GET['act']) && ($_GET['act'] != "")) {
             $list_nguoidung = loadall_nguoidung();
             include "nguoidung/add.php";
             break;
-        case "A_add_nguoidung":      
+        case "A_add_nguoidung":
             if (isset($_POST['add'])) {
                 $username = $_POST['username'];
                 $password = $_POST['password'];
@@ -477,7 +478,7 @@ if (isset($_GET['act']) && ($_GET['act'] != "")) {
             $list_binhluan = loadall_binhluan();
             include "binhluan/list.php";
             break;
-            ////////////////////////////////////////////////
+        ////////////////////////////////////////////////
         case "thongke":
             $list_thongke = load_thongke();
             include "thongke/list.php";
@@ -486,16 +487,16 @@ if (isset($_GET['act']) && ($_GET['act'] != "")) {
             $list_thongke_doanhthu = load_thongke_doanhthu();
             // $thang = 11;
             date_default_timezone_set('Asia/Ho_Chi_Minh');
-            $month = (int)date('m');
-            if(!isset($_SESSION['thang'])){
+            $month = (int) date('m');
+            if (!isset($_SESSION['thang'])) {
                 $_SESSION['thang'] = $month;
             }
-            if(!isset($_SESSION['thang3'])){
+            if (!isset($_SESSION['thang3'])) {
                 $_SESSION['thang3'] = $month;
             }
             include "thongke/list_doanhthu.php";
             break;
-            ///////////////////////////////////////////////
+        ///////////////////////////////////////////////
         case "form-basic":
             include "form-basic.php";
             break;
@@ -551,4 +552,3 @@ if (isset($_GET['act']) && ($_GET['act'] != "")) {
 
 include "footer.php";
 ?>
-

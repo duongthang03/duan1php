@@ -1,6 +1,6 @@
 <?php
-  // session_start();
-  // echo $_SESSION['id_nguoidung'];
+// session_start();
+// echo $_SESSION['id_nguoidung'];
 ?>
 <!-- main container -->
 <main id="main">
@@ -22,57 +22,56 @@
     <div class="cart-holder table-container">
       <!-- <form method="POST"> -->
       <div class="table-responsive">
-      <?php
-      if (empty($dataDb)) {
+        <?php
+        if (empty($dataDb)) {
           echo '<h1>Chưa có sản phẩm nào trong giỏ hàng</h1>';
-      } else {
-      ?>
-        <table class="table table-hover table-align-right">
-          <thead>
-            <tr>
-              <th>&nbsp;</th>
-              <th>
-                <strong class="date-text">Vé đã chọn</strong>
-              </th>
-              <th>
-                <strong class="date-text" style="width: 105px">Giá vé</strong>
-              </th>
-              <th>
-                <strong class="date-text">Số lượng vé</strong>
-              </th>
-              <th>
-                <strong class="date-text" style="width=105px">Tổng tiền</strong>
-              </th>
-              <th>
-              </th>
-            </tr>
-          </thead>
-          <tbody id="order">
-            <?php
-            // $i = 1;
-            // echo $_SESSION['id_nguoidung'];
-            // echo $_SESSION['username'];
-            $sum_total = 0;
-            foreach ($dataDb as $key => $product) :
-              $quantityInCart = 0;
-              foreach ($_SESSION['giohang'] as $item) {
-                if ($item['id'] == $product['id_tour']) {
+        } else {
+          ?>
+          <table class="table table-hover table-align-right">
+            <thead>
+              <tr>
+                <th>&nbsp;</th>
+                <th>
+                  <strong class="date-text">Vé đã chọn</strong>
+                </th>
+                <th>
+                  <strong class="date-text" style="width: 105px">Giá vé</strong>
+                </th>
+                <th>
+                  <strong class="date-text">Số lượng vé</strong>
+                </th>
+                <th>
+                  <strong class="date-text" style="width=105px">Tổng tiền</strong>
+                </th>
+                <th>
+                </th>
+              </tr>
+            </thead>
+            <tbody id="order">
+              <?php
+              // $i = 1;
+              // echo $_SESSION['id_nguoidung'];
+              // echo $_SESSION['username'];
+              $sum_total = 0;
+              foreach ($dataDb as $key => $product):
+                $quantityInCart = 0;
+                foreach ($_SESSION['giohang'] as $item) {
+                  if ($item['id'] == $product['id_tour']) {
                     $quantityInCart = $item['quantity'];
                     $date = $item['date'];
                     $timestamp = strtotime($date);
                     $formattedDate = date('Y-m-d', $timestamp);
                     break;
+                  }
                 }
-              }
-              ?>
+                ?>
                 <tr>
                   <td>
                     <div class="cell">
                       <div class="middle">
-                        <button onclick="removeFormCart(<?= $product['id_tour'] ?>)"  style="border: none; background-color: transparent">
-                          <a class="delete" href="#"
-                            ><span class="icon-trash"></span
-                          ></a>
+                        <button onclick="removeFormCart(<?= $product['id_tour'] ?>)"
+                          style="border: none; background-color: transparent">
+                          <a class="delete" href="#"><span class="icon-trash"></span></a>
                         </button>
                       </div>
                     </div>
@@ -82,19 +81,18 @@
                       <div class="middle">
                         <div class="info">
                           <div class="img-wrap">
-                            <img
-                              src="../img/<?= $product['img'] ?>"
-                              height="240"
-                              width="350"
-                              alt="<?= $product['tenkhuvuichoi'] ?>"
-                            />
+                            <img src="../img/<?= $product['img'] ?>" height="240" width="350"
+                              alt="<?= $product['tenkhuvuichoi'] ?>" />
                           </div>
                           <div class="text-wrap">
-                            <strong class="product-title"
-                              ><?= $product['tenkhuvuichoi'] ?></strong
-                            >
-                            <input type="date" class="ngaydat" name="ngaydat" value="<?= $formattedDate ?>" min="<?= date('Y-m-d'); ?>" max="<?= date('Y-m-d', strtotime('+10 day')); ?>" oninput="updateQuantity(<?= $product['id_tour'] ?>, <?= $key ?>)" id="date_<?= $product['id_tour'] ?>">
-                            
+                            <strong class="product-title">
+                              <?= $product['tenkhuvuichoi'] ?>
+                            </strong>
+                            <input type="date" class="ngaydat" name="ngaydat" value="<?= $formattedDate ?>"
+                              min="<?= date('Y-m-d'); ?>" max="<?= date('Y-m-d', strtotime('+10 day')); ?>"
+                              oninput="updateQuantity(<?= $product['id_tour'] ?>, <?= $key ?>)"
+                              id="date_<?= $product['id_tour'] ?>">
+
                           </div>
                         </div>
                       </div>
@@ -103,7 +101,8 @@
                   <td>
                     <div class="cell">
                       <div class="middle">
-                          <input readonly value="<?= number_format((int)$product['gia'], 0, ",", ".")  ?>" style="text-align: right; border: none; background-color: transparent; width:80%"> <u>đ</u>
+                        <input readonly value="<?= number_format((int) $product['gia'], 0, ",", ".") ?>"
+                          style="text-align: right; border: none; background-color: transparent; width:80%"> <u>đ</u>
                       </div>
                     </div>
                   </td>
@@ -113,9 +112,18 @@
                         <div class="num-hold">
                           <!-- <button type="button" class="minus control" onclick="decreaseQuantity<?= $product['id_tour'] ?>()" style="font-size: 40px">-</button>
                           <button type="button" class="plus control" onclick="increaseQuantity<?= $product['id_tour'] ?>()" style="font-size: 25px">+</button> -->
-                          <input type="number" value="<?= $quantityInCart ?>" min="1" max=<?=$product['soluong']?> id="quantity_<?= $product['id_tour'] ?>" oninput="updateQuantity(<?= $product['id_tour'] ?>, <?= $key ?>)" style="width:42%; text-align: center; border: none; background-color: transparent">
+                          <input type="number" value="<?= $quantityInCart ?>" min="1" max=<?= $product['soluong'] ?>
+                            id="quantity_<?= $product['id_tour'] ?>"
+                            oninput="updateQuantity(<?= $product['id_tour'] ?>, <?= $key ?>)"
+                            style="width:42%; text-align: center; border: none; background-color: transparent">
                           <!-- <input style="width:42%; text-align: center; border: none; background-color: transparent"  id="quantity<?= $i ?>" value="<?= $soluong_cart ?>" readonly name="quantity<?= $i ?>"> -->
-                          <input style="width:100%; margin-top: 5px; height: 20px; text-align: center; background-color: #4f4949; color: white" value="Tổng: <?= ($product['soluong'] - $quantityInCart) ?> vé" readonly>
+                          <input min="0" max="<?= ($product['soluong'] - $quantityInCart) ?>"
+                            style="width:100%; margin-top: 5px; height: 20px; text-align: center; background-color: #4f4949; color: white"
+                            value="Tổng: <?php if ($quantityInCart > $product['soluong']) {
+                              echo "0";
+                            } else {
+                              echo ($product["soluong"] - $quantityInCart);
+                            } ?> vé" readonly>
                         </div>
                       </div>
                     </div>
@@ -123,15 +131,17 @@
                   <td>
                     <div class="cell">
                       <div class="middle">
-                          <input readonly value="<?= number_format((int)$product['gia'] * (int)$quantityInCart, 0, ",", ".") ?>" style="text-align: right; border: none; background-color: transparent; width:80%"> <u>đ</u>
-                          <!-- <input style="width: 60%; text-align: center; border: none; background-color: transparent" readonly name="totalPrice<?= $i ?>" id="totalPrice<?= $i ?>" value="<?= $tong1 ?>">VND -->
+                        <input readonly
+                          value="<?= number_format((int) $product['gia'] * (int) $quantityInCart, 0, ",", ".") ?>"
+                          style="text-align: right; border: none; background-color: transparent; width:80%"> <u>đ</u>
+                        <!-- <input style="width: 60%; text-align: center; border: none; background-color: transparent" readonly name="totalPrice<?= $i ?>" id="totalPrice<?= $i ?>" value="<?= $tong1 ?>">VND -->
                       </div>
                     </div>
                   </td>
                   <td>
                     <div class="cell">
                       <div class="middle">
-                        <!-- <a href="?act=checkout&id_tour=<?=$product['id_tour']?>"><button type="submit" class="btn btn-default">Thanh toán</button></a> -->
+                        <!-- <a href="?act=checkout&id_tour=<?= $product['id_tour'] ?>"><button type="submit" class="btn btn-default">Thanh toán</button></a> -->
                         <p></p>
                       </div>
                     </div>
@@ -152,84 +162,84 @@
                     document.getElementById('quantity_<?= $product['id_tour'] ?>').value = value < 0 ? 0 : value;
                   }
                 </script>
-        <?php
-          $sum_total += ((int)$product['gia'] * (int)$quantityInCart);
-          $_SESSION['resultTotal'] = $sum_total;
-          endforeach;
-        ?>
-        <tr>
+                <?php
+                $sum_total += ((int) $product['gia'] * (int) $quantityInCart);
+                $_SESSION['resultTotal'] = $sum_total;
+              endforeach;
+              ?>
+              <tr>
                 <td colspan="3" align="center">
-                    <h2>Tổng tiền hàng:</h2>
+                  <h2>Tổng tiền hàng:</h2>
                 </td>
                 <td colspan="2" align="center">
-                    <h2>
-                        <span>
-                            <?= number_format((int)$sum_total, 0, ",", ".")  ?> <u>đ</u>
-                        </span>
-                    </h2>
+                  <h2>
+                    <span>
+                      <?= number_format((int) $sum_total, 0, ",", ".") ?> <u>đ</u>
+                    </span>
+                  </h2>
                 </td>
-            </tr>
-          </tbody>
-        </table>
-        <?php
+              </tr>
+            </tbody>
+          </table>
+          <?php
         }
         ?>
         <script src="https://code.jquery.com/jquery-3.7.1.min.js"></script>
-<script>
-    // hàm cập nhật số lượng
-    function updateQuantity(id, index) {
-        // lấy giá trị của ô input
-        let newQuantity = $('#quantity_' + id).val();
-        let newDate = $('#date_' + id).val();
-        newDate = newDate.toString();
-        // alert(newDate);
-        // alert(newQuantity);
-        if (newQuantity <= 0) {
-            newQuantity = 1
-        }
-        // Gửi yêu cầu bằng ajax để cập nhật giỏ hàng
-        $.ajax({
-            type: 'POST',
-            url: './view/updateQuantity.php',
-            data: {
+        <script>
+          // hàm cập nhật số lượng
+          function updateQuantity(id, index) {
+            // lấy giá trị của ô input
+            let newQuantity = $('#quantity_' + id).val();
+            let newDate = $('#date_' + id).val();
+            newDate = newDate.toString();
+            // alert(newDate);
+            // alert(newQuantity);
+            if (newQuantity <= 0) {
+              newQuantity = 1
+            }
+            // Gửi yêu cầu bằng ajax để cập nhật giỏ hàng
+            $.ajax({
+              type: 'POST',
+              url: './view/updateQuantity.php',
+              data: {
                 id: id,
                 quantity: newQuantity,
                 date: newDate
-            },
-            success: function(response) {
+              },
+              success: function (response) {
                 // Sau khi cập nhật thành công
-                $.post('view/tableCartOrder.php', function(data) {
-                    $('#order').html(data);
+                $.post('view/tableCartOrder.php', function (data) {
+                  $('#order').html(data);
                 })
-            },
-            error: function(error) {
+              },
+              error: function (error) {
                 console.log(error);
-            },
-        })
-    }
+              },
+            })
+          }
 
-    function removeFormCart(id) {
-        if (confirm("Bạn có đồng ý xóa sản phẩm hay không?")) {
-            // Gửi yêu cầu bằng ajax để cập nhật giỏ hàng
-            $.ajax({
+          function removeFormCart(id) {
+            if (confirm("Bạn có đồng ý xóa sản phẩm hay không?")) {
+              // Gửi yêu cầu bằng ajax để cập nhật giỏ hàng
+              $.ajax({
                 type: 'POST',
                 url: './view/removeFormCart.php',
                 data: {
-                    id: id
+                  id: id
                 },
-                success: function(response) {
-                    // Sau khi cập nhật thành công
-                    $.post('view/tableCartOrder.php', function(data) {
-                        $('#order').html(data);
-                    })
+                success: function (response) {
+                  // Sau khi cập nhật thành công
+                  $.post('view/tableCartOrder.php', function (data) {
+                    $('#order').html(data);
+                  })
                 },
-                error: function(error) {
-                    console.log(error);
+                error: function (error) {
+                  console.log(error);
                 },
-            })
-        }
-    }
-</script>
+              })
+            }
+          }
+        </script>
       </div>
       <div class="cart-option">
         <div class="button-hold">
@@ -238,135 +248,136 @@
       </div>
       <div class="table-responsive">
         <div style="height: 20px; padding: 30px; margin-top: 10px" class="inner-top">
-          <h3 class="" >Đơn hàng đã đặt</h3>
+          <h3 class="">Đơn hàng đã đặt</h3>
         </div>
         <div class="table-responsive">
-        <table class="table table-hover table-align-right">
-          <thead>
-            <tr style="text-align: center; justify-content: center">
-              <th style="text-align: center; justify-content: center">
-                <strong class="date-text">Vé đã đặt</strong>
-              </th>
-              <th>
-                <strong class="date-text">Số lượng vé đặt</strong>
-              </th>
-              <th>
-                <strong class="date-text">Tổng tiền</strong>
-              </th>
-              <th>
-                <strong class="date-text">Ngày vé đặt</strong>
-              </th>
-              <th>
-                <strong class="date-text">Thời gian đặt hàng</strong>
-              </th>
-              <th>
-                <strong class="date-text">Trạng thái</strong>
-              </th>
-              
-              <th>
-              </th>
-            </tr>
-          </thead>
-          <tbody>
-            <?php
-            foreach ($list_donhangdadat as $key => $value) {
-              extract($value);
-              $tongtien = number_format($tongtien, 0, '', '.');
-              $datetime1 = new DateTime($datetime);
-              $datetime2 = $datetime1 -> format('H\h:i\m:s\s | d-m-Y');
-              $ngaydat1 = new dateTime($ngaydat);
-              $ngaydat2 = $ngaydat1 -> format('d-m-Y');
-              if($trangthai == 1){
-                $trangthai = "Chờ duyệt";
-              } else if($trangthai == 2){
-                $trangthai = "Đã thanh toán";
-              } else if($trangthai == 3){
-                $trangthai = "Đã hoàn thành";
-              } 
-            ?>
-              <tr>
-                <td>
-                  <div class="cell">
-                    <div class="middle">
-                      <div class="info">
-                        <div class="img-wrap">
-                          <img
-                            src="../img/<?= $img ?>"
-                            height="240"
-                            width="350"
-                            alt="image description"
-                          />
-                        </div>
-                        <div class="text-wrap">
-                          <strong class="product-title"
-                            ><?= $tenkhuvuichoi ?> | <?= $tendiadiem ?></strong
-                          >
+          <table class="table table-hover table-align-right">
+            <thead>
+              <tr style="text-align: center; justify-content: center">
+                <th style="text-align: center; justify-content: center">
+                  <strong class="date-text">Vé đã đặt</strong>
+                </th>
+                <th>
+                  <strong class="date-text">Số lượng vé đặt</strong>
+                </th>
+                <th>
+                  <strong class="date-text">Tổng tiền</strong>
+                </th>
+                <th>
+                  <strong class="date-text">Ngày vé đặt</strong>
+                </th>
+                <th>
+                  <strong class="date-text">Thời gian đặt hàng</strong>
+                </th>
+                <th>
+                  <strong class="date-text">Trạng thái</strong>
+                </th>
+
+                <th>
+                </th>
+              </tr>
+            </thead>
+            <tbody>
+              <?php
+              foreach ($list_donhangdadat as $key => $value) {
+                extract($value);
+                $tongtien = number_format($tongtien, 0, '', '.');
+                $datetime1 = new DateTime($datetime);
+                $datetime2 = $datetime1->format('H\h:i\m:s\s | d-m-Y');
+                $ngaydat1 = new dateTime($ngaydat);
+                $ngaydat2 = $ngaydat1->format('d-m-Y');
+                if ($trangthai == 1) {
+                  $trangthai = "Chờ duyệt";
+                } else if ($trangthai == 2) {
+                  $trangthai = "Đã thanh toán";
+                } else if ($trangthai == 3) {
+                  $trangthai = "Đã hoàn thành";
+                }
+                ?>
+                <tr>
+                  <td>
+                    <div class="cell">
+                      <div class="middle">
+                        <div class="info">
+                          <div class="img-wrap">
+                            <img src="../img/<?= $img ?>" height="240" width="350" alt="image description" />
+                          </div>
+                          <div class="text-wrap">
+                            <strong class="product-title">
+                              <?= $tenkhuvuichoi ?> |
+                              <?= $tendiadiem ?>
+                            </strong>
+                          </div>
                         </div>
                       </div>
                     </div>
-                  </div>
-                </td>
-                <td>
-                  <div class="cell">
-                    <div class="middle">
-                      <input type="button" value="<?= $soluong_donhang ?>" style="text-align: center; border: none; background-color: transparent">
+                  </td>
+                  <td>
+                    <div class="cell">
+                      <div class="middle">
+                        <input type="button" value="<?= $soluong_donhang ?>"
+                          style="text-align: center; border: none; background-color: transparent">
+                      </div>
                     </div>
-                  </div>
-                </td>
-                <td>
-                  <div class="cell">
-                    <div class="middle">
-                      <input type="button" value="<?= $tongtien ?>" style="text-align: center; border: none; background-color: transparent">VND
+                  </td>
+                  <td>
+                    <div class="cell">
+                      <div class="middle">
+                        <input type="button" value="<?= $tongtien ?>"
+                          style="text-align: center; border: none; background-color: transparent">VND
+                      </div>
                     </div>
-                  </div>
-                </td>
-                <td>
-                  <div class="cell">
-                    <div class="middle">
-                      <input type="button" value="<?= $ngaydat2 ?>" style="text-align: center; border: none; background-color: transparent">
+                  </td>
+                  <td>
+                    <div class="cell">
+                      <div class="middle">
+                        <input type="button" value="<?= $ngaydat2 ?>"
+                          style="text-align: center; border: none; background-color: transparent">
+                      </div>
                     </div>
-                  </div>
-                </td>
-                <td>
-                  <div class="cell">
-                    <div class="middle">
-                      <input type="button" value="<?= $datetime2 ?>" style="text-align: center; border: none; background-color: transparent">
+                  </td>
+                  <td>
+                    <div class="cell">
+                      <div class="middle">
+                        <input type="button" value="<?= $datetime2 ?>"
+                          style="text-align: center; border: none; background-color: transparent">
+                      </div>
                     </div>
-                  </div>
-                </td>
-                <td>
-                  <div class="cell">
-                    <div class="middle">
-                      <input type="button" id="clo<?= $trangthai ?>" value="<?= $trangthai ?>" style="text-align: center; border: none; background-color: transparent">
+                  </td>
+                  <td>
+                    <div class="cell">
+                      <div class="middle">
+                        <input type="button" id="clo<?= $trangthai ?>" value="<?= $trangthai ?>"
+                          style="text-align: center; border: none; background-color: transparent">
+                      </div>
                     </div>
-                  </div>
-                </td>
-              </tr>
-                    <script>
-                      var clo = document.getElementById("clo<?= $trangthai ?>");
-                      // clo.addEventListener("", function(){
-                      if(clo.value === "Chờ duyệt"){
-                        clo.style.color = "red";
-                      } else if(clo.value == "Đã hoàn thành"){
-                        clo.style.color = "green";
-                      }
-                    // })
-                    </script>
-            <?php
-            }
-            ?>
-          </tbody>
-        </table>
-      </div>
-      <div class="cart-option">
-        <div class="button-hold">
-          <a href="?act=checkout" class="btn btn-default">Thanh toán tất</a>
+                  </td>
+                </tr>
+                <script>
+                  var clo = document.getElementById("clo<?= $trangthai ?>");
+                  // clo.addEventListener("", function(){
+                  if (clo.value === "Chờ duyệt") {
+                    clo.style.color = "red";
+                  } else if (clo.value == "Đã hoàn thành") {
+                    clo.style.color = "green";
+                  }
+                  // })
+                </script>
+                <?php
+              }
+              ?>
+            </tbody>
+          </table>
         </div>
-      </div>
+        <div class="cart-option">
+          <div class="button-hold">
+            <a href="?act=checkout" class="btn btn-default">Thanh toán tất</a>
+          </div>
+        </div>
       </div>
     </div>
   </div>
-  
+
   <!-- </form> -->
 </main>
 </div>
